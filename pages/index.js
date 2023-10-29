@@ -1,3 +1,94 @@
+/*
+Continuing from layout.js...
+
+Update pages/index.js
+
+Finally, let's update the homepage.
+
+Open pages/index.js and replace its content with:
+
+import Head from 'next/head';
+import Layout, { siteTitle } from '../components/layout';
+import utilStyles from '../styles/utils.module.css';
+
+export default function Home() {
+  return (
+    <Layout home>
+      <Head>
+        <title>{siteTitle}</title>
+      </Head>
+      <section className={utilStyles.headingMd}>
+        <p>Howdy, I'm <b>Eugene</b>. I'm a software engineer and a problem solver. You can contact me via <a href="mailto:eugenetedkim@gmail.com">email</a>.</p>
+        <p>
+          (This is a sample website - you'll be building a site like this on{' '}
+          <a href="https://nextjs.org/learn">our Next.js tutorial</a>.)
+        </p>
+      </section>
+    </Layout>
+  );
+}
+
+Then replace [Your Self Introduction] with your self-introduction. Here's an example with the author's profile:
+
+That's it! We now have the polished layout code and we're ready to move on to our data fetching lessons.
+
+Before we wrap up this lesson, let's talk about some helpful techniques related to Next.js's CSS support on the next page.
+
+Quick Review: Why are CSS Modules useful?
+-They scope styles at the component level
+*/
+
+import Head from 'next/head';
+import Layout, { siteTitle } from '../components/layout';
+import utilStyles from '../styles/utils.module.css';
+import { getSortedPostsData } from '../lib/posts';
+
+export async function getStaticProps() {
+  const allPostsData = getSortedPostsData();
+  return {
+    props: {
+      allPostsData,
+    }
+  }
+}
+
+export default function Home({ allPostsData }) {
+  return (
+    <Layout home>
+      <Head>
+        <title>{siteTitle}</title>
+      </Head>
+      <section className={utilStyles.headingMd}>
+        <p>Howdy, I'm <b>Eugene</b>. I'm a software engineer and a problem solver. You can contact me via <a href="mailto:eugenetedkim@gmail.com">email</a>.</p>
+        <p>
+          (This is a sample website - you’ll be building a site like this on{' '}
+          <a href="https://nextjs.org/learn">our Next.js tutorial</a>.)
+        </p>
+      </section>
+      <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
+        <h2 className={utilStyles.headingLg}>Blog</h2>
+        <ul className={utilStyles.list}>
+          {allPostsData.map(({ id, date, title }) => (
+            <li className={utilStyles.listItem} key={id}>
+              {title}
+              <br />
+              {id}
+              <br />
+              {date}
+            </li>
+          ))}
+        </ul>
+      </section>
+    </Layout>
+  );
+}
+
+/*
+Continuing from layout.js...
+
+Replacing below with above...
+
+import Link from 'next/link';
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 
@@ -11,7 +102,7 @@ export default function Home() {
 
       <main>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          Read <Link href="/posts/first-post">this page!</Link>
         </h1>
 
         <p className={styles.description}>
@@ -113,3 +204,4 @@ export default function Home() {
     </div>
   )
 }
+*/
