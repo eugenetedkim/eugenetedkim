@@ -3,44 +3,6 @@ CSS Modules
 Next.js has built-in support for CSS Modules using the .module.css extension.
 
 CSS Modules locally scope CSS by automatically creating a unique class name. This allows you to use the same class name in different files without worrying about collissions. This behavior makes CSS Modules the ideal way to include component-level CSS.
-
-CSS modules allow you to locally scope CSS at the component-level by automatically creating unique class names. This allows you to use the same CSS class name in different files without worrying about class name collisions.
-*/
-
-/*
-Polishing  Layout
-
-So far, we've only added mimimal React and CSS code just to illustrate concepts such as CSS Modules. Before we move on to our next lesson about data fetching, let's polish our page styling and code.
-
-Update components/layout.module.css
-
-First, open components/layout.module.css and replace its content with the following more polished styles for the layout and profile picture:
-
-.container {
-  max-width: 36rem;
-  padding: 0 1rem;
-  margin: 3rem auto 6rem;
-}
-
-.header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.backToHome {
-  margin: 3rem 0 0;
-}
-*/
-
-/*
-Replaced content:
-
-.container {
-  max-width: 36rem;
-  padding: 0 1rem;
-  margin: 3rem auto 6rem;
-}
 */
 
 .container {
