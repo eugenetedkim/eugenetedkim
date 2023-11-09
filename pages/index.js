@@ -33,10 +33,10 @@ export default function Home({ allPostsData }) {
         <title>{siteTitle}</title>
       </Head>
       <section className={utilStyles.headingMd}>
-        <p>Howdy, I'm <b>Eugene</b>. I'm a software engineer and a problem solver. You can contact me via <a href="mailto:eugenetedkim@gmail.com">email</a>.</p>
+        <p>Howdy, my name's <b>Eugene</b> and I'm a software engineer, problem solver, tinkerer, and a forever student of web development. You can contact me via <a href="mailto:eugenetedkim@gmail.com">email</a> if you have any questions or comments.</p>
       </section>
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
-        <h2 className={utilStyles.headingLg}>Blog</h2>
+        <h2 className={utilStyles.headingLg}>Blog Posts</h2>
         <ul className={utilStyles.list}>
           {allPostsData.map(({ id, date, title }) => (
             <li className={utilStyles.listItem} key={id}>
