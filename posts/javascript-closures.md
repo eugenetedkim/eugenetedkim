@@ -5,21 +5,24 @@ date: '2023-11-08'
 
 A JavaScript **closure** is formed when you define a function within a function. The inner function "closes over", "captures", or "remembers" the variables of the outer function even though it finished executing.
 
-_Here's an example_:
+**Here's an example**:
 ```javascript
-function parent() {
-	const lastName = "Kim";
-  function child() {
-  	console.log(`Hi, I have the same last name as my dad. It's ${lastName}!`);
-  }
-  child();
-}
-parent();
+function outerFunction() {
 
+  const outerFunctionVariable = `the outer function's data`;
+
+  function innerFunction() {
+      console.log(`The inner function can remember ${outerFunctionVariable} even after the outer function is done executing!`);
+  }
+
+  innerFunction();
+}
+
+outerFunction();
 ```
-_Output_:
+**Output**:
 ```bash
-Hi, I have the same last name as my dad. It's Kim!
+The inner function can remember the outer function's data even after the outer function is done executing!
 ```
 
 Apparently, there's many usecases for closures which we'll get into next.
