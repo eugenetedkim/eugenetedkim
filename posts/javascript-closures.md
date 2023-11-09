@@ -6,7 +6,7 @@ date: '2023-11-08'
 A JavaScript **closure** is formed when you define a function within a function. The inner function "closes over", "captures", or "remembers" the variables of the outer function even though it finished executing.
 
 Here's an example:
-```
+```javascript
 function parent() {
 	const lastName = "Kim";
   function child() {
@@ -17,7 +17,7 @@ function parent() {
 parent();
 ```
 Output:
-```
+```bash
 Hi, I have the same last name as my dad. It's Kim!
 ```
 
