@@ -28,9 +28,9 @@ I remember the outer function's data!
 ***
 As you can see above, outerFunction was invoked, and returned innerFunction, which was stored in closureFunction.
 
-Then closureFunction was invoked, which referenced innerFunction, and printed the data from outerFunction.
+Then, closureFunction was invoked, which referenced innerFunction, and printed the data from outerFunction.
 
-As stated, innerFunction remembered the variable of the outerFunction even after outerFunction has finished executing.
+innerFunction remembered the variable of the outerFunction even after outerFunction was finished executing.
 
 Apparently, there are many use cases for JavaScript closures, which we'll cover in the next webLog.
 
