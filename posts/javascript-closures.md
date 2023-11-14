@@ -3,31 +3,38 @@ title: 'First Dive Into JavaScript Closures'
 date: '2023-11-08'
 ---
 
-A JavaScript **closure** is formed when you define a function within a function. The inner function "closes over", "captures", or "remembers" the variables of the outer function even though it finished executing.
-
+A JavaScript **closure** is formed when you define a function within a function. The inner function will remember the variables of the outer function, which _encloses_ it, even after the outer function has finished executing.
+***
 **Here's an example**:
 ```javascript
 function outerFunction() {
-
   const outerFunctionVariable = `the outer function's data`;
 
-  function innerFunction() {
-      console.log(`The inner function can remember ${outerFunctionVariable} even after the outer function is done executing!`);
+  const innerFunction = function() {
+      console.log(`I remember ${outerFunctionVariable}!`);
   }
 
-  innerFunction();
+  return innerFunction;
 }
 
-outerFunction();
+const closureFunction = outerFunction();
+closureFunction();
 ```
+***
 **Output**:
 ```bash
-The inner function can remember the outer function's data even after the outer function is done executing!
+I remember the outer function's data!
 ```
+***
+As you can see above, the outerFunction was executed, and returned innerFunction, which was stored in closureFunction.
 
-Apparently, there's many usecases for closures which we'll get into next.
+When closureFunction was executed, it executed innerFunction, and printed the data from outerFunction.
 
-Some use cases for closures to explore on our next dive into JavaScript closures can include:
+As stated, innerFunction remembered the variable of the outerFunction even after the outerFunction was done executing.
+
+Apparently, there are many use cases for JavaScript closures, which we'll cover in the next webLog.
+
+Some use cases are:
 
 - Data Encapsulation and Privacy
 - Function Factories
