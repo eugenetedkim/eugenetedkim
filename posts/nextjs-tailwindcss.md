@@ -5,7 +5,9 @@ date: '2023-11-13'
 
 On this webLog, I'll be documenting the steps taken to build a responsive Next.js website using Tailwind CSS.
 
-Here are the steps taken:
+## Here are the steps taken:
+
+### Creating the Next.js app
 
 1. Using the Terminal app on my Macintosh, made a new directory:
 ```
@@ -42,6 +44,8 @@ Apparently, when you don't use App Router (recommended), the pages directory isn
     code .
 ```
 
+### Starting the Next.js app
+
 6. Then, in the Terminal app, I started the Next.js development server:
 ```
     npm run dev
@@ -51,6 +55,8 @@ Apparently, when you don't use App Router (recommended), the pages directory isn
 ```
     http://localhost:3000
 ```
+
+### Getting & Loading a Google Font into the Next.js app
 
 8. I then, went to [Google Fonts](https://fonts.google.com/), searched for the Raleway font, selected it, and clicked the following to add the styles:
 
@@ -126,5 +132,46 @@ __Note__:
     }
 ```
 Note:
-- I had to add a forward slash / before the closing bracket > of all three link tags.
+- Originally, the file just had a self closing Head tag
+  - Instead, I had to use an opening Head tag and a closing Head tag
+    - Then, pasted the Google Font link tags within
+- Also, I had to add a forward slash / before the closing bracket > of all three link tags.
 
+15. Then, I went back to index.js:
+```
+    /Users/eugene/Desktop/nextjs-tailwindcss/pages/index.js
+```
+
+16. Then, replaced __Inter__ with __Raleway__ in the import statement:
+
+__Before__:
+```
+    import { Inter } from 'next/font/google'
+```
+__After__:
+```
+    import { Raleway } from 'next/font/google'
+```
+
+17. Then, repalced Inter and inter with Raleway and raleway, respectively.
+
+At this point the Raleway font should have loaded anywhere Inter was being used before.
+
+### Installing Tailwind CSS
+
+18. In my web browser, I navigated over to [tailwindcss.com](https://tailwindcss.com/) then clicked [Get started](https://tailwindcss.com/docs/installation) which directed me over to the Installation page.
+
+19. Within the [Installation page](https://tailwindcss.com/docs/installation), I clicked the [Framework Guides](https://tailwindcss.com/docs/installation/framework-guides) and clicked [Next.js](https://tailwindcss.com/docs/guides/nextjs).
+
+20. I skipped down to step 2 of the guide, copied the command, stopped the development server, and installed Tailwind CSS by pasting, and executing the command:
+```
+    npm install -D tailwindcss postcss autoprefixer
+```
+
+21. Next, I went back to the Tailwind CSS framework guide, copied the next command, and created a Tailwind CSS configuration file by pasting, and executing the command:
+```
+    npx tailwindcss init -p
+```
+
+
+> TO BE CONTINUED...
