@@ -173,5 +173,84 @@ At this point the Raleway font should have loaded anywhere Inter was being used 
     npx tailwindcss init -p
 ```
 
+22. At which point, the following Tailwind CSS configuration file was now be available in the root of the project folder:
+```
+    nextjs-tailwindcss/tailwind.config.js
+```
+
+23. Then, I went to step 3 of the [Tailwind CSS installation guide for Next.js](https://tailwindcss.com/docs/guides/nextjs), copied the elements within the content array and pasted them in the content array found inside of tailwind.config.js:
+```
+    /** @type {import('tailwindcss').Config} */
+    module.exports = {
+      content: [
+       "./app/**/*.{js,ts,jsx,tsx,mdx}",
+        "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+        "./components/**/*.{js,ts,jsx,tsx,mdx}",
+     
+        // Or if using `src` directory:
+        "./src/**/*.{js,ts,jsx,tsx,mdx}",
+      ],
+      theme: {
+        extend: {},
+      },
+      plugins: [],
+    }
+```
+
+24. Then, I went to step 4 of the [Tailwind CSS installation guide for Next.js](https://tailwindcss.com/docs/guides/nextjs), and copied the following Tailwind directives:
+```
+    @tailwind base;
+    @tailwind components;
+    @tailwind utilities;
+```
+
+25. Then, I went to the following globals.css file, deleted everything within it and pasted the Tailwind directives:
+```
+    nextjs-tailwindcss/styles/globals.css
+```
+
+26. Then, I added the following CSS snippet for styling HTML elements right below the Tailwind directives just pasted in the previous step:
+```
+    html {
+      scroll-behavior: smooth;
+      font-family: 'Raleway', sans-serif;
+    }
+```
+Note:
+- **scroll-behavior: smooth;** is a CSS property that controls the smoothness of a scrolling behavior when navigating to an anchor link within the page.
+  - When scroll-behavior is set to smooth, the scrolling will be animated and gradual rather than instantaneous.
+    - This can enhance the UX, especially when clicking on links that lead to different sections on the same page.
+- **font-family: 'Raleway', sans-serif;** is a CSS property that sets the font family for text within the HTML element.
+  - It specifies that the preferred font is 'Raleway', and if 'Raleway' is not available, the browser should use a generic sans-serif font.
+    - This provides a fallback option in case the specified font is not present on the user's system.
+
+  27. Then, I deleted the following CSS module file related to the Home component:
+  ```
+      nextjs-tailwindcss/styles/Home.module.css
+  ```
+
+  28. Then, I deleted the following pages/api folder and anything in there since I'm not creating any API routes for this project:
+  ```
+      nextjs-blog/pages/api
+  ```
+
+  29. Then, I started the development server as follows to see if Tailwind CSS was properly set up an running:
+  ```
+      npm run dev
+  ```
+
+  30. Behold, I received the following error because I deleted the globals.css file in step 25:
+  ```
+      Failed to compile
+        ./pages/_app.js:1:0
+        Module not found: Can't resolve '@/styles/globals.css'
+        > 1 | import '@/styles/globals.css'
+          2 |
+          3 | export default function App({ Component, pageProps }) {
+          4 |   return <Component {...pageProps} />
+
+        https://nextjs.org/docs/messages/module-not-found
+      This error occurred during the build process and can only be dismissed by fixing the error.
+  ```
 
 > TO BE CONTINUED...
