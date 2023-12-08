@@ -30,6 +30,6 @@ img {
 }
 
 .code-container {
-  overflow-x: scroll;
+  overflow-x: auto;
   margin-bottom: 1em; /* Optional: Add some spacing between code blocks */
 }
