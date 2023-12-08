@@ -322,7 +322,7 @@ Note:
 
 39. Then, I installed a Visual Studio Code extension, [ES7+ React/Redux/React-Native snippets](https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets), which provides code snippets that'll enhance development, by clicking View in the macOS application specific menu bar for Visual Studio Code at the top the screen then clicking Extensions at which point I searched for the extension and clicked Install.
 
-40. I opened nextjs-tailwindcss/components/Hero.js, typed rafce then enter, at which point the extension, automatically generated a basic template for a functional React component using an arrow function and exports it.
+40. I opened nextjs-tailwindcss/components/Hero.js, typed **rafce** then enter, at which point the extension, automatically generated a basic template for a functional React component using an import statement, an arrow function, and an export statement.
 ```
     import React from 'react'
 
@@ -334,6 +334,68 @@ Note:
 
     export default Hero
 ```
+Note:
+- This component will be used on multiple pages and will be dynamic since properties will be passed to it
+  - A great thing we can do in React and Next
 
-41. 
-> TO BE CONTINUED...
+41. Then, within the return statement of the Hero component, I:
+- Removed the content, "Hero", within the **div** element
+- Added a JSX comment suggesting an Overlay
+- Added a self-closing **div** element
+  - TailwindCSS will be filled-in here later
+- Added an **h2** element with Heading as its content
+  - A property will be passed here later
+- Added a **p** element with Message as its content
+  - A property will be passed here later
+- Added a **button** with Book as its content
+```
+    import React from 'react'
+    
+    const Hero = () => {
+      return (
+        <div>
+          {/* Overlay */}
+          <div />
+          <h2>Heading</h2>
+          <p>Message</p>
+          <button>Book</button>
+        </div>
+      )
+    }
+    
+    export default Hero
+```
+Note:
+- Even though we have an **h2** element, when rendered, it looks like a normal **p** element
+
+42. Then, I installed a Visual Studio Code extension called [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss) to assist with Tailwind CSS in the development process.
+
+43. Then, in the nextjs-tailwindcss/components/Hero.jsx file, in the *outer most* **div** of the *return statment*, I added a React **className** attribute used to assign one or more CSS classes to an HTML element, and assigned it the following Tailwind CSS utility classes:
+- flex
+  - Applies **`display: flex;`** to the element, making it a flex container.
+    - Flexible Box Layout is a layout model in CSS that allows you to design a layout structure in a more efficient and predictable way.
+      - It is particulary useful for designing complex layouts and aligning items within a container, solving many common layout problems that developers often face.
+- items-center
+  - Applies **`align-items: center;`** to a flex container, vertically aligning its children in the center along the cross-axis.
+- justify-center
+  - Applies **`justify-content: center;`** to a flex container, horizontally aligning its children in the center along the main axis.
+- h-screen
+  - Sets the height of the element to **`100vh`**, which means it takes up the full height of the viewport. This is often used to create full-height sections.
+- mb-12
+  - Sets a margin-bottom of **`3rem`** (12 units). The unit used in Tailwind CSS is based on the default spacing scale.
+- bg-fixed
+  - Applies **`background-attachment: fixed;`** to the element. It fixes the background image in place, so it doesn't scroll with the content.
+- bg-center
+  - Applies **`background-position: center;`** to the element. It centers the background image.
+- bg-cover
+  - Applies **`background-size: cover;`** to the element. It ensures that the background image covers the entire container, potentially cropping parts of the image.
+- custom-img
+  - This class is going to be defined later.
+
+```
+
+
+
+
+```
+> ## TO BE CONTINUED...
