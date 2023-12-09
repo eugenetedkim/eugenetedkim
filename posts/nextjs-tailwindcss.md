@@ -1,6 +1,6 @@
 ---
 title: 'Building a Responsive Next.js Website Using Tailwind CSS'
-date: '2023-12-08'
+date: '2023-12-09'
 ---
 
 On this webLog, I'll be documenting the steps taken to build a responsive Next.js website using Tailwind CSS.
