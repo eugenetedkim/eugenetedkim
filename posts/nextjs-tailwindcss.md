@@ -391,7 +391,13 @@ Note:
   - Applies **`background-size: cover;`** to the element. It ensures that the background image covers the entire container, potentially cropping parts of the image.
 - custom-img
   - This class is going to be defined later.
+```
 
+
+
+
+```
+At this point, the app should look [like this](https://nextjs-tailwindcss-gamma.vercel.app/).
 ```
 
 
