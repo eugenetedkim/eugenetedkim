@@ -37,7 +37,11 @@ I answered the following questions as follows when prompted:
   ✔ Would you like to customize the default import alias (@/*)? … No
 ```
 
-Apparently, when you don't use App Router (recommended), the pages directory isn't included. App Router is new and I'll have to explore using App Router in a future webLog.
+Apparently, when you _don't_ use App Router (recommended), the pages directory _is available_ and on the contrary, when using App Router, the pages directory _isn't available_.
+
+The App Router is _new_ and I'll have to explore using App Router in a future webLog without the pages directory, out the box, and see how things work alternatively.
+
+For now, I just answered "... No" to any of the "Would you like to..." questions.
 
 5. After the new Next.js application was created, I opened the current directory using Visual Studio Code:
 ```
@@ -390,7 +394,7 @@ Note:
 - bg-cover
   - Applies **`background-size: cover;`** to the element. It ensures that the background image covers the entire container, potentially cropping parts of the image.
 - custom-img
-  - This class is going to be defined later.
+  - This is a custom CSS class that is going to be defined later.
 ```
 
 
