@@ -157,7 +157,7 @@ __After__:
     import { Raleway } from 'next/font/google'
 ```
 
-17. Then, repalced Inter and inter with Raleway and raleway, respectively.
+17. Then, replaced Inter and inter with Raleway and raleway, respectively.
 
 At this point the Raleway font should have loaded anywhere Inter was being used before.
 
