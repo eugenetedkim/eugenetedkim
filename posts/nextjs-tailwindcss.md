@@ -177,7 +177,7 @@ At this point the Raleway font should have loaded anywhere Inter was being used 
     npx tailwindcss init -p
 ```
 
-22. At which point, the following Tailwind CSS configuration file was now be available in the root of the project folder:
+22. At this point, the following Tailwind CSS configuration file was now available in the root of the project folder:
 ```
     nextjs-tailwindcss/tailwind.config.js
 ```
