@@ -324,7 +324,7 @@ Note:
     nextjs-tailwindcss/components/Hero.jsx
 ```
 
-39. Then, I installed a Visual Studio Code extension, [ES7+ React/Redux/React-Native snippets](https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets), which provides code snippets that'll enhance development, by clicking View in the macOS application specific menu bar for Visual Studio Code at the top the screen then clicking Extensions at which point I searched for the extension and clicked Install.
+39. Then, I installed a Visual Studio Code extension, [ES7+ React/Redux/React-Native snippets](https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets), which provides code snippets that'll enhance development, by clicking View in the macOS application specific menu bar for Visual Studio Code, at the top of the screen, then clicking Extensions, at which point I searched for the extension, and clicked Install.
 
 40. I opened nextjs-tailwindcss/components/Hero.js, typed **rafce** then enter, at which point the extension, automatically generated a basic template for a functional React component using an import statement, an arrow function, and an export statement.
 ```
