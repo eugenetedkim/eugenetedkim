@@ -416,7 +416,7 @@ Note:
 
     .custom-img {
       background-image: url('/images/convictlake.jpg');
-      background-position: left center; /* Adjust the positioning as needed */
+      background-position: left 15% center; /* Adjust the positioning as needed */
     }
 ```
 
