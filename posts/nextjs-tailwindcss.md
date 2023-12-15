@@ -82,7 +82,7 @@ For now, I just answered "... No" to any of the "Would you like to..." questions
 
 10. In Visual Studio Code, I opened the entry point of the Next.js application, the index.js file:
 ```
-    /Users/eugene/Desktop/nextjs-tailwindcss/pages/index.js
+    /nextjs-tailwindcss/pages/index.js
 ```
 
 ___If the Head Next.js component has already been imported in index.js and being used in the return statement of the Home functional component, then skip to step 13.___
@@ -112,7 +112,7 @@ __Note__:
 
 13. Then, I opened _document.js:
 ```
-    /Users/eugene/Desktop/nextjs-tailwindcss/pages/_document.js
+    /nextjs-tailwindcss/pages/_document.js
 ```
 
 14. Then, I pasted the Google Font link tags for the Raleway font which I copied in step 9 within the Head tags as shown below:
@@ -143,7 +143,7 @@ Note:
 
 15. Then, I went back to index.js:
 ```
-    /Users/eugene/Desktop/nextjs-tailwindcss/pages/index.js
+    /nextjs-tailwindcss/pages/index.js
 ```
 
 16. Then, replaced __Inter__ with __Raleway__ in the import statement:
@@ -374,7 +374,7 @@ Note:
 
 42. Then, I installed a Visual Studio Code extension called [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss) to assist with Tailwind CSS in the development process.
 
-43. Then, in the nextjs-tailwindcss/components/Hero.jsx file, in the *outer most* **div** of the *return statment*, I added a React **className** attribute used to assign one or more CSS classes to an HTML element, and assigned it the following Tailwind CSS utility classes:
+43. Then, in the nextjs-tailwindcss/components/Hero.jsx file, in the *outer most* **div** of the *return statement*, I added a React **className** attribute, used to assign one or more CSS classes to an HTML element, and assigned it the following CSS classes:
 - flex
   - Applies **`display: flex;`** to the element, making it a flex container.
     - Flexible Box Layout is a layout model in CSS that allows you to design a layout structure in a more efficient and predictable way.
@@ -395,6 +395,30 @@ Note:
   - Applies **`background-size: cover;`** to the element. It ensures that the background image covers the entire container, potentially cropping parts of the image.
 - custom-img
   - This is a custom CSS class that is going to be defined later.
+
+44. Then, I found an image, copied it.
+
+45. Then, at the root of the application directory (nextjs-blog), I created a public folder, and within, created an images folder and pasted the image in it as such:
+```
+    /nextjs-blog/public/images/convictlake.jpg
+```
+
+46. Then, I went to the /nextjs-blog/styles/globals.css file and defined the **.custom-img** CSS class selector and now the file looks like this:
+```
+    @tailwind base;
+    @tailwind components;
+    @tailwind utilities;
+
+    html {
+      scroll-behavior: smooth;
+      font-family: 'Raleway', sans-serif;
+    }
+
+    .custom-img {
+      background-image: url('/images/convictlake.jpg')
+    }
+```
+
 ```
 
 
