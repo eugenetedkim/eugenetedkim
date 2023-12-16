@@ -107,7 +107,7 @@ ___If the Head Next.js component has already been imported in index.js and being
       )
     }
 ```
-__Note__:
+**Note**:
 - I had to wrap everything in the return statement with a React fragment <></>
 
 13. Then, I opened _document.js:
@@ -135,7 +135,7 @@ __Note__:
       )
     }
 ```
-Note:
+**Note**:
 - Originally, the file just had a self closing Head tag
   - Instead, I had to use an opening Head tag and a closing Head tag
     - Then, pasted the Google Font link tags within
@@ -220,7 +220,7 @@ At this point the Raleway font should have loaded anywhere Inter was being used 
       font-family: 'Raleway', sans-serif;
     }
 ```
-Note:
+**Note**:
 - **scroll-behavior: smooth;** is a CSS property that controls the smoothness of a scrolling behavior when navigating to an anchor link within the page.
   - When scroll-behavior is set to smooth, the scrolling will be animated and gradual rather than instantaneous.
     - This can enhance the UX, especially when clicking on links that lead to different sections on the same page.
@@ -238,7 +238,7 @@ Note:
 
 28. Additionally, I deleted the following pages/api folder and anything in there since I'm not creating any API routes for this project:
 ```
-    nextjs-blog/pages/api
+    nextjs-tailwindcss/pages/api
 ```
 
 29. Then, I started the development server as follows to see if Tailwind CSS was properly set up an running:
@@ -338,7 +338,7 @@ Note:
 
     export default Hero
 ```
-Note:
+**Note**:
 - This component will be used on multiple pages and will be dynamic since properties will be passed to it
   - A great thing we can do in React and Next
 
@@ -369,7 +369,7 @@ Note:
     
     export default Hero
 ```
-Note:
+**Note**:
 - Even though we have an **h2** element, when rendered, it looks like a normal **p** element
 
 42. Then, I installed a Visual Studio Code extension called [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss) to assist with Tailwind CSS in the development process.
@@ -398,12 +398,12 @@ Note:
 
 44. Then, I found an image, copied it.
 
-45. Then, at the root of the application directory (nextjs-blog), I created a public folder, and within, created an images folder and pasted the image in it as such:
+45. Then, at the root of the application directory (nextjs-tailwindcss), I created a public folder, and within, created an images folder and pasted the image in it as such:
 ```
-    /nextjs-blog/public/images/convictlake.jpg
+    /nextjs-tailwindcss/public/images/convictlake.jpg
 ```
 
-46. Then, I went to the /nextjs-blog/styles/globals.css file and defined the **.custom-img** CSS class selector and now the file looks like this:
+46. Then, I went to the /nextjs-btailwindcsslog/styles/globals.css file and defined the **.custom-img** CSS class selector and now the file looks like this:
 ```
     @tailwind base;
     @tailwind components;
@@ -419,13 +419,50 @@ Note:
       background-position: left 15% center; /* Adjust the positioning as needed */
     }
 ```
+**Note**:
+ - When defining the **custom-img** CSS class selector, I had to add **background-position: left 15% center;** because as the screen size (e.g. on my iPhone) became smaller, the center of the background image was being displayed but I wanted to actually show the left side of the background image but clipping the left side of the background image by 15% of the horiziontal screen width.
+
+47. Then, in my /nextjs-tailwindcss/components/Hero.jsx file, I added a className attribute with following values to the **self-closing div** as shown below to create the background overlay.
 
 ```
+import React from 'react'
 
+const Hero = () => {
+  return (
+    <div className='flex items-center justify-center h-screen mb-12 bg-fixed bg-center bg-cover custom-img'>
+      {/* Overlay */}
+      <div className='absolute top-0 left-0 right-0 bottom-0 bg-black/70'/>
+      <div>
+        <h2>Heading</h2>
+        <p>Message</p>
+        <button>Book</button>
+      </div>
+    </div>
+  )
+}
 
-
+export default Hero
 
 ```
+**Note**:
+  - **absolute**: Positions the element using absolute positioning.
+    - This means the element is positioned relative to its closest positioned ancestor, which could be the nearest parent element with a relative, absolute, fixed, or sticky positioning.
+
+  - **top-0**: Sets the top position of the element to 0.
+    - This means the top edge of the element will be aligned with the top edge of its positioned ancestor.
+
+  - **left-0**: Sets the left position of the element to 0.
+    - This means the left edge of the element will be aligned with the left edge of its positioned ancestor.
+
+  - **right-0**: Sets the right position of the element to 0.
+    - This means the right edge of the element will be aligned with the right edge of its positioned ancestor.
+
+  - **bottom-0**: Sets the bottom position of the element to 0.
+    - This means the bottom edge of the element will be aligned with the bottom edge of its positioned ancestor.
+
+  - **bg-black/70**: Applies a black background color to the element with a 70% opacity.
+    - The /70 is a shorthand in Tailwind CSS for setting the alpha (transparency) value of the color.
+
 At this point, the app should look [like this](https://nextjs-tailwindcss-gamma.vercel.app/).
 ```
 
