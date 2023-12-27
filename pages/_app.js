@@ -76,8 +76,16 @@ export default funciton App({ Component, pageProps }) {
 Now, if you access http://localhost:3000/posts/first-post, you'll see that the styles are applied. Any styles imported in _app.js will be applied globally, to all pages of the application.
 */
 
+import Head from 'next/head';
 import '../styles/global.css';
 
 export default function App({ Component, pageProps }) {
-  return <Component {...pageProps} />;
+  return (
+    <>
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      </Head>
+      <Component {...pageProps} />;
+    </>
+  );
 }

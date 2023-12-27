@@ -9,7 +9,7 @@ On this webLog, I'll be documenting the steps taken to build a responsive Next.j
 
 ### Creating the Next.js app
 
-1. Using the Terminal app on my Macintosh, made a new directory:
+1. Using the Terminal app on my Mac, made a new directory:
 ```
 mkdir nextjs-tailwindcss
 ```
@@ -342,7 +342,8 @@ export default Hero
 - This component will be used on multiple pages and will be dynamic since properties will be passed to it
   - A great thing we can do in React and Next
 
-41. Then, within the return statement of the Hero component, I:
+41. Then, I:
+- Changed the arrow function to a named function
 - Removed the content, "Hero", within the **div** element
 - Added a JSX comment suggesting an Overlay
 - Added a self-closing **div** element
@@ -352,10 +353,12 @@ export default Hero
 - Added a **p** element with Message as its content
   - A property will be passed here later
 - Added a **button** with Book as its content
-```
-import React from 'react'
 
-const Hero = () => {
+At this point, the code looked like this:
+```
+import React from 'react';
+
+function Hero() {
   return (
     <div>
       {/* Overlay */}
@@ -364,10 +367,10 @@ const Hero = () => {
       <p>Message</p>
       <button>Book</button>
     </div>
-  )
+  );
 }
 
-export default Hero
+export default Hero;
 ```
 **Note**:
 - Even though we have an **h2** element, when rendered, it looks like a normal **p** element
@@ -462,7 +465,10 @@ export default Hero
   - **bg-black/70**: Applies a black background color to the element with a 70% opacity.
     - The /70 is a shorthand in Tailwind CSS for setting the alpha (transparency) value of the color.
 
-48. Then, I realized I didn't like using this approach because it wasn't responsive across smaller screens like my iPhone.
+48. Then, 
+
+\
+I realized I didn't like using this approach because it wasn't responsive across smaller screens like my iPhone.
 
     Therefore, I ditched the CSS approach to bringing in my background image via the custom-img CSS class selector in step 46, and turned my attention to using the Next.js Image component plus Tailwind CSS as follows to help make my background image respond to various screen sizes. Additionally, I added object destructuring to the Hero component function so I could dynamically render the props being passed from index.js.
 
@@ -522,9 +528,12 @@ export default function Home() {
     </>
   )
 }
-
-Then voila, a background image of my liking, with an overlay, and dynamic content, stacked on top of each other that is rendered responsively on my iPhone.
 ```
+Then voila, a background image of my liking, an overlay, and dynamic content using props that is rendered responsively on my iPhone.
+
+### Building the Navbar Component
+
+51. 
 \
 \
 \
