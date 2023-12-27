@@ -533,7 +533,7 @@ Then voila, a background image of my liking, an overlay, and dynamic content usi
 
 ### Building the Navbar Component
 
-51. 
+51. Next, I created a new Navbar.jsx file under the components directory and created a new 
 \
 \
 \

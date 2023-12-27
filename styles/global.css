@@ -37,4 +37,5 @@ img {
   padding-left: 1rem;
   background-color: black;
   color: greenyellow;
+  min-width: 650px;
 }
