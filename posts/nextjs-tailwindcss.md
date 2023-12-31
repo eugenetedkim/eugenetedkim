@@ -1,6 +1,6 @@
 ---
 title: 'Building a Responsive Next.js Website Using Tailwind CSS'
-date: '2023-12-12'
+date: '2023-12-31'
 ---
 
 On this webLog, I'll be documenting the steps taken to build a responsive Next.js website using Tailwind CSS.
@@ -533,7 +533,153 @@ Then voila, a background image of my liking, an overlay, and dynamic content usi
 
 ### Building the Navbar Component
 
-51. Next, I created a new Navbar.jsx file under the components directory and created a new 
+51. Next, I created a new Navbar component which looks like this:
+```
+import Link from 'next/link';
+import { useState, useEffect } from 'react';
+import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
+
+export default function Navbar() {
+  const [nav, setNav] = useState(false);
+  const [color, setColor] = useState('transparent');
+  const [textColor, setTextColor] = useState('white');
+
+  const handleNav = () => {
+    setNav(!nav);
+  }
+
+  useEffect(() => {
+    const changeColor = () => {
+      if (window.scrollY >= 90) {
+        setColor('#ffffff');
+        setTextColor('#000000');
+      } else {
+        setColor('transparent');
+        setTextColor('#ffffff');
+      }
+    };
+    window.addEventListener('scroll', changeColor);
+  }, []);
+
+  return (
+    <div style={{backgroundColor: `${color}`}} className='fixed left-0 top-0 w-full z-10 ease-in duration-300'>
+
+      <div className='max-w-[1240px] m-auto flex justify-between items-center p-4'>
+
+        <Link href='/'>
+          <h1 style={{color: `${textColor}`}} className='font-bold text-4xl'>Eugene Kim</h1>
+        </Link>
+
+        <ul style={{color: `${textColor}`}} className='hidden sm:flex'>
+          <li className='p-4'>
+            <Link href='/work'>Work</Link>
+          </li>
+          <li className='p-4'>
+            <Link href='/#resume'>Resume</Link>
+          </li>
+          <li className='p-4'>
+            <Link href='/about'>About</Link>
+          </li>
+          <li className='p-4'>
+            <Link href='/notes'>Notes</Link>
+          </li>
+          <li className='p-4'>
+            <Link href='/contact'>Contact</Link>
+          </li>
+        </ul>
+
+        {/* Mobile Button */}
+        <div onClick={handleNav} className='block sm:hidden z-10'>
+          {
+            nav ? <AiOutlineClose size={20} style={{color: `${textColor}`}} /> : <AiOutlineMenu size={20} style={{color: `${textColor}`}} />}
+        </div>
+
+        {/* Mobile Menu */}
+        <div className={
+          nav
+            ? 'sm:hidden absolute top-0 left-0 right-0 bottom-0 flex justify-center items-center w-full h-screen bg-black text-center ease-in duration-300 text-white'
+            : 'sm:hidden absolute top-0 left-[-100%] right-0 bottom-0 flex justify-center items-center w-full h-screen bg-black text-center ease-in duration-300 text-white'
+          }
+        >
+          <ul>
+            <li className='p-4 text-4xl hover:text-gray-500'>
+              <Link href='/work'>Work</Link>
+            </li>
+            <li className='p-4 text-4xl hover:text-gray-500'>
+              <Link href='/#resume'>Resume</Link>
+            </li>
+            <li className='p-4 text-4xl hover:text-gray-500'>
+              <Link href='/about'>About</Link>
+            </li>
+            <li className='p-4 text-4xl hover:text-gray-500'>
+              <Link href='/notes'>Notes</Link>
+            </li>
+            <li className='p-4 text-4xl hover:text-gray-500'>
+              <Link href='/contact'>Contact</Link>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+    </div>
+  );
+}
+```
+
+52. Then, I imported the Navbar component into pages/_app.js and integrated it into the return statement using a React fragment (<></>) as such:
+```
+import Navbar from "@/components/Navbar"
+import '@/styles/globals.css'
+
+export default function App({ Component, pageProps }) {
+  return (
+    <>
+      <Navbar />
+      <Component {...pageProps} />
+    </>
+  )
+}
+```
+
+I added the Navbar component to _app.js because this is a special file that is used to wrap the entire app. It's purpose is to initialize pages and provide a consistent layout or structure across all pages. This ensures that the navigation bar is rendered consistenly on every page of the app.
+
+I technically could have created a Layout component as a dedicated component for keeping common structure and achieved having the navigation bar rendered consistenly on every page as I would have using _app.js but I didn't want to add another layer since this is a small app.
+
+Here's the breakdown of what was created in the code for the Navbar component above:
+- We first have the import statements for everything we need such as
+  - The next Link component
+  - The useState React hook for managing 
+    - The boolean which will be updated upon user clicking the mobile menu buttons
+    - The background and text color of the navigation bar when the user scrolls
+  - The useEffect React hook for managing
+    - For triggering the set state function to update the background and text color of the navigation bar when the user scrolls
+  - The AiOutlineMenu and AiOutlineClose buttons from React Icons
+- Then we have the functional component which includes
+  - The state variables and their corresponding state updater functions
+    - nav and setNav
+    - color and setColor
+    - textColor and setTextColor
+  - The event handlers used to update the state variables in response to user actions
+    - handleNav
+    - useEffect
+  - The JSX which defines the structure and appearance of the component in the user interface which includes
+    - The most outer element that dictates the background color conditionally, how its positioned, the width, the stacking order, and how it transitions in the background color when it is conditionally changed
+      - This outer most element includes
+        - An inner element that dictates the maximum width, the margin, it being a flex container, spacing between the child elements (pushing one child to the left and the others to the right), centering them vertically (along the cross axis), and giving itself padding
+          - This inner element further includes its own following inner elements which will make up the contents of the navigation bar
+            - The logo which is a Link React element which ensures navigation between pages without a full page reload (for a smoother UX)
+              - This element also further includes the following inner element
+                - A heading 1 HTML element which dictates the text color conditionally, makes it bold, with a larger font size and line height
+            - The navigation links which is an unordered list HTML element which dictates the text color conditionally, and by default is hidden until the screen size reaches the small device size or larger at which point, its own following child elements will be display as flex items
+              - Each of the flex items are list HTML elements which dictates its padding and has the following as its own inner elements
+                - Each navigation link which are Link React elements
+            - The mobile button as a div HTML element which has an onclick event listener that opens the mobile menu, and dictates that the button be displayed as a block level element until the screen reaches a small screen size or larger at which point, it'll be hidden, and the stacking order. This element also has a JavaScript expression embedded in it which conditionally renders an inner AiOutlineClose React Icons button or a AiOutlineMenu React Icons button which dictates its size and text color that is conditionally rendered
+            - Lastly, a mobile menu that is a div HTML element that is conditionlly rendered when the user clicks the button to open the mobile menu. It dictates that the div be hidden on screen sizes that are equal to or above small screen device sizes and visible when smaller than small screen sizes. It also dictates further that when it is visible that it has absolute positioning all the way to the top, left, right and bottom of the viewport, be a flex container, be centered both horizontally and vertically, have both a width and height of the viewport, have a black background, its text center aligned, enhance its transition as it moves in when displayed, and finally its text color white. Furthermore, it has the following as its inner element
+              - Navigation links which is an unordered list HTML element that has inner elements that are
+                - list HTML elements that dictate the padding, its large text, a hover color of gray. Each have their own following inner element
+                  - A Link React element
+
 \
 \
 \
