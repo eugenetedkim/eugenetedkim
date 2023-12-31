@@ -646,50 +646,7 @@ I added the Navbar component to _app.js because this is a special file that is u
 
 I technically could have created a Layout component as a dedicated component for keeping common structure and achieved having the navigation bar rendered consistenly on every page as I would have using _app.js but I didn't want to add another layer since this is a small app.
 
-Here's the breakdown of what was created in the code for the Navbar component above:
-- We first have the import statements for everything we need such as
-  - The Link component provided by the next/link module
-    - Used to enable client-side navigation between pages in a Next.js application without triggering full-page reloads
-  - The useState hook from the React library
-    - Used to allow our functional component to have the following states
-      - A boolean which will be used for displaying and hiding the mobile navigation menu and updated when a user clicks the mobile menu button
-      - A string which will be used for the background color of the navigation bar when the user scrolls
-      - A string which will be used for the text color of the navigation bar when the user scrolls
-  - The useEffect hook from the React library
-    - Used to handle side effects that are triggered from an external system
-      - The side effect are the updates to the background color and text color of the navigation bar
-      - The external system that triggers the side effects is the scroll event from the browser environment
-  - The menu icon (AiOutlineMenu) from the AntDesign icon set from the react-icons library
-    - Used as the button for displaying the mobile navigation menu
-  - The close icon (AiOutlineClose) from the AntDesign icon set from the react-icons library
-    - Used as the button for hiding the mobile navigation menu
-- Then we have the functional component which includes
-  - The state variables and their corresponding state updater functions
-    - nav and setNav
-      - Used for displaying and hiding the mobile navigation menu
-    - color and setColor
-      - Used for the background of the navigation bar
-    - textColor and setTextColor
-      - Used for the text color of the navigation bar
-  - The event handlers used to update the state variables in response to user actions
-    - handleNav
-      - Used to display and hide the mobile navigation menu when the user clicks the menu button or the close menu button
-    - useEffect
-      - Used for handling the background color and text color of the navigation bar when a user scrolls on the browser's window
-  - The return statement with JSX which defines the structure and appearance of the component in the user interface which includes
-    - The most outer element that dictates the background color conditionally, how its positioned, the width, the stacking order, and how it transitions in the background color when it is conditionally changed
-      - An inner element that dictates the maximum width, the margin, it being a flex container, spacing between the child elements (pushing one child to the left and the others to the right), centering them vertically (along the cross axis), and giving itself padding. It has the following inner elements which will make up the contents of the navigation bar and they are
-        - The logo which is a Link React element which ensures navigation between pages without a full page reload (for a smoother UX)
-          - This element also further includes the following inner element
-            - A heading 1 HTML element which dictates the text color conditionally, makes it bold, with a larger font size and line height
-        - The navigation links which is an unordered list HTML element which dictates the text color conditionally, and by default is hidden until the screen size reaches the small device size or larger at which point, its own following child elements will be display as flex items
-          - Each of the flex items are list HTML elements which dictates its padding and has the following as its own inner elements
-            - Each navigation link which are Link React elements
-        - The mobile button as a div HTML element which has an onclick event listener that opens the mobile menu, and dictates that the button be displayed as a block level element until the screen reaches a small screen size or larger at which point, it'll be hidden, and the stacking order. This element also has a JavaScript expression embedded in it which conditionally renders an inner AiOutlineClose React Icons button or a AiOutlineMenu React Icons button which dictates its size and text color that is conditionally rendered
-        - Lastly, a mobile menu that is a div HTML element that is conditionlly rendered when the user clicks the button to open the mobile menu. It dictates that the div be hidden on screen sizes that are equal to or above small screen device sizes and visible when smaller than small screen sizes. It also dictates further that when it is visible that it has absolute positioning all the way to the top, left, right and bottom of the viewport, be a flex container, be centered both horizontally and vertically, have both a width and height of the viewport, have a black background, its text center aligned, enhance its transition as it moves in when displayed, and finally its text color white. Furthermore, it has the following as its inner element
-          - Navigation links which is an unordered list HTML element that has inner elements that are
-            - list HTML elements that dictate the padding, its large text, a hover color of gray. Each have their own following inner element
-              - A Link React element
+
 
 \
 \
