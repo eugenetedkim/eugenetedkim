@@ -666,8 +666,9 @@ Here's the breakdown of what was created in the code for the Navbar component ab
 
 Furthermore, here's the breakdown of what's going on in the JSX:
 - In the most outer div
-  - style={{backgroundColor: `${color}`}} renders the background color of the navigation bar conditionally when color state is updated via handleNav event handler function
-  - className='fixed left-0 top-0 w-full z-10 ease-in duration-300' positions the div fixed to the very top, left, and across 100% of the viewport width, and gives a smooth transition or animation of .3 seconds when the navigation bar re-renders
+  - **style={{backgroundColor: `${color}`}}** conditionally renders the background color of the navigation bar when the color state variable is updated via the handleNav event handler function after a user clicks the menu button or the close button for the mobile navigation menu
+  - **className='fixed left-0 top-0 w-full z-10 ease-in duration-300'** positions the div fixed to the very top, left, and across 100% of the viewport width, stacks the div on top of other elements with a lower stacking order, and gives a smooth transition or animation of .3 seconds as the navigation bar is re-rendered when the color state variable is updated
+
 
 - Inner div
 
