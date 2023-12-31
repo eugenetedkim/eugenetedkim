@@ -626,26 +626,6 @@ export default function Navbar() {
   );
 }
 ```
-
-52. Then, I imported the Navbar component into pages/_app.js and integrated it into the return statement using a React fragment (<></>) as such:
-```
-import Navbar from "@/components/Navbar"
-import '@/styles/globals.css'
-
-export default function App({ Component, pageProps }) {
-  return (
-    <>
-      <Navbar />
-      <Component {...pageProps} />
-    </>
-  )
-}
-```
-
-I added the Navbar component to _app.js because this is a special file that is used to wrap the entire app. It's purpose is to initialize pages and provide a consistent layout or structure across all pages. This ensures that the navigation bar is rendered consistenly on every page of the app.
-
-I technically could have created a Layout component as a dedicated component for keeping common structure and achieved having the navigation bar rendered consistenly on every page as I would have using _app.js but I didn't want to add another layer since this is a small app.
-
 Here's the breakdown of what was created in the code for the Navbar component above:
 - We first have the import statements for everything we need such as
   - The Link component provided by the next/link module
@@ -677,13 +657,42 @@ Here's the breakdown of what was created in the code for the Navbar component ab
     - useEffect
       - Used for handling the background color and text color of the navigation bar when a user scrolls on the browser's window
   - The return statement with JSX which defines the structure and appearance of the component in the user interface which in nutshell includes
-    - A div that sets up the navigation bar
+    - An outer div that sets up the navigation bar
       - An inner div that sets up the contents of the navigation bar
         - A logo
         - An unordered list of navigation links
         - A button for opening and closing the mobile menu
         - A mobile menu
-    
+
+Furthermore, here's the breakdown of what's going on in the JSX:
+- In the most outer div
+  - style={{backgroundColor: `${color}`}} renders the background color of the navigation bar conditionally when color state is updated via handleNav event handler function
+  - className='fixed left-0 top-0 w-full z-10 ease-in duration-300' positions the div fixed to the very top, left, and across 100% of the viewport width, and gives a smooth transition or animation of .3 seconds when the navigation bar re-renders
+
+- Inner div
+
+- Elements within the div
+  - Link
+
+52. Then, I imported the Navbar component into pages/_app.js and integrated it into the return statement using a React fragment (<></>) as such:
+```
+import Navbar from "@/components/Navbar"
+import '@/styles/globals.css'
+
+export default function App({ Component, pageProps }) {
+  return (
+    <>
+      <Navbar />
+      <Component {...pageProps} />
+    </>
+  )
+}
+```
+
+I added the Navbar component to _app.js because this is a special file that is used to wrap the entire app. It's purpose is to initialize pages and provide a consistent layout or structure across all pages. This ensures that the navigation bar is rendered consistenly on every page of the app.
+
+I technically could have created a Layout component as a dedicated component for keeping common structure and achieved having the navigation bar rendered consistenly on every page as I would have using _app.js but I didn't want to add another layer since this is a small app.
+   
 \
 \
 \
