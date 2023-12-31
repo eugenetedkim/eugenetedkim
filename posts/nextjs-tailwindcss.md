@@ -533,7 +533,7 @@ Then voila, a background image of my liking, an overlay, and dynamic content usi
 
 ### Building the Navbar Component
 
-51. Next, I created a new Navbar component which looks like this:
+51. Next, I created a new Navbar component which looks like this under the components folder:
 ```
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
