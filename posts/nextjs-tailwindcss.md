@@ -846,6 +846,13 @@ Here's the breakdown of what was created in the code for the Navbar component ab
         - A mobile menu
 
   Furthermore, here's the breakdown of what's going on in the JSX in terms of styling:
+  ```js
+  return (
+      <div style={{backgroundColor: `${color}`}} className='fixed left-0 top-0 w-full z-10 ease-in duration-300'>
+        // Inner code
+      </div>
+    );
+  ```
   - In the most outer div HTML element's opening tag, the following props (properties) are used:
     - **style={{backgroundColor: `${color}`}}** is a style prop used to apply inline styles to the div. It takes a set of curly braces used to embed a JavaScript expression, and further takes in an object where the key/value pair dynamically sets the background color of the navigation bar based on the value of the *color* state variable which triggers a re-render of the Navbar component when it is updated via the *setColor* state variable updater function within the useEffect event handler function which detects that a user has scrolled down or above 90 pixels of the global window object which represents the browser window
 
