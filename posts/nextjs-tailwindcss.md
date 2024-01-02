@@ -74,7 +74,7 @@ http://localhost:3000
     - Select ExtraBold 800
 
 9. Once done adding the styles, I copied the Google Fonts link tags that were generated as such:
-```
+```html
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet">
