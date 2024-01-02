@@ -627,64 +627,245 @@ export default function Navbar() {
 }
 ```
 Here's the breakdown of what was created in the code for the Navbar component above:
-- We first have the import statements for everything we need such as
-  - The Link component provided by the next/link module
+- We first have the following **import statements**:
+  ```js
+  import Link from 'next/link';
+  import { useState, useEffect } from 'react';
+  import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
+  ```
+  - The **Link** component provided by the next/link module
     - Used to enable client-side navigation between pages in a Next.js application without triggering full-page reloads
-  - The useState hook from the React library
+  - The **useState** hook from the React library
     - Used to allow our functional component to have the following states
       - A boolean which will be used for displaying and hiding the mobile navigation menu and updated when a user clicks the mobile menu button
       - A string which will be used for the background color of the navigation bar when the user scrolls
       - A string which will be used for the text color of the navigation bar when the user scrolls
-  - The useEffect hook from the React library
+  - The **useEffect** hook from the React library
     - Used to handle side effects that are triggered from an external system
       - The side effect are the updates to the background color and text color of the navigation bar
       - The external system that triggers the side effects is the scroll event from the browser environment
-  - The menu icon (AiOutlineMenu) from the AntDesign icon set from the react-icons library
+  - **AiOutlineMenu** (the menu icon) from the AntDesign icon set from the react-icons library
     - Used as the button for displaying the mobile navigation menu
-  - The close icon (AiOutlineClose) from the AntDesign icon set from the react-icons library
+  - **AiOutlineClose** (the close icon) from the AntDesign icon set from the react-icons library
     - Used as the button for hiding the mobile navigation menu
-- Then we have the functional component which includes
-  - The state variables and their corresponding state updater functions
-    - nav and setNav
+- Then we have the **functional component**:
+  ```js
+    export default function Navbar() {
+    const [nav, setNav] = useState(false);
+    const [color, setColor] = useState('transparent');
+    const [textColor, setTextColor] = useState('white');
+
+    const handleNav = () => {
+      setNav(!nav);
+    }
+
+    useEffect(() => {
+      const changeColor = () => {
+        if (window.scrollY >= 90) {
+          setColor('#ffffff');
+          setTextColor('#000000');
+        } else {
+          setColor('transparent');
+          setTextColor('#ffffff');
+        }
+      };
+      window.addEventListener('scroll', changeColor);
+    }, []);
+
+    return (
+      <div style={{backgroundColor: `${color}`}} className='fixed left-0 top-0 w-full z-10 ease-in duration-300'>
+
+        <div className='max-w-[1240px] m-auto flex justify-between items-center p-4'>
+
+          <Link href='/'>
+            <h1 style={{color: `${textColor}`}} className='font-bold text-4xl'>Eugene Kim</h1>
+          </Link>
+
+          <ul style={{color: `${textColor}`}} className='hidden sm:flex'>
+            <li className='p-4'>
+              <Link href='/work'>Work</Link>
+            </li>
+            <li className='p-4'>
+              <Link href='/#resume'>Resume</Link>
+            </li>
+            <li className='p-4'>
+              <Link href='/about'>About</Link>
+            </li>
+            <li className='p-4'>
+              <Link href='/notes'>Notes</Link>
+            </li>
+            <li className='p-4'>
+              <Link href='/contact'>Contact</Link>
+            </li>
+          </ul>
+
+          {/* Mobile Button */}
+          <div onClick={handleNav} className='block sm:hidden z-10'>
+            {
+              nav ? <AiOutlineClose size={20} style={{color: `${textColor}`}} /> : <AiOutlineMenu size={20} style={{color: `${textColor}`}} />}
+          </div>
+
+          {/* Mobile Menu */}
+          <div className={
+            nav
+              ? 'sm:hidden absolute top-0 left-0 right-0 bottom-0 flex justify-center items-center w-full h-screen bg-black text-center ease-in duration-300 text-white'
+              : 'sm:hidden absolute top-0 left-[-100%] right-0 bottom-0 flex justify-center items-center w-full h-screen bg-black text-center ease-in duration-300 text-white'
+            }
+          >
+            <ul>
+              <li className='p-4 text-4xl hover:text-gray-500'>
+                <Link href='/work'>Work</Link>
+              </li>
+              <li className='p-4 text-4xl hover:text-gray-500'>
+                <Link href='/#resume'>Resume</Link>
+              </li>
+              <li className='p-4 text-4xl hover:text-gray-500'>
+                <Link href='/about'>About</Link>
+              </li>
+              <li className='p-4 text-4xl hover:text-gray-500'>
+                <Link href='/notes'>Notes</Link>
+              </li>
+              <li className='p-4 text-4xl hover:text-gray-500'>
+                <Link href='/contact'>Contact</Link>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+
+      </div>
+    );
+  }
+  ```
+  - Within the functional component, we have the state variables and their corresponding state updater functions:
+    ```js
+    const [nav, setNav] = useState(false);
+    const [color, setColor] = useState('transparent');
+    const [textColor, setTextColor] = useState('white');
+    ```
+    - **nav** and **setNav**
       - Used for displaying and hiding the mobile navigation menu
-    - color and setColor
+    - **color** and **setColor**
       - Used for the background of the navigation bar
-    - textColor and setTextColor
+    - **textColor** and **setTextColor**
       - Used for the text color of the navigation bar
-  - The event handlers used to update the state variables in response to user actions
-    - handleNav
+  - The event handlers used to update the state variables in response to user actions:
+    ```js
+    const handleNav = () => {
+      setNav(!nav);
+    }
+
+    useEffect(() => {
+      const changeColor = () => {
+        if (window.scrollY >= 90) {
+          setColor('#ffffff');
+          setTextColor('#000000');
+        } else {
+          setColor('transparent');
+          setTextColor('#ffffff');
+        }
+      };
+      window.addEventListener('scroll', changeColor);
+    }, []);
+    ```
+    - **handleNav**
       - Used to display and hide the mobile navigation menu when the user clicks the menu button or the close menu button
-    - useEffect
+    - **useEffect**
       - Used for handling the background color and text color of the navigation bar when a user scrolls on the browser's window
-  - The return statement with JSX which defines the structure and appearance of the component in the user interface which in nutshell includes
-    - An outer div that sets up the navigation bar
+  - The **return statement** with JSX which defines the structure and appearance of the component in the user interface:
+    ```js
+    return (
+      <div style={{backgroundColor: `${color}`}} className='fixed left-0 top-0 w-full z-10 ease-in duration-300'>
+
+        <div className='max-w-[1240px] m-auto flex justify-between items-center p-4'>
+
+          <Link href='/'>
+            <h1 style={{color: `${textColor}`}} className='font-bold text-4xl'>Eugene Kim</h1>
+          </Link>
+
+          <ul style={{color: `${textColor}`}} className='hidden sm:flex'>
+            <li className='p-4'>
+              <Link href='/work'>Work</Link>
+            </li>
+            <li className='p-4'>
+              <Link href='/#resume'>Resume</Link>
+            </li>
+            <li className='p-4'>
+              <Link href='/about'>About</Link>
+            </li>
+            <li className='p-4'>
+              <Link href='/notes'>Notes</Link>
+            </li>
+            <li className='p-4'>
+              <Link href='/contact'>Contact</Link>
+            </li>
+          </ul>
+
+          {/* Mobile Button */}
+          <div onClick={handleNav} className='block sm:hidden z-10'>
+            {
+              nav ? <AiOutlineClose size={20} style={{color: `${textColor}`}} /> : <AiOutlineMenu size={20} style={{color: `${textColor}`}} />}
+          </div>
+
+          {/* Mobile Menu */}
+          <div className={
+            nav
+              ? 'sm:hidden absolute top-0 left-0 right-0 bottom-0 flex justify-center items-center w-full h-screen bg-black text-center ease-in duration-300 text-white'
+              : 'sm:hidden absolute top-0 left-[-100%] right-0 bottom-0 flex justify-center items-center w-full h-screen bg-black text-center ease-in duration-300 text-white'
+            }
+          >
+            <ul>
+              <li className='p-4 text-4xl hover:text-gray-500'>
+                <Link href='/work'>Work</Link>
+              </li>
+              <li className='p-4 text-4xl hover:text-gray-500'>
+                <Link href='/#resume'>Resume</Link>
+              </li>
+              <li className='p-4 text-4xl hover:text-gray-500'>
+                <Link href='/about'>About</Link>
+              </li>
+              <li className='p-4 text-4xl hover:text-gray-500'>
+                <Link href='/notes'>Notes</Link>
+              </li>
+              <li className='p-4 text-4xl hover:text-gray-500'>
+                <Link href='/contact'>Contact</Link>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+
+      </div>
+    );
+    ```
+    - In the return statement, in a nutshell (more details explained below), we have an outer div that sets up the navigation bar
       - An inner div that sets up the contents of the navigation bar
         - A logo
         - An unordered list of navigation links
         - A button for opening and closing the mobile menu
         - A mobile menu
 
-Furthermore, here's the breakdown of what's going on in the JSX in terms of styling:
-- In the most outer div HTML element's opening tag, the following props (properties) are used:
-  - **style={{backgroundColor: `${color}`}}** is a style prop used to apply inline styles to the div. It takes a set of curly braces used to embed a JavaScript expression, and further takes in an object where the key/value pair dynamically sets the background color of the navigation bar based on the value of the *color* state variable which triggers a re-render of the Navbar component when it is updated via the *setColor* state variable updater function within the useEffect event handler function which detects that a user has scrolled down or above 90 pixels of the global window object which represents the browser window
+  Furthermore, here's the breakdown of what's going on in the JSX in terms of styling:
+  - In the most outer div HTML element's opening tag, the following props (properties) are used:
+    - **style={{backgroundColor: `${color}`}}** is a style prop used to apply inline styles to the div. It takes a set of curly braces used to embed a JavaScript expression, and further takes in an object where the key/value pair dynamically sets the background color of the navigation bar based on the value of the *color* state variable which triggers a re-render of the Navbar component when it is updated via the *setColor* state variable updater function within the useEffect event handler function which detects that a user has scrolled down or above 90 pixels of the global window object which represents the browser window
 
-  - **className='fixed left-0 top-0 w-full z-10 ease-in duration-300'** is a prop used to assign CSS class names to an element. It takes in a string containing one or more class names. In this case, it has Tailwind CSS utility classes that positions the div fixed to the very top, left, and across 100% of the viewport width, stacks the div on top of all other elements with a lower stacking order, and a transition effect that starts slow and accelerates over a duration of 300 milliseconds (0.3 seconds) when the Navbar component is re-rendered
+    - **className='fixed left-0 top-0 w-full z-10 ease-in duration-300'** is a prop used to assign CSS class names to an element. It takes in a string containing one or more class names. In this case, it has Tailwind CSS utility classes that positions the div fixed to the very top, left, and across 100% of the viewport width, stacks the div on top of all other elements with a lower stacking order, and a transition effect that starts slow and accelerates over a duration of 300 milliseconds (0.3 seconds) when the Navbar component is re-rendered
 
-- In the inner div HTML element's opening tag (direct child of the most outer div HTML element), the following prop (property) is used:
-  - **className='max-w-[1240px] m-auto flex justify-between items-center p-4'** is a prop used to assign CSS class names to an element. It takes in a string containing one or more class names. In this case, it has Tailwind CSS utility classes that sets a maximum width of 1,240 pixels on this div so it won't exceed this width on larger screens, automatically adjusts the left and right margins to center this element horizontally, establishes a flex container so the child child elements inside this container can be flex items, applies space-between justification to the flex container, which means the child elements will be pushed to the edges of the container, with maximum space between them, aligns the child elements vertically at the center of the flex container, and sets padding of 1 rem (16 pixels) to all sides of the div
+  - In the inner div HTML element's opening tag (direct child of the most outer div HTML element), the following prop (property) is used:
+    - **className='max-w-[1240px] m-auto flex justify-between items-center p-4'** is a prop used to assign CSS class names to an element. It takes in a string containing one or more class names. In this case, it has Tailwind CSS utility classes that sets a maximum width of 1,240 pixels on this div so it won't exceed this width on larger screens, automatically adjusts the left and right margins to center this element horizontally, establishes a flex container so the child child elements inside this container can be flex items, applies space-between justification to the flex container, which means the child elements will be pushed to the edges of the container, with maximum space between them, aligns the child elements vertically at the center of the flex container, and sets padding of 1 rem (16 pixels) to all sides of the div
 
-- In the Link component from the next/link module provided by the Next.js framework (the direct child of the inner div), contains an h1 HTML element in which the following props are used:
-  - **style={{color: `${textColor}`}}** is a style prop used to apply inline styles to the div. It takes a set of curly braces used to embed a JavaScript expression, and further takes in an object where the key/value pair dynamically sets the text color of the navigation bar based on the value of the *textColor* state variable which triggers a re-render of the Navbar component when it is updated via the *setTextColor* state variable updater function within the useEffect event handler function which detects that a user has scrolled down or above 90 pixels of the global window object which represents the browser window
-  - **className='font-bold text-4xl'** uses Tailwind CSS to set the font weight to bold and the text size to extra-large (2.25 rem or 36 pixels) with a line height of 2.5 rem or 40 pixels.
+  - In the Link component from the next/link module provided by the Next.js framework (the direct child of the inner div), contains an h1 HTML element in which the following props are used:
+    - **style={{color: `${textColor}`}}** is a style prop used to apply inline styles to the div. It takes a set of curly braces used to embed a JavaScript expression, and further takes in an object where the key/value pair dynamically sets the text color of the navigation bar based on the value of the *textColor* state variable which triggers a re-render of the Navbar component when it is updated via the *setTextColor* state variable updater function within the useEffect event handler function which detects that a user has scrolled down or above 90 pixels of the global window object which represents the browser window
+    - **className='font-bold text-4xl'** uses Tailwind CSS to set the font weight to bold and the text size to extra-large (2.25 rem or 36 pixels) with a line height of 2.5 rem or 40 pixels.
 
-- In the ul HTML element (the direct child of the inner div), the following props are used:
-  - **style={{color: `${textColor}`}}** is a style prop used to apply inline styles to the div. It takes a set of curly braces used to embed a JavaScript expression, and further takes in an object where the key/value pair dynamically sets the text color of the navigation bar based on the value of the *textColor* state variable which triggers a re-render of the Navbar component when it is updated via the *setTextColor* state variable updater function within the useEffect event handler function which detects that a user has scrolled down or above 90 pixels of the global window object which represents the browser window
-  - **className='hidden sm:flex'** is used with Tailwind CSS to set the display property of the element to none, making the element hidden, effectively hiding the element on all screen sizes by default, and makes the ul HTML element visible and a flex container for screens of size "sm" (small) and larger
+  - In the ul HTML element (the direct child of the inner div), the following props are used:
+    - **style={{color: `${textColor}`}}** is a style prop used to apply inline styles to the div. It takes a set of curly braces used to embed a JavaScript expression, and further takes in an object where the key/value pair dynamically sets the text color of the navigation bar based on the value of the *textColor* state variable which triggers a re-render of the Navbar component when it is updated via the *setTextColor* state variable updater function within the useEffect event handler function which detects that a user has scrolled down or above 90 pixels of the global window object which represents the browser window
+    - **className='hidden sm:flex'** is used with Tailwind CSS to set the display property of the element to none, making the element hidden, effectively hiding the element on all screen sizes by default, and makes the ul HTML element visible and a flex container for screens of size "sm" (small) and larger
 
-- In the li HTML elements (direct children of ul HTML element) the following prop is used:
-  - **className='p-4'** is used with Tailwind CSS to set the padding of 1 rem or 16 pixels to all four sides of each li HTML element
+  - In the li HTML elements (direct children of ul HTML element) the following prop is used:
+    - **className='p-4'** is used with Tailwind CSS to set the padding of 1 rem or 16 pixels to all four sides of each li HTML element
 
-- In the div (the direct child of the inner div)
+  - In the div (the direct child of the inner div)
 
 52. Then, I imported the Navbar component into pages/_app.js and integrated it into the return statement using a React fragment (<></>) as such:
 ```js
