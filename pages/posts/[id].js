@@ -1,8 +1,10 @@
 import Head from 'next/head';
 import Layout from '../../components/layout';
-import { getAllPostIds, getPostData } from '../../lib/posts';
+import { getAllPostIds } from '../../lib/posts';
 import Date from '../../components/date';
 import utilStyles from '../../styles/utils.module.css';
+import { getHtml } from '../../lib/data';
+import PrismLoader from "../../components/prism-loader";
 
 
 export async function getStaticPaths() {
@@ -14,7 +16,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const postData = await getPostData(params.id);
+  const postData = await getHtml(params.id);
   return {
     props: {
       postData,
@@ -36,6 +38,7 @@ export default function Post({ postData }) {
         </div>
         <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
       </article>
+      
     </Layout>
   );
 }
