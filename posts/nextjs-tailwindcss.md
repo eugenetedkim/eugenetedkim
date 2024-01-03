@@ -846,19 +846,28 @@ Here's the breakdown of what was created in the code for the Navbar component ab
         - A mobile menu
 
   Furthermore, here's the breakdown of what's going on in the JSX in terms of styling:
-  ```js
-  return (
-      <div style={{backgroundColor: `${color}`}} className='fixed left-0 top-0 w-full z-10 ease-in duration-300'>
-        // Inner code
-      </div>
-    );
-  ```
-  - In the most outer div HTML element's opening tag, the following props (properties) are used:
+  - In the outer most div HTML element's opening tag, the following props (properties) are used:
+    ```js
+    return (
+        <div style={{backgroundColor: `${color}`}} className='fixed left-0 top-0 w-full z-10 ease-in duration-300'>
+          // Inner code
+        </div>
+      );
+    ```
     - **style={{backgroundColor: `${color}`}}** is a style prop used to apply inline styles to the div. It takes a set of curly braces used to embed a JavaScript expression, and further takes in an object where the key/value pair dynamically sets the background color of the navigation bar based on the value of the *color* state variable which triggers a re-render of the Navbar component when it is updated via the *setColor* state variable updater function within the useEffect event handler function which detects that a user has scrolled down or above 90 pixels of the global window object which represents the browser window
 
     - **className='fixed left-0 top-0 w-full z-10 ease-in duration-300'** is a prop used to assign CSS class names to an element. It takes in a string containing one or more class names. In this case, it has Tailwind CSS utility classes that positions the div fixed to the very top, left, and across 100% of the viewport width, stacks the div on top of all other elements with a lower stacking order, and a transition effect that starts slow and accelerates over a duration of 300 milliseconds (0.3 seconds) when the Navbar component is re-rendered
 
   - In the inner div HTML element's opening tag (direct child of the most outer div HTML element), the following prop (property) is used:
+    ```js
+    return (
+      <div style={{backgroundColor: `${color}`}} className='fixed left-0 top-0 w-full z-10 ease-in duration-300'>
+        <div className='max-w-[1240px] m-auto flex justify-between items-center p-4'>
+          // Inner code
+        </div>
+      </div>
+    );
+    ```
     - **className='max-w-[1240px] m-auto flex justify-between items-center p-4'** is a prop used to assign CSS class names to an element. It takes in a string containing one or more class names. In this case, it has Tailwind CSS utility classes that sets a maximum width of 1,240 pixels on this div so it won't exceed this width on larger screens, automatically adjusts the left and right margins to center this element horizontally, establishes a flex container so the child child elements inside this container can be flex items, applies space-between justification to the flex container, which means the child elements will be pushed to the edges of the container, with maximum space between them, aligns the child elements vertically at the center of the flex container, and sets padding of 1 rem (16 pixels) to all sides of the div
 
   - In the Link component from the next/link module provided by the Next.js framework (the direct child of the inner div), contains an h1 HTML element in which the following props are used:
