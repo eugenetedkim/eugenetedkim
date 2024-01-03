@@ -845,12 +845,12 @@ Here's the breakdown of what was created in the code for the Navbar component ab
         - A button for opening and closing the mobile menu
         - A mobile menu
 
-  Furthermore, here's the breakdown of what's going on in the JSX in terms of styling:
+  Furthermore, here's the breakdown of what's going on in the JSX in terms of styling and conditional rendering for the mobil button and mobile menu:
   - In the outer most div HTML element's opening tag, the following props (properties) are used:
     ```js
     return (
-        <div style={{backgroundColor: `${color}`}} className='fixed left-0 top-0 w-full z-10 ease-in duration-300'>
-          // Inner code
+        <div style={{backgroundColor: `${color}`}} className='fixed left-0 top-0 w-full z-10 ease-in duration-300'> // Outer most div
+          // Code
         </div>
       );
     ```
@@ -858,30 +858,114 @@ Here's the breakdown of what was created in the code for the Navbar component ab
 
     - **className='fixed left-0 top-0 w-full z-10 ease-in duration-300'** is a prop used to assign CSS class names to an element. It takes in a string containing one or more class names. In this case, it has Tailwind CSS utility classes that positions the div fixed to the very top, left, and across 100% of the viewport width, stacks the div on top of all other elements with a lower stacking order, and a transition effect that starts slow and accelerates over a duration of 300 milliseconds (0.3 seconds) when the Navbar component is re-rendered
 
-  - In the inner div HTML element's opening tag (direct child of the most outer div HTML element), the following prop (property) is used:
+  - In the inner div HTML element's opening tag (direct child of the outer most div HTML element), the following prop (property) is used:
     ```js
     return (
-      <div style={{backgroundColor: `${color}`}} className='fixed left-0 top-0 w-full z-10 ease-in duration-300'>
-        <div className='max-w-[1240px] m-auto flex justify-between items-center p-4'>
-          // Inner code
+      <div> // Outer most div
+        <div className='max-w-[1240px] m-auto flex justify-between items-center p-4'> // Inner div
+          // Child elements of the inner div
         </div>
       </div>
     );
     ```
     - **className='max-w-[1240px] m-auto flex justify-between items-center p-4'** is a prop used to assign CSS class names to an element. It takes in a string containing one or more class names. In this case, it has Tailwind CSS utility classes that sets a maximum width of 1,240 pixels on this div so it won't exceed this width on larger screens, automatically adjusts the left and right margins to center this element horizontally, establishes a flex container so the child child elements inside this container can be flex items, applies space-between justification to the flex container, which means the child elements will be pushed to the edges of the container, with maximum space between them, aligns the child elements vertically at the center of the flex container, and sets padding of 1 rem (16 pixels) to all sides of the div
 
-  - In the Link component from the next/link module provided by the Next.js framework (the direct child of the inner div), contains an h1 HTML element in which the following props are used:
+  - In the inner div HTML element, I have a Link component from the next/link module provided by the Next.js framework and it wraps an h1 HTML element which has the following in its opening tag:
+    ```js
+    return (
+      <div> // Outer most div
+        <div> // Inner div
+          <Link href='/'> // Link component from the next/link module provided by Next.js
+            <h1 style={{color: `${textColor}`}} className='font-bold text-4xl'> // h1 opening tag
+              Eugene Kim
+            </h1>
+          </Link>
+          // Other child elements of the inner div
+        </div>
+      </div>
+    );
+    ```
     - **style={{color: `${textColor}`}}** is a style prop used to apply inline styles to the div. It takes a set of curly braces used to embed a JavaScript expression, and further takes in an object where the key/value pair dynamically sets the text color of the navigation bar based on the value of the *textColor* state variable which triggers a re-render of the Navbar component when it is updated via the *setTextColor* state variable updater function within the useEffect event handler function which detects that a user has scrolled down or above 90 pixels of the global window object which represents the browser window
     - **className='font-bold text-4xl'** uses Tailwind CSS to set the font weight to bold and the text size to extra-large (2.25 rem or 36 pixels) with a line height of 2.5 rem or 40 pixels.
 
-  - In the ul HTML element (the direct child of the inner div), the following props are used:
+  - In the ul HTML element (the direct child of the inner div), it has the following props in its opening tag:
+    ```js
+    return (
+      <div> // Outer most div
+        <div> // Inner div
+          // Code
+          <ul style={{color: `${textColor}`}} className='hidden sm:flex'> // ul opening tag
+            <li className='p-4'>
+              <Link href='/work'>Work</Link>
+            </li>
+            <li className='p-4'>
+              <Link href='/#resume'>Resume</Link>
+            </li>
+            <li className='p-4'>
+              <Link href='/about'>About</Link>
+            </li>
+            <li className='p-4'>
+              <Link href='/notes'>Notes</Link>
+            </li>
+            <li className='p-4'>
+              <Link href='/contact'>Contact</Link>
+            </li>
+          </ul>
+          // Other child elements of the inner div
+        </div>
+      </div>
+    );
+    ```
     - **style={{color: `${textColor}`}}** is a style prop used to apply inline styles to the div. It takes a set of curly braces used to embed a JavaScript expression, and further takes in an object where the key/value pair dynamically sets the text color of the navigation bar based on the value of the *textColor* state variable which triggers a re-render of the Navbar component when it is updated via the *setTextColor* state variable updater function within the useEffect event handler function which detects that a user has scrolled down or above 90 pixels of the global window object which represents the browser window
     - **className='hidden sm:flex'** is used with Tailwind CSS to set the display property of the element to none, making the element hidden, effectively hiding the element on all screen sizes by default, and makes the ul HTML element visible and a flex container for screens of size "sm" (small) and larger
 
-  - In the li HTML elements (direct children of ul HTML element) the following prop is used:
+  - In the li HTML elements (the direct child of ul HTML element) opening tags the following prop is used:
+    ```js
+      return (
+        <div> // Outer most div
+          <div> // Inner div
+            // Code
+            <ul> // ul
+              <li className='p-4'> // li opening tag
+                <Link href='/work'>Work</Link>
+              </li>
+              <li className='p-4'> // li opening tag
+                <Link href='/#resume'>Resume</Link>
+              </li>
+              <li className='p-4'> // li opening tag
+                <Link href='/about'>About</Link>
+              </li>
+              <li className='p-4'> // li opening tag
+                <Link href='/notes'>Notes</Link>
+              </li>
+              <li className='p-4'> // li opening tag
+                <Link href='/contact'>Contact</Link>
+              </li>
+            </ul>
+            // Other child elements of the inner div
+          </div>
+        </div>
+      );
+    ```
     - **className='p-4'** is used with Tailwind CSS to set the padding of 1 rem or 16 pixels to all four sides of each li HTML element
 
-  - In the div (the direct child of the inner div)
+  - In the opening tag of the div (the direct child of the inner div) the following props are used:
+    ```js
+    return (
+      <div> // Outer most div
+        <div> // Inner div
+          // Other child elements of the inner div
+          {/* Mobile Button */}
+          <div onClick={handleNav} className='block sm:hidden z-10'> // div that's the direct child of the inner div
+            // JavaScript expression
+          </div>
+          // Other child element of the inner div
+        </div>
+      </div>
+    );
+    ```
+    - **onClick={handleNav}**
+    - **className='block sm:hidden z-10'**
 
 52. Then, I imported the Navbar component into pages/_app.js and integrated it into the return statement using a React fragment (<></>) as such:
 ```js
