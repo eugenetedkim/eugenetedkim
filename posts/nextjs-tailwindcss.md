@@ -1,9 +1,10 @@
 ---
 title: 'Building a Responsive Next.js Website Using Tailwind CSS'
-date: '2024-01-04'
+date: '2024-01-07'
 ---
 
-On this webLog, I'll be documenting the steps taken to build a responsive Next.js website using Tailwind CSS.
+On this blog post, I'll be documenting the steps taken to build a static responsive Next.js website using Tailwind CSS.
+This is a work in progress and this point in time, the app looks [like this](https://nextjs-tailwindcss-gamma.vercel.app/).
 
 ## Here are the steps taken:
 
@@ -470,17 +471,22 @@ export default Hero
 \
 I realized I didn't like using this approach because it wasn't responsive across smaller screens like my iPhone.
 
-Therefore, I ditched the CSS approach to bringing in my background image via the custom-img CSS class selector in step 46, and turned my attention to using the Next.js Image component plus Tailwind CSS as follows to help make my background image respond to various screen sizes. Additionally, I added object destructuring to the Hero component function so I could dynamically render the props being passed from index.js.
+Therefore, I ditched the CSS approach to bringing in my background image via the custom-img CSS class selector in step 46, and turned my attention to using the Next.js Image component plus Tailwind CSS as follows to help make my background image respond to various screen sizes.
+
+According to the 
+
+Additionally, I added object destructuring to the Hero component function so I could dynamically render the props being passed from index.js.
 
 ```js
 import Image from 'next/image'
+import heroImage from '../public/images/convictlake.jpg';
 
 function Hero({heading, message}) {
   return (
     <div className='relative flex items-center justify-center h-screen mb-12 bg-fixed bg-center bg-cover'>
       <div className="absolute top-0 right-0 bottom-0 left-0 z-[0]">
         <Image
-          src="/images/convictlake.jpg"
+          src={heroImage}
           fill
           className='object-cover object-left'
           alt=""
@@ -984,7 +990,409 @@ export default function App({ Component, pageProps }) {
 I added the Navbar component to _app.js because this is a special file that is used to wrap the entire app. It's purpose is to initialize pages and provide a consistent layout or structure across all pages. This ensures that the navigation bar is rendered consistenly on every page of the app.
 
 I technically could have created a Layout component as a dedicated component for keeping common structure and achieved having the navigation bar rendered consistenly on every page as I would have using _app.js but I didn't want to add another layer since this is a small app.
-   
+
+### Building the Slider Component
+
+Next, I built the Slider component which the user could step through images.
+
+53. To do this I first created a SliderData.jsx module under the components folder that holds all the links to the image links from [unspash.com](https://unsplash.com/) and exported it as a named export as such:
+```js
+export const SliderData = [
+  {
+    image: 'https://images.unsplash.com/photo-1535224206242-487f7090b5bb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
+  },
+  {
+    image: 'https://images.unsplash.com/photo-1469362102473-8622cfb973cd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2419&q=80',
+  },
+  {
+    image: 'https://images.unsplash.com/photo-1594717527389-a590b56e8d0a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
+  },
+  {
+    image: 'https://images.unsplash.com/photo-1484591974057-265bb767ef71?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
+  },
+  {
+    image: 'https://images.unsplash.com/photo-1545917992-dea2d782ef46?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2489&q=80',
+  },
+];
+```
+Note: SliderData is a named export as opposed to a default export so when importing it, destructuring is required.
+
+54. Then, I created a Slider.jsx component under the components folder as such:
+
+**/nextjs-tailwindcss/components/Slider.jsx**
+```js
+export default function Slider({slides})
+{
+  return (
+    <div id='gallery'>
+      <h1>Gallery</h1>
+    </div>
+  )
+};
+```
+
+55. Then, I imported both the Slider component and the SliderData module into /nextjs-tailwindcss/pages/index.js, instantiated the Slider component underneath the Hero component, and gave it a prop called slides set to the SliderData as such:
+
+**/nextjs-tailwindcss/pages/index.js**
+```js
+import Head from 'next/head'
+import Hero from '../components/Hero';
+import Slider from '../components/Slider'; // <~~~ Imported the Slider component
+import { SliderData } from '../components/Slider'; // <~~~ Imported the SliderData module
+
+export default function Home() {
+  return (
+    <>
+      <Head>
+        <title>Create Next App</title>
+        <meta name="description" content="Generated by create next app" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <Hero heading="Hi, I'm Eugene. A Software Engineer." message="I solve problems through code, design, and critical thinking."/>
+      <Slider slides={SliderData} /> {* <~~~ Instantiated the Slider component with a prop called slides set to SliderData *}
+    </>
+  )
+}
+```
+Note: Since SliderData was exported as a named export, destructuring was required when importing.
+
+At this point, Gallery is being displayed under the Hero component.
+
+56. Then, to display the images from the SliderData module which I imported into the Slider component, I created a new div element, threw a set of curly braces in it (to express JavaScript in the JSX), and then iterated over each object in SliderData array (calling each object a slide) and returning it as src URL in an img element as shown below:
+```js
+export default function Slider({slides})
+{
+  return (
+    <div id='gallery'>
+      <h1>Gallery</h1>
+      <div>
+        {
+          slides.map((slide, index) => {
+            return <img src={slide.image} alt='/' />;
+          })
+        }
+      </div>
+    </div>
+  )
+};
+```
+
+Voila, now the images are being displayed underneath the Gallery heading.
+
+57. Next, instead of using the HTML img element, I wanted to use Next's Image component so I imported it and replaced img with Image.
+
+    Since the Image component requires the following properties: src, width, height, and alt, I added the width and height.
+
+    Additionally, I added a className with object-cover which will have the image cover the entire container (div) while maintaining its aspect ratio.
+```js
+import Image from 'next/image';
+
+export default function Slider({slides})
+{
+  return (
+    <div id='gallery'>
+      <h1>Gallery</h1>
+      <div>
+        {
+          slides.map((slide, index) => {
+            return (
+              <Image
+                src={slide.image}
+                width='1440'
+                height='1440'
+                alt='/'
+                className='object-cover'
+              />
+            );
+          })
+        }
+      </div>
+    </div>
+  )
+};
+```
+After saving, I got the following error:
+```plaintext
+Server Error
+Error: Invalid src prop (https://images.unsplash.com/photo-1535224206242-487f7090b5bb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80) on `next/image`, hostname "images.unsplash.com" is not configured under images in your `next.config.js`
+See more info: https://nextjs.org/docs/messages/next-image-unconfigured-host
+
+This error happened while generating the page. Any console logs will be displayed in the terminal window.
+```
+
+As you can see above, it says:
+```plaintext
+hostname "images.unsplash.com" is not configured under images in your `next.config.js`
+```
+
+58. Therefore, in nextjs-tailwindcss/next.config.js, I added configurations for the Next's Image component with the domains options to provide an allowed hostname for external images.
+
+Before:
+```js
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+}
+
+module.exports = nextConfig
+```
+
+After:
+```js
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+  images: {
+    domains: [
+      'images.unsplash.com',
+    ]
+  }
+}
+
+module.exports = nextConfig
+```
+
+I restarted the development server, and the error was resolved, resulting in the images to be displayed again but now using Next's Image component.
+
+Now, instead of displaying all the images, I am going to display just one image conditionally based on the current index of the slide or image.
+
+59. Therefore, I imported the useState React hook and created a new state called current to store the index of the slide or image with a default index of 0 and a state updater function called setCurrent using useState as follows:
+```js
+import Image from 'next/image';
+import { useState } from 'react';
+
+export default function Slider({slides})
+{
+  const [current, setCurrent] = useState(0);
+
+  return (
+    <div id='gallery'>
+      <h1>Gallery</h1>
+      <div>
+        {
+          slides.map((slide, index) => {
+            return (
+              <Image
+                src={slide.image}
+                width='1440'
+                height='1440'
+                alt='/'
+                className='object-cover'
+              />
+            );
+          })
+        }
+      </div>
+    </div>
+  )
+};
+```
+
+60. Then, to conditonally render the slide or image at current index 0 (the first slide or image), I wrapped the Image component in a div, gave it a key which is the index, and a className with a JavaScript expression to conditionally display the image using a ternary operator and Tailwind CSS as follows:
+```js
+import Image from 'next/image';
+import { useState } from 'react';
+
+export default function Slider({slides})
+{
+  const [current, setCurrent] = useState(0);
+
+  return (
+    <div id='gallery'>
+      <h1>Gallery</h1>
+      <div>
+        {
+          slides.map((slide, index) => {
+            return (
+              <div
+                key={index}
+                className={
+                  index === current
+                    ? 'opacity-[1] ease-in duration-1000'
+                    : 'opacity-0'
+                }
+              >
+                <Image
+                  src={slide.image}
+                  width='1440'
+                  height='1440'
+                  alt='/'
+                  className='object-cover'
+                />
+              </div>
+            );
+          })
+        }
+      </div>
+    </div>
+  )
+};
+```
+
+Now, only the first image (slide at index 0) is being displayed (fully visible) because it is equal to the current index of 0 which was set initially by default, resulting in the other images to be invisible (fully opaque or transparent).
+
+Even though, the other images are not visible, they're still there.
+
+61. Therefore, I've added a technique to conditionally only render the image that has an index that's equal to the current index as such:
+```js
+import Image from 'next/image';
+import { useState } from 'react';
+
+export default function Slider({slides})
+{
+  const [current, setCurrent] = useState(0);
+
+  return (
+    <div id='gallery'>
+      <h1>Gallery</h1>
+      <div>
+        {
+          slides.map((slide, index) => {
+            return (
+              <div
+                key={index}
+                className={
+                  index === current
+                    ? 'opacity-[1] ease-in duration-1000'
+                    : 'opacity-0'
+                }
+              >
+                {
+                  index === current && (
+                    <Image
+                      src={slide.image}
+                      width='1440'
+                      height='1440'
+                      alt='/'
+                      className='object-cover'
+                    />
+                  )
+                }
+              </div>
+            );
+          })
+        }
+      </div>
+    </div>
+  )
+};
+```
+
+Next, I want to be able to display the next image (by setting the current index to 0 if the current index is equal to slides.length - 1 or else current index + 1) or display the previous image (by setting the current index to slides.length - 1 if the current index is equal to 0 or else current index - 1).
+
+62. Therefore, I created two event handler functions for our click events when clicking the next and previous buttons called nextSlide and prevSlide as follows:
+```js
+import Image from 'next/image';
+import { useState } from 'react';
+
+export default function Slider({slides})
+{
+  const [current, setCurrent] = useState(0);
+
+  const nextSlide = () => {
+    setCurrent(current === slides.length - 1 ? 0 : current + 1);
+  }
+
+  const prevSlide = () => {
+    setCurrent(current === 0 ? slides.length - 1 : current - 1);
+  }
+
+  return (
+    <div id='gallery'>
+      <h1>Gallery</h1>
+      <div>
+        {
+          slides.map((slide, index) => {
+            return (
+              <div
+                key={index}
+                className={
+                  index === current
+                    ? 'opacity-[1] ease-in duration-1000'
+                    : 'opacity-0'
+                }
+              >
+                {
+                  index === current && (
+                    <Image
+                      src={slide.image}
+                      width='1440'
+                      height='1440'
+                      alt='/'
+                      className='object-cover'
+                    />
+                  )
+                }
+              </div>
+            );
+          })
+        }
+      </div>
+    </div>
+  )
+};
+```
+
+63. Additionally, I put in a check to see if there wasn't any data, and if so, exit early and not render the component as such:
+```js
+import Image from 'next/image';
+import { useState } from 'react';
+
+export default function Slider({slides})
+{
+  const [current, setCurrent] = useState(0);
+
+  const nextSlide = () => {
+    setCurrent(current === slides.length - 1 ? 0 : current + 1);
+  }
+
+  const prevSlide = () => {
+    setCurrent(current === 0 ? slides.length - 1 : current - 1);
+  }
+
+  if (!Array.isArray(slides) || slides.length <= 0) {
+    return null;
+  }
+
+  return (
+    <div id='gallery'>
+      <h1>Gallery</h1>
+      <div>
+        {
+          slides.map((slide, index) => {
+            return (
+              <div
+                key={index}
+                className={
+                  index === current
+                    ? 'opacity-[1] ease-in duration-1000'
+                    : 'opacity-0'
+                }
+              >
+                {
+                  index === current && (
+                    <Image
+                      src={slide.image}
+                      width='1440'
+                      height='1440'
+                      alt='/'
+                      className='object-cover'
+                    />
+                  )
+                }
+              </div>
+            );
+          })
+        }
+      </div>
+    </div>
+  )
+};
+``` 
+
+Next, I'll be adding in the buttons for the click events to toggle through the slides or images.
+
 \
 \
 \
