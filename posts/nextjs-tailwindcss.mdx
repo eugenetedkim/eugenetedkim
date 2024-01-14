@@ -1,6 +1,6 @@
 ---
-title: 'Building a Responsive Next.js Website Using Tailwind CSS'
-date: '2024-01-07'
+title: Building a Responsive Next.js Website Using Tailwind CSS
+date: '2024-01-13'
 ---
 
 On this blog post, I'll be documenting the steps taken to build a static responsive Next.js website using Tailwind CSS.
@@ -94,7 +94,7 @@ import Head from 'next/head';
 ```
 
 12. Then, in the Home function, within the enclosed opening and closing parenthesis of the return statement, I added the HTML title element, wrapped with the Next.js Head component, as follows:
-```js
+```js {4-6} showLineNumbers
 export default function Home() {
   return (
     <>
@@ -771,9 +771,9 @@ useEffect(() => {
   window.addEventListener('scroll', changeColor);
 }, []);
 ```
-- **handleNav**
+- ```handleNav```
   - Used to display and hide the mobile navigation menu when the user clicks the menu button or the close menu button
-- **useEffect**
+- ```useEffect```
   - Used for handling the background color and text color of the navigation bar when a user scrolls on the browser's window
 
 Lastly, the **return statement with JSX** which defines the structure and appearance of the component in the user interface:
@@ -859,7 +859,7 @@ return (
     </div>
   );
 ```
-- **style={{backgroundColor: `${color}`}}** is a style prop used to apply inline styles to the div. It takes a set of curly braces used to embed a JavaScript expression, and further takes in an object where the key/value pair dynamically sets the background color of the navigation bar based on the value of the *color* state variable which triggers a re-render of the Navbar component when it is updated via the *setColor* state variable updater function within the useEffect event handler function which detects that a user has scrolled down or above 90 pixels of the global window object which represents the browser window
+- ```style={{backgroundColor: `${color}`}}``` is a style prop used to apply inline styles to the div. It takes a set of curly braces used to embed a JavaScript expression, and further takes in an object where the key/value pair dynamically sets the background color of the navigation bar based on the value of the *color* state variable which triggers a re-render of the Navbar component when it is updated via the *setColor* state variable updater function within the useEffect event handler function which detects that a user has scrolled down or above 90 pixels of the global window object which represents the browser window
 
 - **className='fixed left-0 top-0 w-full z-10 ease-in duration-300'** is a prop used to assign CSS class names to an element. It takes in a string containing one or more class names. In this case, it has Tailwind CSS utility classes that positions the div fixed to the very top, left, and across 100% of the viewport width, stacks the div on top of all other elements with a lower stacking order, and a transition effect that starts slow and accelerates over a duration of 300 milliseconds (0.3 seconds) when the Navbar component is re-rendered
 
@@ -890,7 +890,7 @@ return (
   </div>
 );
 ```
-- **style={{color: `${textColor}`}}** is a style prop used to apply inline styles to the div. It takes a set of curly braces used to embed a JavaScript expression, and further takes in an object where the key/value pair dynamically sets the text color of the navigation bar based on the value of the *textColor* state variable which triggers a re-render of the Navbar component when it is updated via the *setTextColor* state variable updater function within the useEffect event handler function which detects that a user has scrolled down or above 90 pixels of the global window object which represents the browser window
+- ```style={{color: `${textColor}`}}``` is a style prop used to apply inline styles to the div. It takes a set of curly braces used to embed a JavaScript expression, and further takes in an object where the key/value pair dynamically sets the text color of the navigation bar based on the value of the *textColor* state variable which triggers a re-render of the Navbar component when it is updated via the *setTextColor* state variable updater function within the useEffect event handler function which detects that a user has scrolled down or above 90 pixels of the global window object which represents the browser window
 - **className='font-bold text-4xl'** uses Tailwind CSS to set the font weight to bold and the text size to extra-large (2.25 rem or 36 pixels) with a line height of 2.5 rem or 40 pixels.
 
 In the ul HTML element (the direct child of the inner div), it has the following props in its opening tag:
@@ -921,7 +921,7 @@ return (
   </div>
 );
 ```
-- **style={{color: `${textColor}`}}** is a style prop used to apply inline styles to the div. It takes a set of curly braces used to embed a JavaScript expression, and further takes in an object where the key/value pair dynamically sets the text color of the navigation bar based on the value of the *textColor* state variable which triggers a re-render of the Navbar component when it is updated via the *setTextColor* state variable updater function within the useEffect event handler function which detects that a user has scrolled down or above 90 pixels of the global window object which represents the browser window
+- ```style={{color: `${textColor}`}}``` is a style prop used to apply inline styles to the div. It takes a set of curly braces used to embed a JavaScript expression, and further takes in an object where the key/value pair dynamically sets the text color of the navigation bar based on the value of the *textColor* state variable which triggers a re-render of the Navbar component when it is updated via the *setTextColor* state variable updater function within the useEffect event handler function which detects that a user has scrolled down or above 90 pixels of the global window object which represents the browser window
 - **className='hidden sm:flex'** is used with Tailwind CSS to set the display property of the element to none, making the element hidden, effectively hiding the element on all screen sizes by default, and makes the ul HTML element visible and a flex container for screens of size "sm" (small) and larger
 
 In the li HTML elements (the direct child of ul HTML element) opening tags the following prop is used:
@@ -969,7 +969,7 @@ return (
   </div>
 );
 ```
-- **onClick={handleNav}**
+- ```onClick={handleNav}```
 - **className='block sm:hidden z-10'**
 
 52. Then, I imported the Navbar component into pages/_app.js and integrated it into the return statement using a React fragment (<></>) as such:

@@ -1,11 +1,12 @@
 import Head from 'next/head';
 import Layout from '../../components/layout';
-import { getAllPostIds } from '../../lib/posts';
+import { getAllPostIds, getPostData } from '../../lib/posts';
 import Date from '../../components/date';
 import utilStyles from '../../styles/utils.module.css';
-import { getHtml } from '../../lib/data';
-import PrismLoader from "../../components/prism-loader";
-
+import { serialize } from 'next-mdx-remote/serialize';
+import { MDXRemote } from 'next-mdx-remote';
+import rehypePrism from 'rehype-prism-plus';
+import rehypeCodeTitles from 'rehype-code-titles';
 
 export async function getStaticPaths() {
   const paths = getAllPostIds();
@@ -16,27 +17,39 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const postData = await getHtml(params.id);
+  const source = await getPostData(params.id);
+  const mdxSource = await serialize(
+                            source.content,
+                            {
+                              mdxOptions: {
+                                rehypePlugins: [rehypePrism, rehypeCodeTitles]
+                              },
+                              parseFrontmatter: true
+                            }
+                          );
   return {
     props: {
-      postData,
+      mdxSource
     }
-  };
+  }
 }
 
-export default function Post({ postData }) {
+export default function Post({ mdxSource }) {
   return (
     <Layout>
       <Head>
-        <title>{postData.title}</title>
+        <title>{mdxSource.frontmatter.title}</title>
       </Head>
 
       <article>
-        <h1 className={utilStyles.headingXl}>{postData.title}</h1>
+        <h1 className={utilStyles.headingXl}>{mdxSource.frontmatter.title}</h1>
         <div className={utilStyles.lightText}>
-          <Date dateString={postData.date}/>
+          <Date dateString={mdxSource.frontmatter.date}/>
         </div>
-        <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+        {/* <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} /> */}
+        <div className='prose'>
+          <MDXRemote {...mdxSource } />
+        </div>
       </article>
       
     </Layout>
