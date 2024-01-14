@@ -85,6 +85,7 @@ pre[class*='language-'] {
   margin-right: -16px;
   background-color: theme('colors.zinc.700'); /* Set highlight bg color */
   border-left: 2px solid theme('colors.amber.400'); /* Set highlight accent border color */
+  width: 100vw;
 }
 
 .line-number::before {
