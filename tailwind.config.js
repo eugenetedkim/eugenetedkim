@@ -9,7 +9,18 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      typography: {
+        DEFAULT: {
+          css: {
+            code: {
+              display: 'inline-block'
+            },
+          },
+        },
+      },
+
+    },
   },
   plugins: [require('@tailwindcss/typography')],
 }

@@ -48,9 +48,7 @@ export default function Post({ mdxSource }) {
         </div>
         {/* <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} /> */}
         <div className='prose'>
-          <div className='relative'>
-            <MDXRemote {...mdxSource } />
-          </div>
+          <MDXRemote {...mdxSource } />
         </div>
       </article>
       
