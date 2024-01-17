@@ -102,7 +102,7 @@ pre[class*='language-'] {
   display: inline-flex;
   position: relative;
   top: 1rem;
-  left: 2rem;
+  left: 5px;
   background: theme('colors.zinc.900');
   color: theme('colors.zinc.100');
   font-family: theme('fontFamily.mono');

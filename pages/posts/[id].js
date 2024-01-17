@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import Layout from '../../components/layout';
+import Layout from '../../components/Layout';
 import { getAllPostIds, getPostData } from '../../lib/posts';
 import Date from '../../components/date';
 import utilStyles from '../../styles/utils.module.css';
@@ -19,14 +19,14 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   const source = await getPostData(params.id);
   const mdxSource = await serialize(
-                            source.content,
-                            {
-                              mdxOptions: {
-                                rehypePlugins: [rehypePrism, rehypeCodeTitles]
-                              },
-                              parseFrontmatter: true
-                            }
-                          );
+    source.content,
+    {
+      mdxOptions: {
+        rehypePlugins: [rehypeCodeTitles, rehypePrism]
+      },
+      parseFrontmatter: true
+    }
+  );
   return {
     props: {
       mdxSource
@@ -47,7 +47,7 @@ export default function Post({ mdxSource }) {
           <Date dateString={mdxSource.frontmatter.date}/>
         </div>
         {/* <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} /> */}
-        <div className='prose'>
+        <div className='prose mt-6'>
           <MDXRemote {...mdxSource } />
         </div>
       </article>

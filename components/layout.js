@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Image from 'next/image';
-import styles from './layout.module.css';
+import styles from './Layout.module.css';
 import utilStyles from '../styles/utils.module.css';
 import Link from 'next/link';
 
@@ -34,7 +34,8 @@ export default function Layout({ children, home }) {
               className={utilStyles.borderCircle}
               height={144}
               width={144}
-              alt=""
+              alt="Picture of author"
+              quality={100} // {number 1-100}
             />
             <h1 className={utilStyles.heading2Xl}>{name}</h1>
           </>
@@ -47,7 +48,8 @@ export default function Layout({ children, home }) {
                 className={utilStyles.borderCircle}
                 height={108}
                 width={108}
-                alt=""
+                alt="Picture of author"
+                quality={100} // {number 1-100}
               />
             </Link>
             <h2 className={utilStyles.headingLg}>

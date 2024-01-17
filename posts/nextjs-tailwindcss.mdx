@@ -1,32 +1,33 @@
 ---
 title: Building a Responsive Next.js Website Using Tailwind CSS
-date: '2024-01-13'
+date: '2024-01-16'
 ---
 
 On this blog post, I'll be documenting the steps taken to build a static responsive Next.js website using Tailwind CSS.
-This is a work in progress and this point in time, the app looks [like this](https://nextjs-tailwindcss-gamma.vercel.app/).
+
+This is a work in progress and currently, the app looks [like this](https://nextjs-tailwindcss-gamma.vercel.app/).
 
 ## Here are the steps taken:
 
 ### Creating the Next.js app
 
 1. Using the Terminal app on my Mac, made a new directory:
-```bash
+```bash:terminal
 mkdir nextjs-tailwindcss
 ```
 2. Navigated into it:
-```bash
+```bash:terminal
 cd nextjs-tailwindcss
 ```
 3. Installed Node.js using the official Node.js installer from their [downloads page](https://nodejs.org/en/download).
 
 4. Once Node.js was installed, I created a new Next.js boilerplate application:
-```bash
+```bash:terminal
 npx create-next-app@latest .
 ```
 
 I answered the following questions as follows when prompted:
-```bash
+```bash:terminal {4-9}
 Need to install the following packages:
 create-next-app@14.0.2
 Ok to proceed? (y) y
@@ -38,26 +39,26 @@ Ok to proceed? (y) y
 ✔ Would you like to customize the default import alias (@/*)? … No
 ```
 
-Apparently, when you _don't_ use App Router (recommended), the pages directory _is available_ and on the contrary, when using App Router, the pages directory _isn't available_.
+Apparently, when you _don't_ use App Router (recommended), the pages directory _is available_ and on the contrary, when using the App Router, the pages directory _isn't available_.
 
-The App Router is _new_ and I'll have to explore using App Router in a future webLog without the pages directory, out the box, and see how things work alternatively.
+The App Router is _new_ and I'll have to explore using the App Router in a future webLog without the pages directory, out the box, and see how things work alternatively.
 
 For now, I just answered "... No" to any of the "Would you like to..." questions.
 
 5. After the new Next.js application was created, I opened the current directory using Visual Studio Code:
-```bash
+```bash:terminal
 code .
 ```
 
 ### Starting the Next.js app
 
 6. Then, in the Terminal app, I started the Next.js development server:
-```bash
+```bash:terminal
 npm run dev
 ```
 
 7. I then accessed the Next.js application via my web browser by navigating to:
-```plaintext
+```plaintext:browser
 http://localhost:3000
 ```
 
@@ -89,27 +90,26 @@ http://localhost:3000
 ___If the Head Next.js component has already been imported in index.js and being used in the return statement of the Home functional component, then skip to step 13.___
 
 11. At the top of index.js, I imported the Next.js built-in component for appending elements to the head of the page:
-```js
+```js:/pages/index.js showLineNumbers
 import Head from 'next/head';
 ```
 
 12. Then, in the Home function, within the enclosed opening and closing parenthesis of the return statement, I added the HTML title element, wrapped with the Next.js Head component, as follows:
-```js {4-6}
+```jsx:/pages/index.js {5-9}
+import Head from 'next/head'
+
 export default function Home() {
   return (
     <>
       <Head>
         <title>Next.js TailwindCSS Website</title>
       <Head />
-      .
-      .
-      .
     </>
   )
 }
 ```
 **Note**:
-- I had to wrap everything in the return statement with a React fragment <></>
+- I had to wrap everything in the return statement with a React fragment ```<></>```
 
 13. Then, I opened _document.js:
 ```plaintext
@@ -117,7 +117,7 @@ export default function Home() {
 ```
 
 14. Then, I pasted the Google Font link tags for the Raleway font which I copied in step 9 within the Head tags as shown below:
-```js
+```js:/pages/_document.js {6-10}
 import { Html, Head, Main, NextScript } from 'next/document'
 
 export default function Document() {
@@ -147,15 +147,10 @@ export default function Document() {
 /nextjs-tailwindcss/pages/index.js
 ```
 
-16. Then, replaced __Inter__ with __Raleway__ in the import statement:
-
-__Before__:
-```js
-import { Inter } from 'next/font/google'
-```
-__After__:
-```js
-import { Raleway } from 'next/font/google'
+16. Then, replaced **Inter** with **Raleway** in the import statement:
+```diff:/pages/index.js
+- import { Raleway } from 'next/font/google'
++ import { Inter } from 'next/font/google'
 ```
 
 17. Then, replaced Inter and inter with Raleway and raleway, respectively.
@@ -169,22 +164,23 @@ At this point the Raleway font should have loaded anywhere Inter was being used 
 19. Within the [Installation page](https://tailwindcss.com/docs/installation), I clicked the [Framework Guides](https://tailwindcss.com/docs/installation/framework-guides) and clicked [Next.js](https://tailwindcss.com/docs/guides/nextjs).
 
 20. I skipped down to step 2 of the guide, copied the command, stopped the development server, and installed Tailwind CSS by pasting, and executing the command:
-```bash
+```bash:terminal
 npm install -D tailwindcss postcss autoprefixer
 ```
 
-21. Next, I went back to the Tailwind CSS framework guide, copied the next command, and created a Tailwind CSS configuration file by pasting, and executing the command:
-```bash
+21. Next, I went back to the Tailwind CSS framework guide, copied the next command, and created a Tailwind CSS configuration file and Post CSS configuration file by pasting, and executing the command:
+```bash:terminal
 npx tailwindcss init -p
 ```
 
-22. At this point, the following Tailwind CSS configuration file was now available in the root of the project folder:
+22. At this point, the following Tailwind CSS configuration file and Post CSS configuration file were now available in the root of the project folder:
 ```plaintext
 nextjs-tailwindcss/tailwind.config.js
+nextjs-tailwindcss/postcss.config.js
 ```
 
 23. Then, I went to step 3 of the [Tailwind CSS installation guide for Next.js](https://tailwindcss.com/docs/guides/nextjs), copied the elements within the content array and pasted them in the content array found inside of tailwind.config.js:
-```js
+```js:/nextjs-tailwindcss/tailwind.config.js {4-9}
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [

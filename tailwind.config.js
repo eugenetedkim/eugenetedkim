@@ -14,7 +14,7 @@ module.exports = {
         DEFAULT: {
           css: {
             code: {
-              display: 'inline-block'
+              display: 'inline-block',
             },
           },
         },
