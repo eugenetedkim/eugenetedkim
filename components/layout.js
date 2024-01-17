@@ -35,7 +35,7 @@ export default function Layout({ children, home }) {
               height={144}
               width={144}
               alt="Picture of author"
-              quality={100} // {number 1-100}
+              quality={100}
             />
             <h1 className={utilStyles.heading2Xl}>{name}</h1>
           </>
@@ -49,7 +49,7 @@ export default function Layout({ children, home }) {
                 height={108}
                 width={108}
                 alt="Picture of author"
-                quality={100} // {number 1-100}
+                quality={100}
               />
             </Link>
             <h2 className={utilStyles.headingLg}>
