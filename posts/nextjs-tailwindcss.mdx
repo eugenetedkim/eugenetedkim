@@ -11,7 +11,7 @@ This is a work in progress, and currently, the app looks [like this](https://nex
 
 ### Creating & Starting a Next.js app
 
-1. Using the Terminal app on my Mac, I made a new directory:
+1. I opened Visual Studio Code, opened a new terminal, and I made a new directory:
 
 ```bash:terminal
 mkdir nextjs-tailwindcss
@@ -23,15 +23,25 @@ mkdir nextjs-tailwindcss
 cd nextjs-tailwindcss
 ```
 
-3. Then, I installed Node.js using the official Node.js installer from their [downloads page](https://nodejs.org/en/download).
+3. Then, I checked if I had Node installed:
 
-4. Once Node.js was installed, I created a new Next.js app using create-next-app which is a CLI tool that lets you quickly start building Next.js applications:
+```bash:terminal
+node -v
+```
+
+My terminal outputted:
+
+```bash
+v20.9.0
+```
+
+4. Then, I created a new Next.js app using create-next-app:
 
 ```bash:terminal
 npx create-next-app@latest .
 ```
 
-I answered the following questions as such when I was prompted:
+I answered No to all of questions that were prompted:
 
 ```bash:terminal {4-9}
 Need to install the following packages:
@@ -45,60 +55,53 @@ Ok to proceed? (y) y
 ✔ Would you like to customize the default import alias (@/*)? … No
 ```
 
-Apparently, when you _don't_ use App Router (recommended), the pages directory _is available_ and on the contrary, when using the App Router, the pages directory _isn't available_.
+<ins>Side Note</ins>:
 
-The App Router is _new_ and I'll have to explore using the App Router in a future webLog without the pages directory, out the box, and see how things work alternatively.
+When you _don't_ use the new App Router (recommended), the pages directory _is available_ and on the contrary, when using the App Router, the pages directory _isn't available_.
 
-For now, I just answered "... No" to any of the "Would you like to..." questions.
+The App Router is _new_ and I'll have to explore using the App Router in a future post without the pages directory, and see how things work alternatively.
 
-5. After the new Next.js app was created, I opened the current directory in Visual Studio Code:
-
-```bash:terminal
-code .
-```
-
-6. Then, in the Terminal app, I started the Next.js development server:
+5. After the new Next.js app was created, I started the Next.js development server:
 
 ```bash:terminal
 npm run dev
 ```
 
-7. Then, I accessed the Next.js app via my web browser by navigating to:
+6. Then, I accessed the Next.js app via my web browser by navigating to:
 
 ```plaintext:browser
 http://localhost:3000
 ```
 
-### Clean-up Process
-#### (So we can start developing from scratch)
+### Clean-up Process (so we can start developing from scratch)
 
-8. I deleted the following CSS module file related to the Home component:
-```plaintext
-nextjs-tailwindcss/styles/Home.module.css
+7. I first deleted the CSS module used to style the Home component in the /nextjs-tailwindcss/pages/index.js file which is the entry point to the app:
+```plaintext:/nextjs-tailwindcss/styles
+Home.module.css
 ```
 
-9. In my browser, I received the following "Failed to compile" error because /pages/index.js was importing the Home.module.css that was just deleted in the last step:
+8. Right after, I received the following "Failed to compile" error in the browser because /nextjs-tailwindcss/pages/index.js was importing the CSS module that was just deleted in the last step:
 
-```plaintext {6}
+```plaintext:browser {6}
 ./styles/Home.module.css
-Error: ENOENT: no such file or directory, open '/Users/eugene/Desktop/nextjs-tailwindcss2/styles/Home.module.css'
+Error: ENOENT: no such file or directory, open '/Users/eugene/Desktop/nextjs-tailwindcss/styles/Home.module.css'
 
 Import trace for requested module:
 ./styles/Home.module.css
 ./pages/index.js
 ```
 
-10. Therefore, I removed the import statment from /pages/index.js:
+9. Therefore, I removed the import statment from the index.js file:
 
-```diff:/pages/index.js
+```diff:/nextjs-tailwindcss/pages/index.js
 import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 - import styles from '@/styles/Home.module.css'
 ```
 
-11. Then, I got a "Unhandled Runtime Error" because /pages/index.js was trying to access styles in the import statement we just deleted in the last step:
-```plaintext:/pages/index.js {3}
+10. Then, I got a "Unhandled Runtime Error" because the index.js file was trying to access styles in the import statement we just deleted in the last step:
+```plaintext:browser {3}
   14 |   <link rel="icon" href="/favicon.ico" />
   15 | </Head>
 > 16 | <main className={`${styles.main} ${inter.className}`}>
@@ -108,7 +111,7 @@ import { Inter } from 'next/font/google'
   19 |       Get started by editing&nbsp;
 ```
 
-12. Therefore, I deleted the entire main element, and lines 2,3, and 5 from /pages/index.js:
+11. Therefore, I deleted the entire main element, and lines 2, 3, and 5 from the index.js file since I won't be needing any of them:
 
 ```diff:/pages/index.js showLineNumbers
 import Head from 'next/head'
@@ -226,8 +229,8 @@ export default function Home() {
 }
 ```
 
-13. Now, /pages/index.js only contained the following code:
-```js:/pages/index.js showLineNumbers
+12. Now, the index.js file only contained the following code:
+```js:/nextjs-tailwindcss/pages/index.js showLineNumbers
 import Head from 'next/head'
 
 export default function Home() {
@@ -245,16 +248,16 @@ export default function Home() {
 
 ```
 
-14. Then, I deleted the following /pages/api directory and anything in it since I'm not creating any API routes for this project:
-```plaintext
-nextjs-tailwindcss/pages/api
+13. Then, I deleted the api directory and anything in it since I'm not creating any API routes for this project:
+```plaintext:/nextjs-tailwindcss/pages/
+api/hello.js
 ```
 
-15. I went back to my browser and saw that I had no more errors, and a blank app where I could start from scratch.
+14. Then, I went back to my browser and saw that I had no more errors, and a blank app where I could start clean from scratch.
 
 ### Getting & Loading a Google Font into the Next.js app
 
-16. I went to [Google Fonts](https://fonts.google.com/), searched for the Raleway font, selected it, and clicked the following to add the styles:
+15. Then, I needed a font so I went to [Google Fonts](https://fonts.google.com/), searched for Raleway, selected it, and added the following styles:
 
     - Select Thin 100
     - Select ExtraLight 200
@@ -265,32 +268,26 @@ nextjs-tailwindcss/pages/api
     - Select Bold 700
     - Select ExtraBold 800
 
-17. Once done adding the styles, I copied the Google Fonts ```link``` tags that were generated as such:
+16. Once done adding the styles, I copied the Google Fonts link elements that were generated as such:
 
 ```html
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet">
 ```
-Note: The ```link``` elements do not have a forward slash ("/") within it so it'll be added later.
 
-18. In Visual Studio Code, I opened the entry point of the Next.js application, the /pages/index.js file:
+17. Then, back in Visual Studio Code, I went to the _document.js file, removed the self-closing Head element and added the following lines with the Google Fonts link elements that I copied in the last step:
 
-```plaintext
-/nextjs-tailwindcss/pages/index.js
-```
-
-19. Then, in _document.js, I removed the self-closing ```Head``` element and added the following lines with the Google Fonts ```link``` elements that I copied previously:
-```diff:/pages/_document.js
+```diff:/nextjs-tailwindcss/pages/_document.js {}
 import { Html, Head, Main, NextScript } from 'next/document'
 
-export default function Document() {
+export default function Document() {9}
   return (
     <Html lang="en">
 -     <Head />
 +     <Head>
 +       <link rel="preconnect" href="https://fonts.googleapis.com" />
-+       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
++       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
 +       <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet" />
 +     </Head>
       <body>
@@ -300,15 +297,15 @@ export default function Document() {
     </Html>
   )
 }
-
 ```
-**Note**:
-- Originally, the file just had a _self closing_ ```Head``` tag
-  - Instead, I had to use an _opening_ ```Head``` tag and a _closing_ ```Head``` tag
-    - Then, pasted the Google Font ```link``` tags within
-- Also, I had to add a forward slash ("/") before the closing bracket > of all three ```link``` tags.
 
-20. Then, I removed everything from /styles/globals.css and added a CSS block targeting the ```html``` element:
+<ins>Side Note</ins>:
+
+Since, Next.js uses JSX, I had to make the following changes within the link elements:
+- Replaced crossorigin with crossOrigin="true"
+- Added a forward slash ("/") at the end of the link elements
+
+18. Then, I removed everything from the globals.css file and added a CSS block targeting the html element:
 
 ```diff:/styles/globals.css
 + html {
@@ -424,43 +421,45 @@ export default function Document() {
 - }
 - 
 ```
-**Note**:
-- **scroll-behavior: smooth;** is a CSS property that controls the smoothness of a scrolling behavior when navigating to an anchor link within the page.
-  - When scroll-behavior is set to smooth, the scrolling will be animated and gradual rather than instantaneous.
-    - This can enhance the UX, especially when clicking on links that lead to different sections on the same page.
-- **font-family: 'Raleway', sans-serif;** is a CSS property that sets the font family for text within the HTML element.
-  - It specifies that the preferred font is 'Raleway', and if 'Raleway' is not available, the browser should use a generic sans-serif font.
-    - This provides a fallback option in case the specified font is not present on the user's system. 
+<ins>Note</ins>:
 
-Now, at this point, the Raleway font and additionally the smooth scrolling behavior is applied to everything within our app's ```html``` element.
+**scroll-behavior: smooth;** is a CSS property that controls the smoothness of a scrolling behavior when navigating to an anchor link within the page.
+  - When scroll-behavior is set to smooth, the scrolling will be animated and gradual rather than instantaneous.
+  - This can enhance the UX, especially when clicking on links that lead to different sections on the same page.
+
+**font-family: 'Raleway', sans-serif;** is a CSS property that sets the font family for text within the HTML element.
+  - It specifies that the preferred font is 'Raleway', and if 'Raleway' is not available, the browser should use a generic 'sans-serif' font.
+  - This provides a fallback option in case the specified font is not present on the user's system. 
+
+Now, at this point, the Raleway font and additionally the smooth scrolling behavior is applied to everything within our app's html element.
 
 ### Installing Tailwind CSS
 
-15.. In my web browser, I navigated over to [tailwindcss.com](https://tailwindcss.com/) then clicked [Get started](https://tailwindcss.com/docs/installation) which directed me over to the Installation page.
+19. From the browser, I navigated over to [tailwindcss.com](https://tailwindcss.com/) and clicked [Get started](https://tailwindcss.com/docs/installation) which directed me over to the Installation page.
 
-16.. Within the [Installation page](https://tailwindcss.com/docs/installation), I clicked the [Framework Guides](https://tailwindcss.com/docs/installation/framework-guides) and clicked [Next.js](https://tailwindcss.com/docs/guides/nextjs).
+20. Within the [Installation page](https://tailwindcss.com/docs/installation), I clicked the [Framework Guides](https://tailwindcss.com/docs/installation/framework-guides) and clicked [Next.js](https://tailwindcss.com/docs/guides/nextjs).
 
-17. I skipped down to step 2 of the guide, copied the following command, stopped the development server, and installed Tailwind CSS by pasting, and executing the command:
+21. I skipped down to step 2 of the guide, copied the following command, stopped the development server, and installed Tailwind CSS by pasting, and executing the command:
 
 ```bash:terminal
 npm install -D tailwindcss postcss autoprefixer
 ```
 
-18. Next, I went back to the Tailwind CSS framework guide, copied the next command, and created a Tailwind CSS configuration file and Post CSS configuration file by pasting, and executing the command:
+22. Next, I went back to the Tailwind CSS framework guide, copied the next command, and created a Tailwind CSS configuration file and Post CSS configuration file by pasting, and executing the command:
 
 ```bash:terminal
 npx tailwindcss init -p
 ```
 
-19. At this point, the following Tailwind CSS configuration file and Post CSS configuration files were now available in the root of the project folder:
-```plaintext
-nextjs-tailwindcss/tailwind.config.js
-nextjs-tailwindcss/postcss.config.js
+23. At this point, the following Tailwind CSS configuration file and Post CSS configuration files were now available in the root of the project folder:
+```plaintext:/nextjs-tailwindcss/
+tailwind.config.js
+postcss.config.js
 ```
 
-20. Then, I went to step 3 of the [Tailwind CSS installation guide for Next.js](https://tailwindcss.com/docs/guides/nextjs), copied the elements within the content array and pasted them into the content array found inside of the object assigned to module.exports in the tailwind.config.js file:
+24. Then, I went to step 3 of the [Tailwind CSS installation guide for Next.js](https://tailwindcss.com/docs/guides/nextjs), copied the elements within the content array and pasted them into the content array found inside of the object assigned to module.exports in the tailwind.config.js file:
 
-```js:/nextjs-tailwindcss/tailwind.config.js {4-9}
+```js:/nextjs-tailwindcss/tailwind.config.js {4-9} showLineNumbers
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -478,8 +477,8 @@ module.exports = {
 }
 ```
 
-21. Then, I went to step 4 of the [Tailwind CSS installation guide for Next.js](https://tailwindcss.com/docs/guides/nextjs), copied the Tailwind directives and pasted them at the top of the globals.css file above the CSS snippet which we added in step 14:
-```css:/nextjs-tailwindcss/styles/globals.css {1-3}
+25. Then, I went to step 4 of the [Tailwind CSS installation guide for Next.js](https://tailwindcss.com/docs/guides/nextjs), copied the Tailwind directives and pasted them at the top of the globals.css file above the CSS snippet which we added in step 18:
+```css:/nextjs-tailwindcss/styles/globals.css {1-3} showLineNumbers
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -490,72 +489,86 @@ html {
 }
 ```
 
+26. Then, I installed a Visual Studio Code extension called [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss) to assist with Tailwind CSS in the development process.
 
+At this point, Tailwind CSS is ready to be used.
 
 ### Building the Hero Component
 
-37. Created a components folder at the root of the project directory:
-```plaintext
-nextjs-tailwindcss/components
+27. Now, to create the banner or hero section at the top of the webpage, I created a components folder at the root of the project directory:
+```plaintext:/nextjs-tailwindcss/
+components
 ```
 
-38. Created a Hero.jsx file within the components folder:
-```plaintext
-nextjs-tailwindcss/components/Hero.jsx
+28. Then, I created a Hero.jsx file within it:
+
+```plaintext:/nextjs-tailwindcss/components/
+Hero.jsx
 ```
 
-39. Then, I installed a Visual Studio Code extension, [ES7+ React/Redux/React-Native snippets](https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets), which provides code snippets that'll enhance development, by clicking View in the macOS application specific menu bar for Visual Studio Code, at the top of the screen, then clicking Extensions, at which point I searched for the extension, and clicked Install.
+29. Then, in the Hero.jsx file, I defined the basic structure of the Hero functional component and exported it so other modules or components could import it:
 
-40. I opened nextjs-tailwindcss/components/Hero.js, typed **rafce**, then hit enter, at which point the extension automatically generated a basic template for a functional React component using an import statement, an arrow function, and an export statement as shown below:
-```js
-import React from 'react'
-
-const Hero = () => {
+```js:/nextjs-tailwindcss/components/Hero.jsx showLineNumbers
+export default function Hero() {
   return (
-    <div>Hero</div>
+    <>
+      {/* Container */}
+      <div className=''>
+
+        {/* Background Image */}
+        <div className=''>
+
+        </div>
+        {/* Background Overlay */}
+        <div className='' />
+
+        {/* Content */}
+        <div className=''>
+          <h2 className=''>Heading</h2>
+          <p className=''>Message</p>
+          <button className=''>Button</button>
+        </div>
+      </div>
+    </>
+  );
+};
+```
+
+30. Then, in the index.js file, I imported the Home component and instantiated it.
+
+```jsx:/nextjs-tailwindcss/pages/index.js {2, 13} showLineNumbers
+import Head from 'next/head'
+import Hero from '../components/Hero';
+
+export default function Home() {
+  return (
+    <>
+      <Head>
+        <title>Create Next App</title>
+        <meta name="description" content="Generated by create next app" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <Hero />
+    </>
   )
 }
 
-export default Hero
 ```
-**Note**:
-- This component will be used on multiple pages and will be dynamic since properties will be passed to it
-  - A great thing we can do in React and Next
 
-41. Then, I:
-- Changed the arrow function to a named function
-- Removed the content, "Hero", within the **div** element
-- Added a JSX comment suggesting an Overlay
-- Added a self-closing **div** element
-  - TailwindCSS will be filled-in here later
-- Added an **h2** element with Heading as its content
-  - A property will be passed here later
-- Added a **p** element with Message as its content
-  - A property will be passed here later
-- Added a **button** with Book as its content
+At this point, the browser should be displaying the hero content:
 
-At this point, the code looked like this:
-```js
-import React from 'react';
-
-function Hero() {
-  return (
-    <div>
-      {/* Overlay */}
-      <div />
-      <h2>Heading</h2>
-      <p>Message</p>
-      <button>Book</button>
-    </div>
-  );
-}
-
-export default Hero;
+```plaintext:browser
+Heading
+Message
+Button
 ```
-**Note**:
-- Even though we have an **h2** element, when rendered, it looks like a normal **p** element
 
-42. Then, I installed a Visual Studio Code extension called [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss) to assist with Tailwind CSS in the development process.
+<ins>Side Note</ins>:
+
+The Tailwind CSS directive for base styles added in step 25 removes styling so there isn't any styling despite having used an h2 element in the Hero component.
+
+#### Styling the Hero Component
 
 43. Then, in the nextjs-tailwindcss/components/Hero.jsx file, in the *outer most* **div** of the *return statement*, I added a React **className** attribute, used to assign one or more CSS classes to an HTML element, and assigned it the following CSS classes:
 - flex
