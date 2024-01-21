@@ -1,3 +1,4 @@
+const nextMDX = require('@next/mdx')()
 import rehypePrism from 'rehype-prism-plus'
 import rehypeCodeTitles from 'rehype-code-titles'
 

@@ -55,8 +55,6 @@ Ok to proceed? (y) y
 ✔ Would you like to customize the default import alias (@/*)? … No
 ```
 
-<ins>Side Note</ins>:
-
 When you _don't_ use the new App Router (recommended), the pages directory _is available_ and on the contrary, when using the App Router, the pages directory _isn't available_.
 
 The App Router is _new_ and I'll have to explore using the App Router in a future post without the pages directory, and see how things work alternatively.
@@ -431,8 +429,6 @@ module.exports = {
 // @tailwind utilities;
 ```
 
-<ins>Take Note</ins>:
-
 The Tailwind CSS directives are commented out so they're not taken into effect right now.
 
 Basically, the directive @tailwindcss base will inject Preflight base styles which will serve to reset and standardize styles to ensure a consistent starting point for styling across different browsers and elements.
@@ -488,8 +484,6 @@ module.exports = {
   plugins: [],
 }
 ```
-
-<ins>Take Note</ins>:
 
 I added a new key called "fontFamily" and assigned it a new object in the "extend" object which is in the "theme" object.
 
@@ -578,8 +572,6 @@ At this point, the browser is displaying the Hero content.
 @tailwind utilities;
 ```
 
-<ins>Take Note</ins>:
-
 Soon as the globals.css is saved, the styling is removed because of Tailwind CSS's Preflight base styling being applied on line 2 of the globals.css file.
 
 ```css:/nextjs-tailwindcss/styles/globals.css {2} showLineNumbers
@@ -609,8 +601,6 @@ export default function Document() {
 }
 
 ```
-
-<ins>Take Note</ins>:
 
 The "html" key that was added under the "fontFamily" object associated to the "Montserrat Alternates" font in the tailwind.config.js file is now being applied by using the "font-html" Tailwind CSS custom class.
 

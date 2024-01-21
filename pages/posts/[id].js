@@ -7,6 +7,9 @@ import { serialize } from 'next-mdx-remote/serialize';
 import { MDXRemote } from 'next-mdx-remote';
 import rehypePrism from 'rehype-prism-plus';
 import rehypeCodeTitles from 'rehype-code-titles';
+import rehypeSlug from 'rehype-slug';
+import { MDXProvider } from '@mdx-js/react';
+import Link from 'next/link';
 
 export async function getStaticPaths() {
   const paths = getAllPostIds();
@@ -22,7 +25,7 @@ export async function getStaticProps({ params }) {
     source.content,
     {
       mdxOptions: {
-        rehypePlugins: [rehypeCodeTitles, rehypePrism]
+        rehypePlugins: [rehypeCodeTitles, rehypePrism, rehypeSlug]
       },
       parseFrontmatter: true
     }
@@ -33,6 +36,23 @@ export async function getStaticProps({ params }) {
     }
   }
 }
+
+const customHeadingThree = function({ id, ...props }) {
+  console.log(id);
+
+  if (id) {
+    return (
+      <Link href={`#${id}`}>
+        <h3 id={ id } { ...props } />
+      </Link>
+    );
+  }
+  return <h1 { ...props } />;
+}
+
+const components = {
+  h3: customHeadingThree
+};
 
 export default function Post({ mdxSource }) {
   return (
@@ -48,7 +68,9 @@ export default function Post({ mdxSource }) {
         </div>
         {/* <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} /> */}
         <div className='prose mt-6'>
-          <MDXRemote {...mdxSource } />
+          <MDXProvider components={components}>
+            <MDXRemote {...mdxSource } components={{...components}} />
+          </MDXProvider>
         </div>
       </article>
       
