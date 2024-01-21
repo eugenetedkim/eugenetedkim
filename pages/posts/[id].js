@@ -10,6 +10,7 @@ import rehypeCodeTitles from 'rehype-code-titles';
 import rehypeSlug from 'rehype-slug';
 import { MDXProvider } from '@mdx-js/react';
 import Link from 'next/link';
+import remarkTOC from 'remark-toc';
 
 export async function getStaticPaths() {
   const paths = getAllPostIds();
@@ -25,7 +26,8 @@ export async function getStaticProps({ params }) {
     source.content,
     {
       mdxOptions: {
-        rehypePlugins: [rehypeCodeTitles, rehypePrism, rehypeSlug]
+        rehypePlugins: [rehypeCodeTitles, rehypePrism, rehypeSlug],
+        remarkPlugins: [remarkTOC],
       },
       parseFrontmatter: true
     }
