@@ -11,6 +11,7 @@ import rehypeSlug from 'rehype-slug';
 import { MDXProvider } from '@mdx-js/react';
 import Link from 'next/link';
 import remarkTOC from 'remark-toc';
+import { ScrollToTop } from '../../components/ScrollToTop';
 
 export async function getStaticPaths() {
   const paths = getAllPostIds();
@@ -44,9 +45,11 @@ const customHeadingThree = function({ id, ...props }) {
 
   if (id) {
     return (
-      <Link href={`#${id}`}>
-        <h3 id={ id } { ...props } />
-      </Link>
+      <>
+        <Link href={`#${id}`}>
+          <h3 id={ id } { ...props } />
+        </Link>
+      </>
     );
   }
   return <h1 { ...props } />;
@@ -55,6 +58,8 @@ const customHeadingThree = function({ id, ...props }) {
 const components = {
   h3: customHeadingThree
 };
+
+
 
 export default function Post({ mdxSource }) {
   return (
@@ -75,7 +80,8 @@ export default function Post({ mdxSource }) {
           </MDXProvider>
         </div>
       </article>
-      
+
+      <ScrollToTop />
     </Layout>
   );
 }
