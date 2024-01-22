@@ -514,9 +514,7 @@ export default function Hero() {
       <div className=''>
 
         {/*Hero Background Image */}
-        <div className=''>
 
-        </div>
         {/*Hero Background Overlay */}
         <div className='' />
 
@@ -563,7 +561,7 @@ At this point, the browser is displaying the Hero content.
 
 ### Styling and Setting the Background Image of the Hero Component
 
-34. Now that content is rendered in the browser, I started the styling process by uncommenting out the Tailwind CSS directives added and immediately commented out in the global.css file in step 24:
+34. Now that content is rendered in the browser, I started the styling process by uncommenting the Tailwind CSS directives (added and immediately commented out in step 24) in the global.css file:
 
 ```css:/nextjs-tailwindcss/styles/globals.css {2-4} showLineNumbers
 @import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@100;200;300;400;500;600;700;800&display=swap');
@@ -572,7 +570,7 @@ At this point, the browser is displaying the Hero content.
 @tailwind utilities;
 ```
 
-Soon as the globals.css is saved, the styling is removed because of Tailwind CSS's Preflight base styling being applied on line 2 of the globals.css file.
+Soon as the globals.css was saved, the styling was removed because of Tailwind CSS's Preflight base styling being applied on line 2 of the globals.css file.
 
 ```css:/nextjs-tailwindcss/styles/globals.css {2} showLineNumbers
 @import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@100;200;300;400;500;600;700;800&display=swap');
@@ -581,7 +579,7 @@ Soon as the globals.css is saved, the styling is removed because of Tailwind CSS
 @tailwind utilities;
 ```
 
-The Tailwind CSS directive for base styles removes styling so there isn't any styling despite having used a h2, p, and a button element in the Hero component.
+The Tailwind CSS directive for base styleing removes styling so there isn't any styling despite having used a h2, p, and a button element in the Hero component which intrinsically has styling.
 
 35. Then, I went to the _document.js file, added a className with the "font-html" custom Tailwind CSS class that was configured in step 28, and a "scroll-smooth" Tailwind CSS class to the Html element:
 
@@ -610,19 +608,17 @@ Furthermore, if you hover over the class names (e.g. "font-html" or "scroll-smoo
 
 Soon as the tailwind.config.js file is saved, notice how the font, 'Montserrat Alternates', and the smooth scrolling behavior is applied.
 
-36. Then, in the Hero.jsx file, I added a className with "flex" to the div element underneath the comment that says "Hero Container" to make it a flex container:
+36. Then, in the Hero.jsx file, I added a className with "relative" to give the div element underneath the comment that says "Hero Container" a position of relative to create a new positioning context for its descendants:
 
 ```jsx:/nextjs-tailwindcss/components/Hero.jsx {5} showLineNumbers
 export default function Hero() {
   return (
     <>
       {/* Hero Container */}
-      <div className='flex'>
+      <div className='relative'>
 
         {/*Hero Background Image */}
-        <div className=''>
 
-        </div>
         {/*Hero Background Overlay */}
         <div className='' />
 
@@ -638,21 +634,49 @@ export default function Hero() {
 };
 ```
 
-The flex Tailwind CSS class will be used to set the layout of the Hero component so we can position the elements.
+The descendants of the Hero Container are the Hero Background Image, the Hero Background Overlay, and the Hero Content.
 
-37. Now, I can justify the content horizontally center of the webpage by adding a "justify-center":
+With the Hero Container having a position of relative, the descendants or children can now be positioned relative to its parent, the Hero Container, and allows the use of z-index to assign each child a stacking order since the children will be stacked on top of each other, first starting with the Hero Background Image, then second, the Background Overlay, and third, the Hero Content.
+
+37. Then, I added a "flex" class to the "Hero Container" to make it a flex container:
 
 ```jsx:/nextjs-tailwindcss/components/Hero.jsx {5} showLineNumbers
 export default function Hero() {
   return (
     <>
       {/* Hero Container */}
-      <div className='flex justify-center'>
+      <div className='relative flex'>
 
         {/*Hero Background Image */}
-        <div className=''>
 
+        {/*Hero Background Overlay */}
+        <div className='' />
+
+        {/*Hero Content */}
+        <div className=''>
+          <h2 className=''>Heading</h2>
+          <p className=''>Message</p>
+          <button className=''>Button</button>
         </div>
+      </div>
+    </>
+  );
+};
+```
+
+The flex Tailwind CSS class is be used to set the layout of the Hero component so the elements can be positioned as needed.
+
+38. Now, I can justify the content horizontally center of the webpage by adding a "justify-center":
+
+```jsx:/nextjs-tailwindcss/components/Hero.jsx {5} showLineNumbers
+export default function Hero() {
+  return (
+    <>
+      {/* Hero Container */}
+      <div className='relative flex justify-center'>
+
+        {/*Hero Background Image */}
+
         {/*Hero Background Overlay */}
         <div className='' />
 
@@ -670,19 +694,17 @@ export default function Hero() {
 
 The content is now centered horizontally along the x-axis.
 
-38. Then, I added a h-full since I had to set the height of the div to 100% of the view port or screen so I could position the content vertically centered across the full height of the screen:
+39. Then, I added a h-full since I had to set the height of the div to 100% of the view port or screen so I could position the content vertically centered across the full height of the screen:
 
 ```jsx:/nextjs-tailwindcss/components/Hero.jsx {5} showLineNumbers
 export default function Hero() {
   return (
     <>
       {/* Hero Container */}
-      <div className='flex justify-center h-full'>
+      <div className='relative flex justify-center h-full'>
 
         {/*Hero Background Image */}
-        <div className=''>
 
-        </div>
         {/*Hero Background Overlay */}
         <div className='' />
 
@@ -698,19 +720,17 @@ export default function Hero() {
 };
 ```
 
-39. Now, that the Hero Container div element has a vertical height of 100%, I can set the content centered vertically along the y-axis of the viewport or screen by adding "items-center":
+40. Now, that the Hero Container div element has a vertical height of 100%, I can set the content centered vertically along the y-axis of the viewport or screen by adding "items-center":
 
 ```jsx:/nextjs-tailwindcss/components/Hero.jsx {5} showLineNumbers
 export default function Hero() {
   return (
     <>
       {/* Hero Container */}
-      <div className='flex justify-center h-full items-center'>
+      <div className='relative flex justify-center h-full items-center'>
 
         {/*Hero Background Image */}
-        <div className=''>
 
-        </div>
         {/*Hero Background Overlay */}
         <div className='' />
 
@@ -728,19 +748,17 @@ export default function Hero() {
 
 Now, the Hero content is centered vertically along the y-axis.
 
-40. Next, I added margin to the bottom of the div element by applying "mb-12" as to give room for the section below:
+41. Next, I added margin to the bottom of the div element by applying "mb-12" as to give room for the section below:
 
 ```jsx:/nextjs-tailwindcss/components/Hero.jsx {5} showLineNumbers
 export default function Hero() {
   return (
     <>
       {/* Hero Container */}
-      <div className='flex justify-center h-full items-center mb-12'>
+      <div className='relative flex justify-center h-full items-center mb-12'>
 
         {/*Hero Background Image */}
-        <div className=''>
 
-        </div>
         {/*Hero Background Overlay */}
         <div className='' />
 
@@ -756,23 +774,21 @@ export default function Hero() {
 };
 ```
 
-Now the Hero component has a bottom margin of 48 pixels or 3 rem (root element's font size).
+Now the Hero component has a bottom margin of 48 pixels or 3 rem or 3 times larger than the root element's font size of 16 pixels.
 
-41. Next, I moved my attention to the inner div element for the Background Image, imported the Image component provided by Next.js and added a self-closing Image element in the div:
+42. Next, I moved my attention to the inner div element for the Background Image, imported the Image component provided by Next.js and added a self-closing Image element underneath the comment that says Hero Background Image:
 
-```jsx:/nextjs-tailwindcss/components/Hero.jsx {1, 11} showLineNumbers
+```jsx:/nextjs-tailwindcss/components/Hero.jsx {1, 10} showLineNumbers
 import Image from 'next/image';
 
 export default function Hero() {
   return (
     <>
       {/* Hero Container */}
-      <div className='flex justify-center h-screen items-center mb-12'>
+      <div className='relative flex justify-center h-screen items-center mb-12'>
 
         {/* Hero Background Image */}
-        <div className=''>
-          <Image />
-        </div>
+        <Image />
 
         {/* Hero Background Overlay */}
         <div className='' />
@@ -789,15 +805,15 @@ export default function Hero() {
 };
 ```
 
-42. Next, I needed an image for the background so I found an image, copied it, and pasted it into a new "images" directory in the "public" directory at the root of the app:
+43. Next, I needed an image for the background so I found an image, copied it, and pasted it into a new "images" directory in the "public" directory at the root of the app:
 
 ```plaintext:/nextjs-tailwindcss/public/
 images/convictlake.jpg
 ```
 
-43. Next, I imported the image into the Hero.jsx file and assigned it to a "src" property of the Image element:
+44. Next, I imported the image into the Hero.jsx file and assigned it to a "src" property of the Image element:
 
-```jsx:/nextjs-tailwindcss/components/Hero.jsx {2, 12} showLineNumbers
+```jsx:/nextjs-tailwindcss/components/Hero.jsx {2, 11} showLineNumbers
 import Image from 'next/image';
 import heroBackgroundImage from '../public/images/convictlake.jpg';
 
@@ -805,12 +821,10 @@ export default function Hero() {
   return (
     <>
       {/* Hero Container */}
-      <div className='flex justify-center h-screen items-center mb-12'>
+      <div className='relative flex justify-center h-screen items-center mb-12'>
 
         {/* Hero Background Image */}
-        <div className=''>
-          <Image src={heroBackgroundImage} />
-        </div>
+        <Image src={heroBackgroundImage} />
 
         {/* Hero Background Overlay */}
         <div className='' />
@@ -829,9 +843,9 @@ export default function Hero() {
 
 At this point, the Hero Background Image is positioned to the left of the Hero Content because they are flex items.
 
-44. To position the Background Image on top of the Hero Component, I added a "fill" property and assigned it to "true" to the Image element:
+45. To position the Background Image to entirely fill its parent Hero Container div element, I added a "fill" property and assigned it to "true" to the Image element:
 
-```jsx:/nextjs-tailwindcss/components/Hero.jsx {12} showLineNumbers
+```jsx:/nextjs-tailwindcss/components/Hero.jsx {13} showLineNumbers
 import Image from 'next/image';
 import heroBackgroundImage from '../public/images/convictlake.jpg';
 
@@ -839,12 +853,13 @@ export default function Hero() {
   return (
     <>
       {/* Hero Container */}
-      <div className='flex justify-center h-screen items-center mb-12'>
+      <div className='relative flex justify-center h-screen items-center mb-12'>
 
         {/* Hero Background Image */}
-        <div className=''>
-          <Image src={heroBackgroundImage} fill='true'/>
-        </div>
+        <Image
+          src={heroBackgroundImage}
+          fill='true'
+        />
 
         {/* Hero Background Overlay */}
         <div className='' />
@@ -863,9 +878,9 @@ export default function Hero() {
 
 At this point, the Hero Background Image is filling the entire parent Hero Container div element and is displayed on top of the Hero Content which is no longer visible because it is behind the Hero Background Image now.
 
-45. Next, I needed the background image to scale as the screen size changes, so I added a className property with an "object-cover":
+46. Next, I needed the background image to scale as the screen size changes, so I added a className property with an "object-cover":
 
-```jsx:/nextjs-tailwindcss/components/Hero.jsx {12} showLineNumbers
+```jsx:/nextjs-tailwindcss/components/Hero.jsx {14} showLineNumbers
 import Image from 'next/image';
 import heroBackgroundImage from '../public/images/convictlake.jpg';
 
@@ -873,12 +888,14 @@ export default function Hero() {
   return (
     <>
       {/* Hero Container */}
-      <div className='flex justify-center h-screen items-center mb-12'>
+      <div className='relative flex justify-center h-screen items-center mb-12'>
 
         {/* Hero Background Image */}
-        <div className=''>
-          <Image src={heroBackgroundImage} fill='true' className='object-cover' />
-        </div>
+        <Image
+          src={heroBackgroundImage}
+          fill='true'
+          className='object-cover'
+        />
 
         {/* Hero Background Overlay */}
         <div className='' />
@@ -897,9 +914,9 @@ export default function Hero() {
 
 Now, when you adjust the screen size from small to big, the Hero Background Image preserves its aspect ratio.
 
-46. When I decreased the width of the screen, I wanted to display the left side of the image and not the right so I added a "object-left":
+47. When I decreased the width of the screen, I wanted to display the left side of the image and not the right so I added a "object-left":
 
-```jsx:/nextjs-tailwindcss/components/Hero.jsx {12} showLineNumbers
+```jsx:/nextjs-tailwindcss/components/Hero.jsx {14} showLineNumbers
 import Image from 'next/image';
 import heroBackgroundImage from '../public/images/convictlake.jpg';
 
@@ -907,12 +924,14 @@ export default function Hero() {
   return (
     <>
       {/* Hero Container */}
-      <div className='flex justify-center h-screen items-center mb-12'>
+      <div className='relative flex justify-center h-screen items-center mb-12'>
 
         {/* Hero Background Image */}
-        <div className=''>
-          <Image src={heroBackgroundImage} fill='true' className='object-cover object-left' />
-        </div>
+        <Image
+          src={heroBackgroundImage}
+          fill='true'
+          className='object-cover object-left'
+        />
 
         {/* Hero Background Overlay */}
         <div className='' />
@@ -929,5 +948,378 @@ export default function Hero() {
 };
 ```
 
-47. Next, I shifted my attention to the Hero Background Overlay, and 
+48. Next, I added an "alt" property and assigned it a string describing the image.
+
+```jsx:/nextjs-tailwindcss/components/Hero.jsx {15} showLineNumbers
+import Image from 'next/image';
+import heroBackgroundImage from '../public/images/convictlake.jpg';
+
+export default function Hero() {
+  return (
+    <>
+      {/* Hero Container */}
+      <div className='relative flex justify-center h-screen items-center mb-12'>
+
+        {/* Hero Background Image */}
+        <Image
+          src={heroBackgroundImage}
+          fill='true'
+          className='object-cover object-left'
+          alt='Eugene fishing'
+        />
+
+        {/* Hero Background Overlay */}
+        <div className='' />
+
+        {/* Hero Content */}
+        <div className=''>
+          <h2 className=''>Heading</h2>
+          <p className=''>Message</p>
+          <button className=''>Button</button>
+        </div>
+      </div>
+    </>
+  );
+};
+```
+
+49. Next, I shifted my attention to the Hero Background Overlay and needed to position this child Hero Background Overlay div element to fill its parent Hero Container div element so I added an "absolute" to take it out of the normal document flow, added a "top-0" to position it 0 pixels from the top, a "left-0" to position it 0 pixels from the left, a "right-0" to position it 0 pixels from the right, and a "bottom-0" to position it 0 pixels from the bottom of its parent Hero Container div element, and lastly, added a "bg-black/50" for a black background that has 50% opacity or transparency.
+
+```jsx:/nextjs-tailwindcss/components/Hero.jsx {19} showLineNumbers
+import Image from 'next/image';
+import heroBackgroundImage from '../public/images/convictlake.jpg';
+
+export default function Hero() {
+  return (
+    <>
+      {/* Hero Container */}
+      <div className='relative flex justify-center h-screen items-center mb-12'>
+
+        {/* Hero Background Image */}
+        <Image
+          src={heroBackgroundImage}
+          fill='true'
+          className='object-cover object-left'
+          alt='Eugene fishing'
+        />
+
+        {/* Hero Background Overlay */}
+        <div className='absolute top-0 left-0 right-0 bottom-0 bg-black/50' />
+
+        {/* Hero Content */}
+        <div className=''>
+          <h2 className=''>Heading</h2>
+          <p className=''>Message</p>
+          <button className=''>Button</button>
+        </div>
+      </div>
+    </>
+  );
+};
+```
+
+Now a black background that's 50% transparent completely overlays the background image.
+
+50. Next, I shifted my attention to the child Hero Content div element and since it wasn't behaving as I'd expected in terms of its stacking order, I added a "z-0" to explicitly give it a stacking order of 0 to have it stacked on top of the Hero Background Image and the Hero Background Overlay:
+
+```jsx:/nextjs-tailwindcss/components/Hero.jsx {22} showLineNumbers
+import Image from 'next/image';
+import heroBackgroundImage from '../public/images/convictlake.jpg';
+
+export default function Hero() {
+  return (
+    <>
+      {/* Hero Container */}
+      <div className='relative flex justify-center h-screen items-center mb-12'>
+
+        {/* Hero Background Image */}
+        <Image
+          src={heroBackgroundImage}
+          fill='true'
+          className='object-cover object-left'
+          alt='Eugene fishing'
+        />
+
+        {/* Hero Background Overlay */}
+        <div className='absolute top-0 left-0 right-0 bottom-0 bg-black/50' />
+
+        {/* Hero Content */}
+        <div className='z-0'>
+          <h2 className=''>Heading</h2>
+          <p className=''>Message</p>
+          <button className=''>Button</button>
+        </div>
+      </div>
+    </>
+  );
+};
+```
+
+51. Next, I added a "text-white" to change the color of the text to white:
+
+```jsx:/nextjs-tailwindcss/components/Hero.jsx {22} showLineNumbers
+import Image from 'next/image';
+import heroBackgroundImage from '../public/images/convictlake.jpg';
+
+export default function Hero() {
+  return (
+    <>
+      {/* Hero Container */}
+      <div className='relative flex justify-center h-screen items-center mb-12'>
+
+        {/* Hero Background Image */}
+        <Image
+          src={heroBackgroundImage}
+          fill='true'
+          className='object-cover object-left'
+          alt='Eugene fishing'
+        />
+
+        {/* Hero Background Overlay */}
+        <div className='absolute top-0 left-0 right-0 bottom-0 bg-black/50' />
+
+        {/* Hero Content */}
+        <div className='z-0 text-white'>
+          <h2 className=''>Heading</h2>
+          <p className=''>Message</p>
+          <button className=''>Button</button>
+        </div>
+      </div>
+    </>
+  );
+};
+```
+
+52. Next, I added a "p-5" to give the Hero Content a padding of 20 pixels or 1.25 rem or 1.25 times larger than the root element's font size of 16 pixels.
+
+```jsx:/nextjs-tailwindcss/components/Hero.jsx {22} showLineNumbers
+import Image from 'next/image';
+import heroBackgroundImage from '../public/images/convictlake.jpg';
+
+export default function Hero() {
+  return (
+    <>
+      {/* Hero Container */}
+      <div className='relative flex justify-center h-screen items-center mb-12'>
+
+        {/* Hero Background Image */}
+        <Image
+          src={heroBackgroundImage}
+          fill='true'
+          className='object-cover object-left'
+          alt='Eugene fishing'
+        />
+
+        {/* Hero Background Overlay */}
+        <div className='absolute top-0 left-0 right-0 bottom-0 bg-black/50' />
+
+        {/* Hero Content */}
+        <div className='z-0 text-white p-5'>
+          <h2 className=''>Heading</h2>
+          <p className=''>Message</p>
+          <button className=''>Button</button>
+        </div>
+      </div>
+    </>
+  );
+};
+```
+
+53. Next, I added a "text-center" to center align the text for each descendant in the Hero Content div element:
+
+```jsx:/nextjs-tailwindcss/components/Hero.jsx {22} showLineNumbers
+import Image from 'next/image';
+import heroBackgroundImage from '../public/images/convictlake.jpg';
+
+export default function Hero() {
+  return (
+    <>
+      {/* Hero Container */}
+      <div className='relative flex justify-center h-screen items-center mb-12'>
+
+        {/* Hero Background Image */}
+        <Image
+          src={heroBackgroundImage}
+          fill='true'
+          className='object-cover object-left'
+          alt='Eugene fishing'
+        />
+
+        {/* Hero Background Overlay */}
+        <div className='absolute top-0 left-0 right-0 bottom-0 bg-black/50' />
+
+        {/* Hero Content */}
+        <div className='z-0 text-white p-5 text-center'>
+          <h2 className='text-6xl uppercase'>Heading</h2>
+          <p className=''>Message</p>
+          <button className=''>Button</button>
+        </div>
+      </div>
+    </>
+  );
+};
+```
+
+54. Next, I shifted my attention to the first descendant of the Hero Content div element and added a "text-6xl" and an "uppercase" to increase the font size and transform the text to uppercase:
+
+```jsx:/nextjs-tailwindcss/components/Hero.jsx {23} showLineNumbers
+import Image from 'next/image';
+import heroBackgroundImage from '../public/images/convictlake.jpg';
+
+export default function Hero() {
+  return (
+    <>
+      {/* Hero Container */}
+      <div className='relative flex justify-center h-screen items-center mb-12'>
+
+        {/* Hero Background Image */}
+        <Image
+          src={heroBackgroundImage}
+          fill='true'
+          className='object-cover object-left'
+          alt='Eugene fishing'
+        />
+
+        {/* Hero Background Overlay */}
+        <div className='absolute top-0 left-0 right-0 bottom-0 bg-black/50' />
+
+        {/* Hero Content */}
+        <div className='z-0 text-white p-5 text-center'>
+          <h2 className='text-6xl uppercase'>Heading</h2>
+          <p className=''>Message</p>
+          <button className=''>Button</button>
+        </div>
+      </div>
+    </>
+  );
+};
+```
+
+55. Next, I shifted my attention to the second descendant of the Hero Content div element and added a "text-2xl" to increase the font size:
+
+```jsx:/nextjs-tailwindcss/components/Hero.jsx {24} showLineNumbers
+import Image from 'next/image';
+import heroBackgroundImage from '../public/images/convictlake.jpg';
+
+export default function Hero() {
+  return (
+    <>
+      {/* Hero Container */}
+      <div className='relative flex justify-center h-screen items-center mb-12'>
+
+        {/* Hero Background Image */}
+        <Image
+          src={heroBackgroundImage}
+          fill='true'
+          className='object-cover object-left'
+          alt='Eugene fishing'
+        />
+
+        {/* Hero Background Overlay */}
+        <div className='absolute top-0 left-0 right-0 bottom-0 bg-black/50' />
+
+        {/* Hero Content */}
+        <div className='z-0 text-white p-5 text-center'>
+          <h2 className='text-6xl uppercase'>Heading</h2>
+          <p className='text-2xl'>Message</p>
+          <button className=''>Button</button>
+        </div>
+      </div>
+    </>
+  );
+};
+```
+
+56. Next, I shifted my attention to the third descendant of the Hero Content div element and added a "px-6" to give padding on the left and right side, a "py-1" to give padding to the top and bottom, a "border" to give it a border, and a "mt-2" to give it a margin on top.
+
+```jsx:/nextjs-tailwindcss/components/Hero.jsx {25} showLineNumbers
+import Image from 'next/image';
+import heroBackgroundImage from '../public/images/convictlake.jpg';
+
+export default function Hero() {
+  return (
+    <>
+      {/* Hero Container */}
+      <div className='relative flex justify-center h-screen items-center mb-12'>
+
+        {/* Hero Background Image */}
+        <Image
+          src={heroBackgroundImage}
+          fill='true'
+          className='object-cover object-left'
+          alt='Eugene fishing'
+        />
+
+        {/* Hero Background Overlay */}
+        <div className='absolute top-0 left-0 right-0 bottom-0 bg-black/50' />
+
+        {/* Hero Content */}
+        <div className='z-0 text-white p-5 text-center'>
+          <h2 className='text-6xl uppercase'>Heading</h2>
+          <p className='text-2xl'>Message</p>
+          <button className='px-6 py-1 border mt-2'>Button</button>
+        </div>
+      </div>
+    </>
+  );
+};
+```
+
+57. Next, I wanted to dynamically render the text for the first and second descendants of the Hero Content div element so I replaced the text, "Heading" and "Message", with curly braces, for embedding JavaScript expressions in JSX, and added a prop variable for each element so values could be passed to this component from index.js where the Hero component is being instantiated from. Additionally, I added curly braces with both of the prop variables in the paranthesis of the function declaration or function signature to destructure the prop object that's being passed to this component:
+
+```jsx:/nextjs-tailwindcss/components/Hero.jsx {23-24} showLineNumbers
+import Image from 'next/image';
+import heroBackgroundImage from '../public/images/convictlake.jpg';
+
+export default function Hero({ heading, message }) {
+  return (
+    <>
+      {/* Hero Container */}
+      <div className='relative flex justify-center h-screen items-center mb-12'>
+
+        {/* Hero Background Image */}
+        <Image
+          src={heroBackgroundImage}
+          fill='true'
+          className='object-cover object-left'
+          alt='Eugene fishing'
+        />
+
+        {/* Hero Background Overlay */}
+        <div className='absolute top-0 left-0 right-0 bottom-0 bg-black/50' />
+
+        {/* Hero Content */}
+        <div className='z-0 text-white p-5 text-center'>
+          <h2 className='text-6xl uppercase'>{ heading }</h2>
+          <p className='text-2xl'>{ message }</p>
+          <button className='px-6 py-1 border mt-2'>Button</button>
+        </div>
+      </div>
+    </>
+  );
+};
+```
+
+58. Then, I went to the index.js file, added a "heading" prop, assigned it a string value, added a "message" prop, and assigned it a value:
+
+```jsx:/nextjs-tailwindcss/pages/index.js {13} showLineNumbers
+import Head from 'next/head'
+import Hero from '../components/Hero';
+
+export default function Home() {
+  return (
+    <>
+      <Head>
+        <title>Create Next App</title>
+        <meta name="description" content="Generated by create next app" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <Hero heading='Eugene Kim' message='Software Engineer' />
+    </>
+  )
+}
+```
+
+Now, the page is being rendered with text being passed into the Hero component from the entry point of the app, the index.js file.
 

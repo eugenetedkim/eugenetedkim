@@ -41,8 +41,6 @@ export async function getStaticProps({ params }) {
 }
 
 const customHeadingThree = function({ id, ...props }) {
-  console.log(id);
-
   if (id) {
     return (
       <>
