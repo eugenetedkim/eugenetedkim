@@ -1323,3 +1323,472 @@ export default function Home() {
 
 Now, the page is being rendered with text being passed into the Hero component from the entry point of the app, the index.js file.
 
+### Building the Navigation Bar Component
+
+59. To set up a navigation bar, I created a new Navbar.jsx file in the components directory and setup the basic boilerplate:
+
+```jsx:/nextjs-tailwindcss/components/Navbar.jsx showLineNumbers
+export default function Navbar() {
+  const backgroundColor = '';
+  const textColor = '';
+  const isMobileMenuDislayed = false;
+
+  return (
+    <>
+      {/* Navigation Bar Outer Container */}
+      <div className={`${backgroundColor}`}>
+
+        {/* Navigation Bar Inner Container */}
+        <div className=''>
+
+          {/* Navigation Bar Logo */}
+          <h1 className={`${textColor}`}>E</h1>
+          {/* Navigation Bar Links */}
+          <ul className={`${textColor}`}>
+            <li className=''>About</li>
+            <li className=''>Work</li>
+            <li className=''>Blog</li>
+            <li className=''>Contact</li>
+          </ul>
+
+          {/* Mobile Menu Button */}
+          <div className=''>
+          {
+            isMobileMenuDislayed ? <button className={`${textColor}`}>close</button>
+            : <button className={`${textColor}`}>open</button>
+          }
+          </div>
+
+          {/* Mobile Menu */}
+          <div className={ isMobileMenuDislayed ? '' : '' }>
+            <ul className=''>
+              <li className=''>About</li>
+              <li className=''>Work</li>
+              <li className=''>Blog</li>
+              <li className=''>Contact</li>
+            </ul>
+          </div>
+
+        </div>
+        
+      </div>
+    </>
+  );
+}
+```
+
+Let me explain what is presented here:
+
+First, starting from the top of the function, we have the function body where we'll be implementing out the logic for rendering the JSX content within the return statement below it:
+
+```jsx:/nextjs-tailwindcss/components/Navbar.jsx {2-4} showLineNumbers
+export default function Navbar() {
+  const backgroundColor = '';
+  const textColor = '';
+  const isMobileMenuDislayed = false;
+
+  return (
+    <>
+      {/* Navigation Bar Outer Container */}
+      <div className={`${backgroundColor}`}>
+
+        {/* Navigation Bar Inner Container */}
+        <div className=''>
+
+          {/* Navigation Bar Logo */}
+          <h1 className={`${textColor}`}>E</h1>
+          {/* Navigation Bar Links */}
+          <ul className={`${textColor}`}>
+            <li className=''>About</li>
+            <li className=''>Work</li>
+            <li className=''>Blog</li>
+            <li className=''>Contact</li>
+          </ul>
+
+          {/* Mobile Menu Button */}
+          <div className=''>
+          {
+            isMobileMenuDislayed ? <button className={`${textColor}`}>close</button>
+            : <button className={`${textColor}`}>open</button>
+          }
+          </div>
+
+          {/* Mobile Menu */}
+          <div className={ isMobileMenuDislayed ? '' : '' }>
+            <ul className=''>
+              <li className=''>About</li>
+              <li className=''>Work</li>
+              <li className=''>Blog</li>
+              <li className=''>Contact</li>
+            </ul>
+          </div>
+
+        </div>
+        
+      </div>
+    </>
+  );
+}
+```
+
+Three variables have been initialized which will be needed to perform the logic for rendering the JSX content.
+
+Underneath the function body, we have the JSX content within the return statement:
+
+```jsx:/nextjs-tailwindcss/components/Navbar.jsx {6-47} showLineNumbers
+export default function Navbar() {
+  const backgroundColor = '';
+  const textColor = '';
+  const isMobileMenuDislayed = false;
+
+  return (
+    <>
+      {/* Navigation Bar Outer Container */}
+      <div className={`${backgroundColor}`}>
+
+        {/* Navigation Bar Inner Container */}
+        <div className=''>
+
+          {/* Navigation Bar Logo */}
+          <h1 className={`${textColor}`}>E</h1>
+          {/* Navigation Bar Links */}
+          <ul className={`${textColor}`}>
+            <li className=''>About</li>
+            <li className=''>Work</li>
+            <li className=''>Blog</li>
+            <li className=''>Contact</li>
+          </ul>
+
+          {/* Mobile Menu Button */}
+          <div className=''>
+          {
+            isMobileMenuDislayed ? <button className={`${textColor}`}>close</button>
+            : <button className={`${textColor}`}>open</button>
+          }
+          </div>
+
+          {/* Mobile Menu */}
+          <div className={ isMobileMenuDislayed ? '' : '' }>
+            <ul className=''>
+              <li className=''>About</li>
+              <li className=''>Work</li>
+              <li className=''>Blog</li>
+              <li className=''>Contact</li>
+            </ul>
+          </div>
+
+        </div>
+        
+      </div>
+    </>
+  );
+}
+```
+
+Within the JSX content, I have the Navigation Bar Outer Container div ready to receive Tailwind CSS classes and a template literal with the "backgroundColor" variable for rendering the background color dynamically from the logic in the function body:
+
+
+60. Next, in the Navigation Bar Outer Container opening div tag, I added a className with a "bg-white" to give it a background color of white:
+
+```jsx:/nextjs-tailwindcss/components/Navbar.jsx {5} showLineNumbers
+export default function Navbar() {
+  return (
+    <>
+      {/* Navigation Bar Outer Container */}
+      <div className='bg-white'>
+        {/* Navigation Bar Inner Container */}
+        <div className=''>
+          {/* Navigation Bar Logo */}
+          <h1 className=''>E</h1>
+          {/* Navigation Bar Links */}
+          <ul className=''>
+            <li className=''>About</li>
+            <li className=''>Work</li>
+            <li className=''>Blog</li>
+            <li className=''>Contact</li>
+          </ul>
+          {/* Mobile Menu Button */}
+          <div className=''></div>
+          {/* Mobile Menu */}
+          <div className=''>
+            <ul className=''>
+              <li className=''>About</li>
+              <li className=''>Work</li>
+              <li className=''>Blog</li>
+              <li className=''>Contact</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+```
+
+61. Next, I added a "fixed" to the Navigation Bar Outer Container div className to take the element out of the normal document flow and positioned it fixed to the viewport so when scrolled the Navigation Bar component will be fixed to the top of the screen instead of scrolling it out view:
+
+```jsx:/nextjs-tailwindcss/components/Navbar.jsx {5} showLineNumbers
+export default function Navbar() {
+  return (
+    <>
+      {/* Navigation Bar Outer Container */}
+      <div className='bg-white fixed'>
+        {/* Navigation Bar Inner Container */}
+        <div className=''>
+          {/* Navigation Bar Logo */}
+          <h1 className=''>E</h1>
+          {/* Navigation Bar Links */}
+          <ul className=''>
+            <li className=''>About</li>
+            <li className=''>Work</li>
+            <li className=''>Blog</li>
+            <li className=''>Contact</li>
+          </ul>
+          {/* Mobile Menu Button */}
+          <div className=''></div>
+          {/* Mobile Menu */}
+          <div className=''>
+            <ul className=''>
+              <li className=''>About</li>
+              <li className=''>Work</li>
+              <li className=''>Blog</li>
+              <li className=''>Contact</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+```
+
+Since the Navigation Bar Outer Container div has a fixed position relative to the viewport, it is now behind the Hero component and not visible.
+
+62. To make the Navigation Bar Outer Container div visible, I added a "z-10" to give it a higher stacking order than the Hero component:
+
+```jsx:/nextjs-tailwindcss/components/Navbar.jsx {5} showLineNumbers
+export default function Navbar() {
+  return (
+    <>
+      {/* Navigation Bar Outer Container */}
+      <div className='bg-white fixed z-10'>
+        {/* Navigation Bar Inner Container */}
+        <div className=''>
+          {/* Navigation Bar Logo */}
+          <h1 className=''>E</h1>
+          {/* Navigation Bar Links */}
+          <ul className=''>
+            <li className=''>About</li>
+            <li className=''>Work</li>
+            <li className=''>Blog</li>
+            <li className=''>Contact</li>
+          </ul>
+          {/* Mobile Menu Button */}
+          <div className=''></div>
+          {/* Mobile Menu */}
+          <div className=''>
+            <ul className=''>
+              <li className=''>About</li>
+              <li className=''>Work</li>
+              <li className=''>Blog</li>
+              <li className=''>Contact</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+```
+
+Now the Navigation Bar Outer Container div is visible.
+
+63. Next, I added a "left-0", a top-0", and a "w-full" to position the Navigation Bar Outer Container div 0 pixels from the left, 0 pixels from the top, and a width 100% of the viewport:
+
+```jsx:/nextjs-tailwindcss/components/Navbar.jsx {5} showLineNumbers
+export default function Navbar() {
+  return (
+    <>
+      {/* Navigation Bar Outer Container */}
+      <div className='bg-white fixed z-10 left-0 top-0 w-full'>
+        {/* Navigation Bar Inner Container */}
+        <div className=''>
+          {/* Navigation Bar Logo */}
+          <h1 className=''>E</h1>
+          {/* Navigation Bar Links */}
+          <ul className=''>
+            <li className=''>About</li>
+            <li className=''>Work</li>
+            <li className=''>Blog</li>
+            <li className=''>Contact</li>
+          </ul>
+          {/* Mobile Menu Button */}
+          <div className=''></div>
+          {/* Mobile Menu */}
+          <div className=''>
+            <ul className=''>
+              <li className=''>About</li>
+              <li className=''>Work</li>
+              <li className=''>Blog</li>
+              <li className=''>Contact</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+```
+
+Now the Navigation Bar component spans the entire width of the viewport.
+
+64. Next, I added a "ease-in" and a "duration-300" to give a transition effect that starts slow and accelerates over a duration of 300 milliseconds (0.3 seconds) when the Navbar component is re-rendered:
+
+```jsx:/nextjs-tailwindcss/components/Navbar.jsx {5} showLineNumbers
+export default function Navbar() {
+  return (
+    <>
+      {/* Navigation Bar Outer Container */}
+      <div className='bg-white fixed z-10 left-0 top-0 w-full ease-in duration-300'>
+        {/* Navigation Bar Inner Container */}
+        <div className=''>
+          {/* Navigation Bar Logo */}
+          <h1 className=''>E</h1>
+          {/* Navigation Bar Links */}
+          <ul className=''>
+            <li className=''>About</li>
+            <li className=''>Work</li>
+            <li className=''>Blog</li>
+            <li className=''>Contact</li>
+          </ul>
+          {/* Mobile Menu Button */}
+          <div className=''></div>
+          {/* Mobile Menu */}
+          <div className=''>
+            <ul className=''>
+              <li className=''>About</li>
+              <li className=''>Work</li>
+              <li className=''>Blog</li>
+              <li className=''>Contact</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+```
+
+The Navigation Bar component will be re-rendered with a transparent background when the user scrolls down and re-rendered with a white background when the user scrolls up on the browser window which I'll get to later when implementing in the functionality of the component.
+
+65. Next, instead of hardcoding in the background color, "bg-white", I used a template string instead and temporarily stored, "bg-white", in a variable at the top of the function as a placeholder for logic to come later when handling user scroll events to change the backgrond color of the Navigation Bar component:
+
+```jsx:/nextjs-tailwindcss/components/Navbar.jsx {2, 6} showLineNumbers
+export default function Navbar() {
+  const backgroundColor = 'bg-white';
+  return (
+    <>
+      {/* Navigation Bar Outer Container */}
+      <div className={`fixed z-10 left-0 top-0 w-full ease-in duration-300 ${backgroundColor}`}>
+        {/* Navigation Bar Inner Container */}
+        <div className=''>
+          {/* Navigation Bar Logo */}
+          <h1 className=''>E</h1>
+          {/* Navigation Bar Links */}
+          <ul className=''>
+            <li className=''>About</li>
+            <li className=''>Work</li>
+            <li className=''>Blog</li>
+            <li className=''>Contact</li>
+          </ul>
+          {/* Mobile Menu Button */}
+          <div className=''></div>
+          {/* Mobile Menu */}
+          <div className=''>
+            <ul className=''>
+              <li className=''>About</li>
+              <li className=''>Work</li>
+              <li className=''>Blog</li>
+              <li className=''>Contact</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+```
+
+66. Next, I added a "max-w-7xl" to the Navigation Bar Inner Container div className to give a max width of 1280 pixels:
+
+```jsx:/nextjs-tailwindcss/components/Navbar.jsx {7} showLineNumbers
+export default function Navbar() {
+  return (
+    <>
+      {/* Navigation Bar Outer Container */}
+      <div className='fixed z-10 left-0 top-0 w-full ease-in duration-300'>
+        {/* Navigation Bar Inner Container */}
+        <div className='max-w-7xl'>
+          {/* Navigation Bar Logo */}
+          <h1 className=''>E</h1>
+          {/* Navigation Bar Links */}
+          <ul className=''>
+            <li className=''>About</li>
+            <li className=''>Work</li>
+            <li className=''>Blog</li>
+            <li className=''>Contact</li>
+          </ul>
+          {/* Mobile Menu Button */}
+          <div className=''></div>
+          {/* Mobile Menu */}
+          <div className=''>
+            <ul className=''>
+              <li className=''>About</li>
+              <li className=''>Work</li>
+              <li className=''>Blog</li>
+              <li className=''>Contact</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+```
+
+67. Next, I added a "flex" to the Navigation Bar Inner Container div className to make it a flex container so I can start positioning the descendants:
+
+```jsx:/nextjs-tailwindcss/components/Navbar.jsx {7} showLineNumbers
+export default function Navbar() {
+  return (
+    <>
+      {/* Navigation Bar Outer Container */}
+      <div className={`fixed z-10 left-0 top-0 w-full ease-in duration-300`}>
+        {/* Navigation Bar Inner Container */}
+        <div className='max-w-7xl m-auto'>
+          {/* Navigation Bar Logo */}
+          <h1 className=''>E</h1>
+          {/* Navigation Bar Links */}
+          <ul className=''>
+            <li className=''>About</li>
+            <li className=''>Work</li>
+            <li className=''>Blog</li>
+            <li className=''>Contact</li>
+          </ul>
+          {/* Mobile Menu Button */}
+          <div className=''></div>
+          {/* Mobile Menu */}
+          <div className=''>
+            <ul className=''>
+              <li className=''>About</li>
+              <li className=''>Work</li>
+              <li className=''>Blog</li>
+              <li className=''>Contact</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+```
