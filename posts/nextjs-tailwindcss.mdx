@@ -1,6 +1,6 @@
 ---
 title: Building a Responsive Next.js Website Using Tailwind CSS
-date: '2024-01-16'
+date: '2024-01-27'
 ---
 
 On this blog post, I'll be documenting the steps taken to build a static responsive Next.js website using Tailwind CSS.
@@ -1325,25 +1325,33 @@ Now, the page is being rendered with text being passed into the Hero component f
 
 ### Building the Navigation Bar Component
 
-59. To set up a navigation bar, I created a new Navbar.jsx file in the components directory and setup the basic boilerplate:
+59. To kick start the creation of the navigation bar, I created a new Navbar.jsx file in the components directory and created the foundation of the navigation bar component.<br /><br />Essentially, I've declared the variables that'll be needed, some comments where the logic for handling color changes and for opening and closing the mobile menu will be, and the UI portion of the component that'll be rendered.<br /><br />The UI portion basically consists of one outer div that'll serve as the outer most container and an inner div for an inner container that'll hold the logo, the links, the mobile menu buttons, and the mobile menu.
 
 ```jsx:/nextjs-tailwindcss/components/Navbar.jsx showLineNumbers
 export default function Navbar() {
+  // The variables for storing the colors of the navigation bar
   const backgroundColor = '';
   const textColor = '';
+
+  // The variable for storing the boolean used for presenting the mobile menu
   const isMobileMenuDislayed = false;
+
+  // The function that will respond to clicks of the mobile menu buttons and presenting the mobile menu
+
+  // The function that will respond to scrolling on the browser window and presenting the colors of the navigation bar
 
   return (
     <>
-      {/* Navigation Bar Outer Container */}
+      {/* The Navigation Bar Outer Container */}
       <div className={`${backgroundColor}`}>
 
-        {/* Navigation Bar Inner Container */}
+        {/*The Navigation Bar Inner Container */}
         <div className=''>
 
-          {/* Navigation Bar Logo */}
+          {/*The Navigation Bar Logo */}
           <h1 className={`${textColor}`}>E</h1>
-          {/* Navigation Bar Links */}
+
+          {/*The Navigation Bar Links */}
           <ul className={`${textColor}`}>
             <li className=''>About</li>
             <li className=''>Work</li>
@@ -1351,15 +1359,15 @@ export default function Navbar() {
             <li className=''>Contact</li>
           </ul>
 
-          {/* Mobile Menu Button */}
-          <div className=''>
+          {/*The Mobile Menu Buttons */}
+          <div onClick='' className=''>
           {
             isMobileMenuDislayed ? <button className={`${textColor}`}>close</button>
             : <button className={`${textColor}`}>open</button>
           }
           </div>
 
-          {/* Mobile Menu */}
+          {/*The Mobile Menu */}
           <div className={ isMobileMenuDislayed ? '' : '' }>
             <ul className=''>
               <li className=''>About</li>
@@ -1370,34 +1378,40 @@ export default function Navbar() {
           </div>
 
         </div>
-        
+
       </div>
     </>
   );
 }
 ```
 
-Let me explain what is presented here:
+60. Next, to prevent the navigation bar from being scrolled off the viewable part of the screen (the viewport), in the most outer container div, I add some classes and fixed it to the top-left, made the width go across the full width of the viewport, gave it a greater stacking order than the background image so it'll be on top of it, and some animation effects for a smooth and delayed transition when the colors are changed in the navigation bar.
 
-First, starting from the top of the function, we have the function body where we'll be implementing out the logic for rendering the JSX content within the return statement below it:
-
-```jsx:/nextjs-tailwindcss/components/Navbar.jsx {2-4} showLineNumbers
+```jsx:/nextjs-tailwindcss/components/Navbar.jsx {16} showLineNumbers
 export default function Navbar() {
+  // The variables for storing the colors of the navigation bar
   const backgroundColor = '';
   const textColor = '';
+
+  // The variable for storing the boolean used for presenting the mobile menu
   const isMobileMenuDislayed = false;
+
+  // The function that will respond to clicks of the mobile menu buttons and presenting the mobile menu
+
+  // The function that will respond to scrolling on the browser window and presenting the colors of the navigation bar
 
   return (
     <>
-      {/* Navigation Bar Outer Container */}
-      <div className={`${backgroundColor}`}>
+      {/* The Navigation Bar Outer Container */}
+      <div className={`${backgroundColor} fixed left-0 top-0 w-full z-10 ease-in duration-300`}>
 
-        {/* Navigation Bar Inner Container */}
+        {/*The Navigation Bar Inner Container */}
         <div className=''>
 
-          {/* Navigation Bar Logo */}
+          {/*The Navigation Bar Logo */}
+
           <h1 className={`${textColor}`}>E</h1>
-          {/* Navigation Bar Links */}
+          {/*The Navigation Bar Links */}
           <ul className={`${textColor}`}>
             <li className=''>About</li>
             <li className=''>Work</li>
@@ -1405,15 +1419,15 @@ export default function Navbar() {
             <li className=''>Contact</li>
           </ul>
 
-          {/* Mobile Menu Button */}
-          <div className=''>
+          {/*The Mobile Menu Buttons */}
+          <div onClick='' className=''>
           {
             isMobileMenuDislayed ? <button className={`${textColor}`}>close</button>
             : <button className={`${textColor}`}>open</button>
           }
           </div>
 
-          {/* Mobile Menu */}
+          {/*The Mobile Menu */}
           <div className={ isMobileMenuDislayed ? '' : '' }>
             <ul className=''>
               <li className=''>About</li>
@@ -1424,34 +1438,40 @@ export default function Navbar() {
           </div>
 
         </div>
-        
+
       </div>
     </>
   );
 }
 ```
 
-Three variables have been initialized which will be needed to perform the logic for rendering the JSX content.
+61. Next, I made the inner container div horizontally smaller than the outer most container div by giving it a fixed width and even margins to the left and right.<br/><br/>Furthermore, I  positioned the logo, the links, the mobile menu buttons, and the mobile menu all next to each other, side-by-side horizontally, centered them horizontally and vertically, and gave them padding within the div.
 
-Underneath the function body, we have the JSX content within the return statement:
-
-```jsx:/nextjs-tailwindcss/components/Navbar.jsx {6-47} showLineNumbers
+```jsx:/nextjs-tailwindcss/components/Navbar.jsx {19} showLineNumbers
 export default function Navbar() {
+  // The variables for storing the colors of the navigation bar
   const backgroundColor = '';
   const textColor = '';
+
+  // The variable for storing the boolean used for presenting the mobile menu
   const isMobileMenuDislayed = false;
+
+  // The function that will respond to clicks of the mobile menu buttons and presenting the mobile menu
+
+  // The function that will respond to scrolling on the browser window and presenting the colors of the navigation bar
 
   return (
     <>
-      {/* Navigation Bar Outer Container */}
-      <div className={`${backgroundColor}`}>
+      {/* The Navigation Bar Outer Container */}
+      <div className={`${backgroundColor} fixed left-0 top-0 w-full z-10 ease-in duration-300`}>
 
-        {/* Navigation Bar Inner Container */}
-        <div className=''>
+        {/*The Navigation Bar Inner Container */}
+        <div className='max-w-[1240px] m-auto flex justify-between items-center p-4'>
 
-          {/* Navigation Bar Logo */}
+          {/*The Navigation Bar Logo */}
+          
           <h1 className={`${textColor}`}>E</h1>
-          {/* Navigation Bar Links */}
+          {/*The Navigation Bar Links */}
           <ul className={`${textColor}`}>
             <li className=''>About</li>
             <li className=''>Work</li>
@@ -1459,15 +1479,15 @@ export default function Navbar() {
             <li className=''>Contact</li>
           </ul>
 
-          {/* Mobile Menu Button */}
-          <div className=''>
+          {/*The Mobile Menu Buttons */}
+          <div onClick='' className=''>
           {
             isMobileMenuDislayed ? <button className={`${textColor}`}>close</button>
             : <button className={`${textColor}`}>open</button>
           }
           </div>
 
-          {/* Mobile Menu */}
+          {/*The Mobile Menu */}
           <div className={ isMobileMenuDislayed ? '' : '' }>
             <ul className=''>
               <li className=''>About</li>
@@ -1478,39 +1498,57 @@ export default function Navbar() {
           </div>
 
         </div>
-        
+
       </div>
     </>
   );
 }
 ```
 
-Within the JSX content, I have the Navigation Bar Outer Container div ready to receive Tailwind CSS classes and a template literal with the "backgroundColor" variable for rendering the background color dynamically from the logic in the function body:
+62. Next, I made the logo bigger and bold.
 
-
-60. Next, in the Navigation Bar Outer Container opening div tag, I added a className with a "bg-white" to give it a background color of white:
-
-```jsx:/nextjs-tailwindcss/components/Navbar.jsx {5} showLineNumbers
+```jsx:/nextjs-tailwindcss/components/Navbar.jsx {22} showLineNumbers
 export default function Navbar() {
+  // The variables for storing the colors of the navigation bar
+  const backgroundColor = '';
+  const textColor = '';
+
+  // The variable for storing the boolean used for presenting the mobile menu
+  const isMobileMenuDislayed = false;
+
+  // The function that will respond to clicks of the mobile menu buttons and presenting the mobile menu
+
+  // The function that will respond to scrolling on the browser window and presenting the colors of the navigation bar
+
   return (
     <>
-      {/* Navigation Bar Outer Container */}
-      <div className='bg-white'>
-        {/* Navigation Bar Inner Container */}
-        <div className=''>
-          {/* Navigation Bar Logo */}
-          <h1 className=''>E</h1>
-          {/* Navigation Bar Links */}
-          <ul className=''>
+      {/* The Navigation Bar Outer Container */}
+      <div className={`${backgroundColor} fixed left-0 top-0 w-full z-10 ease-in duration-300`}>
+
+        {/*The Navigation Bar Inner Container */}
+        <div className='max-w-[1240px] m-auto flex justify-between items-center p-4'>
+
+          {/*The Navigation Bar Logo */}
+          <h1 className={`${textColor} font-bold text-4xl`}>E</h1>
+
+          {/*The Navigation Bar Links */}
+          <ul className={`${textColor}`}>
             <li className=''>About</li>
             <li className=''>Work</li>
             <li className=''>Blog</li>
             <li className=''>Contact</li>
           </ul>
-          {/* Mobile Menu Button */}
-          <div className=''></div>
-          {/* Mobile Menu */}
-          <div className=''>
+
+          {/*The Mobile Menu Buttons */}
+          <div onClick='' className=''>
+          {
+            isMobileMenuDislayed ? <button className={`${textColor}`}>close</button>
+            : <button className={`${textColor}`}>open</button>
+          }
+          </div>
+
+          {/*The Mobile Menu */}
+          <div className={ isMobileMenuDislayed ? '' : '' }>
             <ul className=''>
               <li className=''>About</li>
               <li className=''>Work</li>
@@ -1518,36 +1556,59 @@ export default function Navbar() {
               <li className=''>Contact</li>
             </ul>
           </div>
+
         </div>
+
       </div>
     </>
   );
 }
 ```
 
-61. Next, I added a "fixed" to the Navigation Bar Outer Container div className to take the element out of the normal document flow and positioned it fixed to the viewport so when scrolled the Navigation Bar component will be fixed to the top of the screen instead of scrolling it out view:
+63. Next, I made the navigation links hidden by default but when the screen size is equal to or greater than a small screen size, the ul is made into a flex container, displaying the links horizontally side-by-side.<br/><br/>You'll notice the navigation bar links aren't visible when the screen is small and appear when the screen size is adjusted to a larger screen size.
 
-```jsx:/nextjs-tailwindcss/components/Navbar.jsx {5} showLineNumbers
+```jsx:/nextjs-tailwindcss/components/Navbar.jsx {25} showLineNumbers
 export default function Navbar() {
+  // The variables for storing the colors of the navigation bar
+  const backgroundColor = '';
+  const textColor = '';
+
+  // The variable for storing the boolean used for presenting the mobile menu
+  const isMobileMenuDislayed = false;
+
+  // The function that will respond to clicks of the mobile menu buttons and presenting the mobile menu
+
+  // The function that will respond to scrolling on the browser window and presenting the colors of the navigation bar
+
   return (
     <>
-      {/* Navigation Bar Outer Container */}
-      <div className='bg-white fixed'>
-        {/* Navigation Bar Inner Container */}
-        <div className=''>
-          {/* Navigation Bar Logo */}
-          <h1 className=''>E</h1>
-          {/* Navigation Bar Links */}
-          <ul className=''>
-            <li className=''>About</li>
-            <li className=''>Work</li>
-            <li className=''>Blog</li>
-            <li className=''>Contact</li>
+      {/* The Navigation Bar Outer Container */}
+      <div className={`${backgroundColor} fixed left-0 top-0 w-full z-10 ease-in duration-300`}>
+
+        {/*The Navigation Bar Inner Container */}
+        <div className='max-w-[1240px] m-auto flex justify-between items-center p-4'>
+
+          {/*The Navigation Bar Logo */}
+          <h1 className={`${textColor} font-bold text-4xl`}>E</h1>
+
+          {/*The Navigation Bar Links */}
+          <ul className={`${textColor} hidden sm:flex`}>
+            <li className='p-4'>About</li>
+            <li className='p-4'>Work</li>
+            <li className='p-4'>Blog</li>
+            <li className='p-4'>Contact</li>
           </ul>
-          {/* Mobile Menu Button */}
-          <div className=''></div>
-          {/* Mobile Menu */}
-          <div className=''>
+
+          {/*The Mobile Menu Buttons */}
+          <div onClick='' className=''>
+          {
+            isMobileMenuDislayed ? <button className={`${textColor}`}>close</button>
+            : <button className={`${textColor}`}>open</button>
+          }
+          </div>
+
+          {/*The Mobile Menu */}
+          <div className={ isMobileMenuDislayed ? '' : '' }>
             <ul className=''>
               <li className=''>About</li>
               <li className=''>Work</li>
@@ -1555,38 +1616,59 @@ export default function Navbar() {
               <li className=''>Contact</li>
             </ul>
           </div>
+
         </div>
+
       </div>
     </>
   );
 }
 ```
 
-Since the Navigation Bar Outer Container div has a fixed position relative to the viewport, it is now behind the Hero component and not visible.
+64. Next, I added some padding to the li elements to give space between them.
 
-62. To make the Navigation Bar Outer Container div visible, I added a "z-10" to give it a higher stacking order than the Hero component:
-
-```jsx:/nextjs-tailwindcss/components/Navbar.jsx {5} showLineNumbers
+```jsx:/nextjs-tailwindcss/components/Navbar.jsx {26-29} showLineNumbers
 export default function Navbar() {
+  // The variables for storing the colors of the navigation bar
+  const backgroundColor = '';
+  const textColor = '';
+
+  // The variable for storing the boolean used for presenting the mobile menu
+  const isMobileMenuDislayed = false;
+
+  // The function that will respond to clicks of the mobile menu buttons and presenting the mobile menu
+
+  // The function that will respond to scrolling on the browser window and presenting the colors of the navigation bar
+
   return (
     <>
-      {/* Navigation Bar Outer Container */}
-      <div className='bg-white fixed z-10'>
-        {/* Navigation Bar Inner Container */}
-        <div className=''>
-          {/* Navigation Bar Logo */}
-          <h1 className=''>E</h1>
-          {/* Navigation Bar Links */}
-          <ul className=''>
-            <li className=''>About</li>
-            <li className=''>Work</li>
-            <li className=''>Blog</li>
-            <li className=''>Contact</li>
+      {/* The Navigation Bar Outer Container */}
+      <div className={`${backgroundColor} fixed left-0 top-0 w-full z-10 ease-in duration-300`}>
+
+        {/*The Navigation Bar Inner Container */}
+        <div className='max-w-[1240px] m-auto flex justify-between items-center p-4'>
+
+          {/*The Navigation Bar Logo */}
+          <h1 className={`${textColor} font-bold text-4xl`}>E</h1>
+
+          {/*The Navigation Bar Links */}
+          <ul className={`${textColor} hidden sm:flex`}>
+            <li className='p-4'>About</li>
+            <li className='p-4'>Work</li>
+            <li className='p-4'>Blog</li>
+            <li className='p-4'>Contact</li>
           </ul>
-          {/* Mobile Menu Button */}
-          <div className=''></div>
-          {/* Mobile Menu */}
-          <div className=''>
+
+          {/*The Mobile Menu Buttons */}
+          <div onClick='' className=''>
+          {
+            isMobileMenuDislayed ? <button className={`${textColor}`}>close</button>
+            : <button className={`${textColor}`}>open</button>
+          }
+          </div>
+
+          {/*The Mobile Menu */}
+          <div className={ isMobileMenuDislayed ? '' : '' }>
             <ul className=''>
               <li className=''>About</li>
               <li className=''>Work</li>
@@ -1594,38 +1676,59 @@ export default function Navbar() {
               <li className=''>Contact</li>
             </ul>
           </div>
+
         </div>
+
       </div>
     </>
   );
 }
 ```
 
-Now the Navigation Bar Outer Container div is visible.
+65. Next, I made the mobile menu button hidden and not displayed when the screen size is equal to or greater than a small screen size.<br/><br/>Now, you'll see the mobile menu button when the screen size is small and won't when the screen size is larger.<br/><br/>Simultaneously, you'll see the navigation links appear when the screen size is larger because of the change we added in step 63.<br/><br/>Now, you're able to see how the user will be able to access the mobile menu and the links again by the displayed mobile menu button when the screen is small.
 
-63. Next, I added a "left-0", a top-0", and a "w-full" to position the Navigation Bar Outer Container div 0 pixels from the left, 0 pixels from the top, and a width 100% of the viewport:
-
-```jsx:/nextjs-tailwindcss/components/Navbar.jsx {5} showLineNumbers
+```jsx:/nextjs-tailwindcss/components/Navbar.jsx {33} showLineNumbers
 export default function Navbar() {
+  // The variables for storing the colors of the navigation bar
+  const backgroundColor = '';
+  const textColor = '';
+
+  // The variable for storing the boolean used for presenting the mobile menu
+  const isMobileMenuDislayed = false;
+
+  // The function that will respond to clicks of the mobile menu buttons and presenting the mobile menu
+
+  // The function that will respond to scrolling on the browser window and presenting the colors of the navigation bar
+
   return (
     <>
-      {/* Navigation Bar Outer Container */}
-      <div className='bg-white fixed z-10 left-0 top-0 w-full'>
-        {/* Navigation Bar Inner Container */}
-        <div className=''>
-          {/* Navigation Bar Logo */}
-          <h1 className=''>E</h1>
-          {/* Navigation Bar Links */}
-          <ul className=''>
-            <li className=''>About</li>
-            <li className=''>Work</li>
-            <li className=''>Blog</li>
-            <li className=''>Contact</li>
+      {/* The Navigation Bar Outer Container */}
+      <div className={`${backgroundColor} fixed left-0 top-0 w-full z-10 ease-in duration-300`}>
+
+        {/*The Navigation Bar Inner Container */}
+        <div className='max-w-[1240px] m-auto flex justify-between items-center p-4'>
+
+          {/*The Navigation Bar Logo */}
+          <h1 className={`${textColor} font-bold text-4xl`}>E</h1>
+
+          {/*The Navigation Bar Links */}
+          <ul className={`${textColor} hidden sm:flex`}>
+            <li className='p-4'>About</li>
+            <li className='p-4'>Work</li>
+            <li className='p-4'>Blog</li>
+            <li className='p-4'>Contact</li>
           </ul>
-          {/* Mobile Menu Button */}
-          <div className=''></div>
-          {/* Mobile Menu */}
-          <div className=''>
+
+          {/*The Mobile Menu Buttons */}
+          <div onClick='' className='sm:hidden z-10'>
+          {
+            isMobileMenuDislayed ? <button className={`${textColor}`}>close</button>
+            : <button className={`${textColor}`}>open</button>
+          }
+          </div>
+
+          {/*The Mobile Menu */}
+          <div className={ isMobileMenuDislayed ? '' : '' }>
             <ul className=''>
               <li className=''>About</li>
               <li className=''>Work</li>
@@ -1633,160 +1736,129 @@ export default function Navbar() {
               <li className=''>Contact</li>
             </ul>
           </div>
+
         </div>
+
       </div>
     </>
   );
 }
 ```
 
-Now the Navigation Bar component spans the entire width of the viewport.
+66. Next, I made the mobile menu links bigger, bold, have padding, and white when hovered over.
 
-64. Next, I added a "ease-in" and a "duration-300" to give a transition effect that starts slow and accelerates over a duration of 300 milliseconds (0.3 seconds) when the Navbar component is re-rendered:
-
-```jsx:/nextjs-tailwindcss/components/Navbar.jsx {5} showLineNumbers
+```jsx:/nextjs-tailwindcss/components/Navbar.jsx {43-46} showLineNumbers
 export default function Navbar() {
+  // The variables for storing the colors of the navigation bar
+  const backgroundColor = '';
+  const textColor = '';
+
+  // The variable for storing the boolean used for presenting the mobile menu
+  const isMobileMenuDislayed = false;
+
+  // The function that will respond to clicks of the mobile menu buttons and presenting the mobile menu
+
+  // The function that will respond to scrolling on the browser window and presenting the colors of the navigation bar
+
   return (
     <>
-      {/* Navigation Bar Outer Container */}
-      <div className='bg-white fixed z-10 left-0 top-0 w-full ease-in duration-300'>
-        {/* Navigation Bar Inner Container */}
-        <div className=''>
-          {/* Navigation Bar Logo */}
-          <h1 className=''>E</h1>
-          {/* Navigation Bar Links */}
-          <ul className=''>
-            <li className=''>About</li>
-            <li className=''>Work</li>
-            <li className=''>Blog</li>
-            <li className=''>Contact</li>
+      {/* The Navigation Bar Outer Container */}
+      <div className={`${backgroundColor} fixed left-0 top-0 w-full z-10 ease-in duration-300`}>
+
+        {/*The Navigation Bar Inner Container */}
+        <div className='max-w-[1240px] m-auto flex justify-between items-center p-4'>
+
+          {/*The Navigation Bar Logo */}
+          <h1 className={`${textColor} font-bold text-4xl`}>E</h1>
+
+          {/*The Navigation Bar Links */}
+          <ul className={`${textColor} hidden sm:flex`}>
+            <li className='p-4'>About</li>
+            <li className='p-4'>Work</li>
+            <li className='p-4'>Blog</li>
+            <li className='p-4'>Contact</li>
           </ul>
-          {/* Mobile Menu Button */}
-          <div className=''></div>
-          {/* Mobile Menu */}
-          <div className=''>
+
+          {/*The Mobile Menu Buttons */}
+          <div onClick='' className='sm:hidden z-10'>
+          {
+            isMobileMenuDislayed ? <button className={`${textColor}`}>close</button>
+            : <button className={`${textColor}`}>open</button>
+          }
+          </div>
+
+          {/*The Mobile Menu */}
+          <div className={ isMobileMenuDislayed ? '' : '' }>
             <ul className=''>
-              <li className=''>About</li>
-              <li className=''>Work</li>
-              <li className=''>Blog</li>
-              <li className=''>Contact</li>
+              <li className='p-4 text-4xl hover:text-white'>About</li>
+              <li className='p-4 text-4xl hover:text-white'>Work</li>
+              <li className='p-4 text-4xl hover:text-white'>Blog</li>
+              <li className='p-4 text-4xl hover:text-white'>Contact</li>
             </ul>
           </div>
+
         </div>
+
       </div>
     </>
   );
 }
 ```
 
-The Navigation Bar component will be re-rendered with a transparent background when the user scrolls down and re-rendered with a white background when the user scrolls up on the browser window which I'll get to later when implementing in the functionality of the component.
+67. Next, I made the mobile menu links bigger, bold, have padding, and white when hovered over.
 
-65. Next, instead of hardcoding in the background color, "bg-white", I used a template string instead and temporarily stored, "bg-white", in a variable at the top of the function as a placeholder for logic to come later when handling user scroll events to change the backgrond color of the Navigation Bar component:
-
-```jsx:/nextjs-tailwindcss/components/Navbar.jsx {2, 6} showLineNumbers
+```jsx:/nextjs-tailwindcss/components/Navbar.jsx {43-46} showLineNumbers
 export default function Navbar() {
-  const backgroundColor = 'bg-white';
+  // The variables for storing the colors of the navigation bar
+  const backgroundColor = '';
+  const textColor = '';
+
+  // The variable for storing the boolean used for presenting the mobile menu
+  const isMobileMenuDislayed = false;
+
+  // The function that will respond to clicks of the mobile menu buttons and presenting the mobile menu
+
+  // The function that will respond to scrolling on the browser window and presenting the colors of the navigation bar
+
   return (
     <>
-      {/* Navigation Bar Outer Container */}
-      <div className={`fixed z-10 left-0 top-0 w-full ease-in duration-300 ${backgroundColor}`}>
-        {/* Navigation Bar Inner Container */}
-        <div className=''>
-          {/* Navigation Bar Logo */}
-          <h1 className=''>E</h1>
-          {/* Navigation Bar Links */}
-          <ul className=''>
-            <li className=''>About</li>
-            <li className=''>Work</li>
-            <li className=''>Blog</li>
-            <li className=''>Contact</li>
+      {/* The Navigation Bar Outer Container */}
+      <div className={`${backgroundColor} fixed left-0 top-0 w-full z-10 ease-in duration-300`}>
+
+        {/*The Navigation Bar Inner Container */}
+        <div className='max-w-[1240px] m-auto flex justify-between items-center p-4'>
+
+          {/*The Navigation Bar Logo */}
+          <h1 className={`${textColor} font-bold text-4xl`}>E</h1>
+
+          {/*The Navigation Bar Links */}
+          <ul className={`${textColor} hidden sm:flex`}>
+            <li className='p-4'>About</li>
+            <li className='p-4'>Work</li>
+            <li className='p-4'>Blog</li>
+            <li className='p-4'>Contact</li>
           </ul>
-          {/* Mobile Menu Button */}
-          <div className=''></div>
-          {/* Mobile Menu */}
-          <div className=''>
+
+          {/*The Mobile Menu Buttons */}
+          <div onClick='' className='sm:hidden z-10'>
+          {
+            isMobileMenuDislayed ? <button className={`${textColor}`}>close</button>
+            : <button className={`${textColor}`}>open</button>
+          }
+          </div>
+
+          {/*The Mobile Menu */}
+          <div className={ isMobileMenuDislayed ? '' : '' }>
             <ul className=''>
-              <li className=''>About</li>
-              <li className=''>Work</li>
-              <li className=''>Blog</li>
-              <li className=''>Contact</li>
+              <li className='p-4 text-4xl hover:text-white'>About</li>
+              <li className='p-4 text-4xl hover:text-white'>Work</li>
+              <li className='p-4 text-4xl hover:text-white'>Blog</li>
+              <li className='p-4 text-4xl hover:text-white'>Contact</li>
             </ul>
           </div>
+
         </div>
-      </div>
-    </>
-  );
-}
-```
 
-66. Next, I added a "max-w-7xl" to the Navigation Bar Inner Container div className to give a max width of 1280 pixels:
-
-```jsx:/nextjs-tailwindcss/components/Navbar.jsx {7} showLineNumbers
-export default function Navbar() {
-  return (
-    <>
-      {/* Navigation Bar Outer Container */}
-      <div className='fixed z-10 left-0 top-0 w-full ease-in duration-300'>
-        {/* Navigation Bar Inner Container */}
-        <div className='max-w-7xl'>
-          {/* Navigation Bar Logo */}
-          <h1 className=''>E</h1>
-          {/* Navigation Bar Links */}
-          <ul className=''>
-            <li className=''>About</li>
-            <li className=''>Work</li>
-            <li className=''>Blog</li>
-            <li className=''>Contact</li>
-          </ul>
-          {/* Mobile Menu Button */}
-          <div className=''></div>
-          {/* Mobile Menu */}
-          <div className=''>
-            <ul className=''>
-              <li className=''>About</li>
-              <li className=''>Work</li>
-              <li className=''>Blog</li>
-              <li className=''>Contact</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </>
-  );
-}
-```
-
-67. Next, I added a "flex" to the Navigation Bar Inner Container div className to make it a flex container so I can start positioning the descendants:
-
-```jsx:/nextjs-tailwindcss/components/Navbar.jsx {7} showLineNumbers
-export default function Navbar() {
-  return (
-    <>
-      {/* Navigation Bar Outer Container */}
-      <div className={`fixed z-10 left-0 top-0 w-full ease-in duration-300`}>
-        {/* Navigation Bar Inner Container */}
-        <div className='max-w-7xl m-auto'>
-          {/* Navigation Bar Logo */}
-          <h1 className=''>E</h1>
-          {/* Navigation Bar Links */}
-          <ul className=''>
-            <li className=''>About</li>
-            <li className=''>Work</li>
-            <li className=''>Blog</li>
-            <li className=''>Contact</li>
-          </ul>
-          {/* Mobile Menu Button */}
-          <div className=''></div>
-          {/* Mobile Menu */}
-          <div className=''>
-            <ul className=''>
-              <li className=''>About</li>
-              <li className=''>Work</li>
-              <li className=''>Blog</li>
-              <li className=''>Contact</li>
-            </ul>
-          </div>
-        </div>
       </div>
     </>
   );
