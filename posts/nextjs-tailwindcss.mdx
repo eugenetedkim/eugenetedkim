@@ -1362,7 +1362,7 @@ export default function Navbar() {
           {/*The Mobile Menu Buttons */}
           <div onClick='' className=''>
           {
-            isMobileMenuDislayed ? <button className={`${textColor}`}>close</button>
+            isMobileMenuDislayed ? <button className=''>close</button>
             : <button className={`${textColor}`}>open</button>
           }
           </div>
@@ -1422,7 +1422,7 @@ export default function Navbar() {
           {/*The Mobile Menu Buttons */}
           <div onClick='' className=''>
           {
-            isMobileMenuDislayed ? <button className={`${textColor}`}>close</button>
+            isMobileMenuDislayed ? <button className=''>close</button>
             : <button className={`${textColor}`}>open</button>
           }
           </div>
@@ -1482,7 +1482,7 @@ export default function Navbar() {
           {/*The Mobile Menu Buttons */}
           <div onClick='' className=''>
           {
-            isMobileMenuDislayed ? <button className={`${textColor}`}>close</button>
+            isMobileMenuDislayed ? <button className=''>close</button>
             : <button className={`${textColor}`}>open</button>
           }
           </div>
@@ -1542,7 +1542,7 @@ export default function Navbar() {
           {/*The Mobile Menu Buttons */}
           <div onClick='' className=''>
           {
-            isMobileMenuDislayed ? <button className={`${textColor}`}>close</button>
+            isMobileMenuDislayed ? <button className=''>close</button>
             : <button className={`${textColor}`}>open</button>
           }
           </div>
@@ -1602,7 +1602,7 @@ export default function Navbar() {
           {/*The Mobile Menu Buttons */}
           <div onClick='' className=''>
           {
-            isMobileMenuDislayed ? <button className={`${textColor}`}>close</button>
+            isMobileMenuDislayed ? <button className=''>close</button>
             : <button className={`${textColor}`}>open</button>
           }
           </div>
@@ -1662,7 +1662,7 @@ export default function Navbar() {
           {/*The Mobile Menu Buttons */}
           <div onClick='' className=''>
           {
-            isMobileMenuDislayed ? <button className={`${textColor}`}>close</button>
+            isMobileMenuDislayed ? <button className=''>close</button>
             : <button className={`${textColor}`}>open</button>
           }
           </div>
@@ -1722,7 +1722,7 @@ export default function Navbar() {
           {/*The Mobile Menu Buttons */}
           <div onClick='' className='sm:hidden z-10'>
           {
-            isMobileMenuDislayed ? <button className={`${textColor}`}>close</button>
+            isMobileMenuDislayed ? <button className=''>close</button>
             : <button className={`${textColor}`}>open</button>
           }
           </div>
@@ -1745,7 +1745,7 @@ export default function Navbar() {
 }
 ```
 
-66. Next, I made the mobile menu links bigger, bold, have padding, and white when hovered over.
+66. Next, I made the close button's text white because I'll be adding a black background to the mobile menu later.
 
 ```jsx:/nextjs-tailwindcss/components/Navbar.jsx {43-46} showLineNumbers
 export default function Navbar() {
@@ -1782,7 +1782,7 @@ export default function Navbar() {
           {/*The Mobile Menu Buttons */}
           <div onClick='' className='sm:hidden z-10'>
           {
-            isMobileMenuDislayed ? <button className={`${textColor}`}>close</button>
+            isMobileMenuDislayed ? <button className='text-white'>close</button>
             : <button className={`${textColor}`}>open</button>
           }
           </div>
@@ -1842,7 +1842,7 @@ export default function Navbar() {
           {/*The Mobile Menu Buttons */}
           <div onClick='' className='sm:hidden z-10'>
           {
-            isMobileMenuDislayed ? <button className={`${textColor}`}>close</button>
+            isMobileMenuDislayed ? <button className='text-white'>close</button>
             : <button className={`${textColor}`}>open</button>
           }
           </div>
@@ -1914,7 +1914,7 @@ export default function Navbar() {
           {/*The Mobile Menu Buttons */}
           <div onClick='' className='sm:hidden z-10'>
           {
-            isMobileMenuDislayed ? <button className={`${textColor}`}>close</button>
+            isMobileMenuDislayed ? <button className='text-white'>close</button>
             : <button className={`${textColor}`}>open</button>
           }
           </div>
@@ -1995,7 +1995,7 @@ export default function Navbar() {
           {/*The Mobile Menu Buttons */}
           <div onClick='' className='sm:hidden z-10'>
           {
-            isMobileMenuDislayed ? <button className={`${textColor}`}>close</button>
+            isMobileMenuDislayed ? <button className='text-white'>close</button>
             : <button className={`${textColor}`}>open</button>
           }
           </div>
@@ -2088,7 +2088,7 @@ export default function Navbar() {
           {/*The Mobile Menu Buttons */}
           <div onClick='' className='sm:hidden z-10'>
           {
-            isMobileMenuDislayed ? <button className={`${textColor}`}>close</button>
+            isMobileMenuDislayed ? <button className='text-white'>close</button>
             : <button className={`${textColor}`}>open</button>
           }
           </div>
@@ -2186,7 +2186,7 @@ export default function Navbar() {
           <div onClick={handleMobileMenu} className='sm:hidden z-10'>
           {
             isMobileMenuDislayed ?
-              <AiOutlineClose className={`${textColor}`} size={20} />
+              <AiOutlineClose className='text-white' size={20} />
             :
               <AiOutlineMenu className={`${textColor}`} size={20} />
           }
